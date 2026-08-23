@@ -1,0 +1,15 @@
+{
+  "name": "github-badge-layouts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Copy-ready Badgen badge combinations with an interactive GitHub Pages gallery.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
