@@ -1210,14 +1210,6 @@ footer {
     }
 }
 
-.clipboard-fallback {
-    position: fixed;
-    inset: 0 auto auto 0;
-    inline-size: 0.0625rem;
-    block-size: 0.0625rem;
-    opacity: 0;
-}
-
 .noscript {
     padding: 1rem;
     margin: 0;

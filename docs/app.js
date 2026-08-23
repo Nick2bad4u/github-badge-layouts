@@ -543,20 +543,10 @@ async function copyLayoutMarkdown(entry, button) {
 
 /** @param {string} text */
 async function copyText(text) {
-    if (isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return;
+    if (!isSecureContext) {
+        throw new Error("Clipboard access requires a secure browser context.");
     }
-
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.setAttribute("readonly", "");
-    textarea.className = "clipboard-fallback";
-    document.body.append(textarea);
-    textarea.select();
-    const isCopied = document.execCommand("copy");
-    textarea.remove();
-    if (!isCopied) throw new Error("The browser denied clipboard access.");
+    await navigator.clipboard.writeText(text);
 }
 
 /** @param {BadgeCatalogEntry} entry @param {string} placeholder */
@@ -695,7 +685,8 @@ function parseBadgeLinks(markdown) {
         /\[!\[(?<alt>[^\]]*)\]\((?<image>https:\/\/[^\s\)]+)\)\]\((?<target>https:\/\/[^\s\)]+)\)/gv;
     let match;
     while ((match = pattern.exec(markdown)) !== null) {
-        const { alt = "", image = "", target = "" } = match.groups ?? {};
+        if (match.groups === undefined) continue;
+        const { alt = "", image = "", target = "" } = match.groups;
         const imageUrl = securePreviewUrl(image, true);
         const targetUrl = securePreviewUrl(target, false);
         if (imageUrl !== null && targetUrl !== null) {
@@ -710,10 +701,7 @@ function persistState() {
         localStorage.setItem(
             storageKey,
             JSON.stringify({
-                branch: state.branch,
-                owner: state.owner,
                 pageSize: state.pageSize,
-                repo: state.repo,
                 style: state.style,
             })
         );
@@ -741,6 +729,32 @@ function persistState() {
     const query = parameters.toString();
     const search = query.length > 0 ? `?${query}` : "";
     history.replaceState(null, "", location.pathname + search + location.hash);
+}
+
+/**
+ * @param {BadgeCatalogEntry} entry
+ * @param {string} placeholder
+ * @param {string | undefined} localValue
+ * @param {string | undefined} globalValue
+ * @param {boolean} useExamples
+ */
+function placeholderReplacement(
+    entry,
+    placeholder,
+    localValue,
+    globalValue,
+    useExamples
+) {
+    if (localValue !== undefined && localValue.length > 0) {
+        return normalizeReplacement(localValue);
+    }
+    if (globalValue !== undefined && globalValue.length > 0) {
+        return normalizeReplacement(globalValue);
+    }
+    if (useExamples) {
+        return normalizeReplacement(exampleValue(entry, placeholder));
+    }
+    return placeholder;
 }
 
 /** @param {string} value */
@@ -812,14 +826,13 @@ function replacePlaceholders(entry, useExamples) {
     for (const placeholder of sortedPlaceholders) {
         const localValue = localValues[placeholder]?.trim();
         const globalValue = defaults[placeholder]?.trim();
-        const replacement =
-            localValue !== undefined && localValue.length > 0
-                ? normalizeReplacement(localValue)
-                : globalValue !== undefined && globalValue.length > 0
-                  ? normalizeReplacement(globalValue)
-                  : useExamples
-                    ? normalizeReplacement(exampleValue(entry, placeholder))
-                    : placeholder;
+        const replacement = placeholderReplacement(
+            entry,
+            placeholder,
+            localValue,
+            globalValue,
+            useExamples
+        );
         markdown = markdown.replaceAll(placeholder, () => replacement);
     }
     return convertStyle(markdown, state.style);

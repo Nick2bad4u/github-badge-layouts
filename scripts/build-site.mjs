@@ -79,11 +79,32 @@ const placeholderNames = [
 
 /** @param {string} value */
 function stripInlineMarkdown(value) {
-    return value
-        .replace(/`([^`]+)`/g, "$1")
-        .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
-        .replace(/\s+/g, " ")
+    return stripInlineLinks(value.replaceAll(/`([^`]+)`/g, "$1"))
+        .replaceAll(/\s+/g, " ")
         .trim();
+}
+
+/** @param {string} value */
+function stripInlineLinks(value) {
+    let cursor = 0;
+    let result = "";
+
+    while (cursor < value.length) {
+        const labelStart = value.indexOf("[", cursor);
+        if (labelStart === -1) return result + value.slice(cursor);
+
+        const labelEnd = value.indexOf("](", labelStart + 1);
+        if (labelEnd === -1) return result + value.slice(cursor);
+
+        const targetEnd = value.indexOf(")", labelEnd + 2);
+        if (targetEnd === -1) return result + value.slice(cursor);
+
+        result += value.slice(cursor, labelStart);
+        result += value.slice(labelStart + 1, labelEnd);
+        cursor = targetEnd + 1;
+    }
+
+    return result;
 }
 
 /** @param {string[]} lines */
@@ -146,12 +167,85 @@ function parseBadges(markdown, title) {
 }
 
 /**
+ * @param {string[]} lines
+ * @param {number} fenceIndex
+ *
+ * @returns {{ endIndex: number; startLine: number; template: string }}
+ */
+function readMarkdownBlock(lines, fenceIndex) {
+    const block = [];
+    const startLine = fenceIndex + 2;
+    let index = fenceIndex + 1;
+
+    while (index < lines.length && lines[index] !== "```") {
+        block.push(lines[index] ?? "");
+        index += 1;
+    }
+
+    if (index >= lines.length) {
+        throw new Error(
+            `Unclosed Markdown fence starting at library.md:${startLine - 1}.`
+        );
+    }
+
+    return { endIndex: index, startLine, template: block.join("\n").trim() };
+}
+
+/**
+ * @param {string} category
+ * @param {string} title
+ * @param {number} headingLine
+ * @param {number} markdownFenceCount
+ * @param {string} template
+ * @param {Set<string>} usedIds
+ *
+ * @returns {CatalogEntry}
+ */
+function createCatalogEntry(
+    category,
+    title,
+    headingLine,
+    markdownFenceCount,
+    template,
+    usedIds
+) {
+    const entryTitle = title || category;
+    if (!category || !entryTitle) {
+        throw new Error(
+            `Layout at library.md:${headingLine} has no section heading.`
+        );
+    }
+
+    let id = slugify(`${category}-${entryTitle}`);
+    if (usedIds.has(id)) id = `${id}-${markdownFenceCount}`;
+    usedIds.add(id);
+
+    const badges = parseBadges(template, entryTitle);
+    const placeholders = placeholderNames
+        .filter((placeholder) => template.includes(placeholder))
+        .sort(
+            (left, right) => template.indexOf(left) - template.indexOf(right)
+        );
+
+    return {
+        id,
+        category,
+        title: entryTitle,
+        description: "",
+        sourceLine: headingLine,
+        template,
+        placeholders,
+        badgeCount: badges.length,
+    };
+}
+
+/**
  * @param {string} markdown
  *
  * @returns {CatalogEntry[]}
  */
 function parseLibrary(markdown) {
-    const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+    const lines = markdown.replaceAll("\r\n", "\n").split("\n");
     /** @type {CatalogEntry[]} */
     const entries = [];
     const headingLayoutCounts = new Map();
@@ -189,52 +283,19 @@ function parseLibrary(markdown) {
         }
 
         markdownFenceCount += 1;
-        const block = [];
-        const blockStartLine = index + 2;
-        index += 1;
-        while (index < lines.length && lines[index] !== "```") {
-            block.push(lines[index] ?? "");
-            index += 1;
-        }
-
-        if (index >= lines.length) {
-            throw new Error(
-                `Unclosed Markdown fence starting at library.md:${blockStartLine - 1}.`
-            );
-        }
-
-        const template = block.join("\n").trim();
-        const entryTitle = title || category;
-        if (!category || !entryTitle) {
-            throw new Error(
-                `Layout at library.md:${blockStartLine} has no section heading.`
-            );
-        }
-
-        let id = slugify(`${category}-${entryTitle}`);
-        if (usedIds.has(id)) {
-            id = `${id}-${markdownFenceCount}`;
-        }
-        usedIds.add(id);
-
-        const badges = parseBadges(template, entryTitle);
-        const placeholders = placeholderNames
-            .filter((placeholder) => template.includes(placeholder))
-            .sort(
-                (left, right) =>
-                    template.indexOf(left) - template.indexOf(right)
-            );
-
-        entries.push({
-            id,
+        const block = readMarkdownBlock(lines, index);
+        index = block.endIndex;
+        const entry = createCatalogEntry(
             category,
-            title: entryTitle,
-            description: cleanDescription(intro),
-            sourceLine: headingLine,
-            template,
-            placeholders,
-            badgeCount: badges.length,
-        });
+            title,
+            block.startLine,
+            markdownFenceCount,
+            block.template,
+            usedIds
+        );
+        entry.description = cleanDescription(intro);
+        entry.sourceLine = headingLine;
+        entries.push(entry);
 
         if (title) {
             headingLayoutCounts.set(
