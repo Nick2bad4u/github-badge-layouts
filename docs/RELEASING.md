@@ -63,6 +63,8 @@ The workflow:
 
 Do not dispatch a second version merely because an infrastructure step failed. Inspect the exact npm version, tag, and GitHub release first; the workflow is designed to finish missing artifacts for the same version on rerun.
 
-## SonarQube Cloud handoff
+## SonarQube Cloud analysis
 
-The repository already declares project key `Nick2bad4u_github-badge-layouts`. Import the GitHub repository into the `nick2bad4u` SonarQube Cloud organization, create a scoped analysis token, and store it as the GitHub Actions secret `SONAR_TOKEN`. Quality runs warn and skip Sonar analysis until that secret exists; Codecov uses OIDC and does not require a repository token in the workflow.
+The `Nick2bad4u_github-badge-layouts` project uses SonarQube Cloud Automatic Analysis through the installed GitHub App. Do not add a `SONAR_TOKEN` or a CI scanner while Automatic Analysis is enabled; SonarQube Cloud treats the two analysis methods as conflicting.
+
+[Automatic Analysis](https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/automatic-analysis) reads its supported repository settings from `.sonarcloud.properties`. It does not read `sonar-project.properties` and cannot import coverage reports. Codecov remains the coverage authority and uploads through GitHub OIDC without a repository token.

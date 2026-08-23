@@ -111,20 +111,28 @@ export async function runCli(cliArguments: readonly string[]): Promise<number> {
     }
 }
 
+function clipboardCandidates(): readonly {
+    readonly arguments: readonly string[];
+    readonly command: string;
+}[] {
+    if (process.platform === "win32") {
+        return [{ arguments: [], command: "clip.exe" }];
+    }
+    if (process.platform === "darwin") {
+        return [{ arguments: [], command: "pbcopy" }];
+    }
+    return [
+        { arguments: [], command: "wl-copy" },
+        {
+            arguments: ["-selection", "clipboard"],
+            command: "xclip",
+        },
+        { arguments: ["--clipboard", "--input"], command: "xsel" },
+    ];
+}
+
 function copyToClipboard(text: string): void {
-    const candidates =
-        process.platform === "win32"
-            ? [{ arguments: [], command: "clip.exe" }]
-            : process.platform === "darwin"
-              ? [{ arguments: [], command: "pbcopy" }]
-              : [
-                    { arguments: [], command: "wl-copy" },
-                    {
-                        arguments: ["-selection", "clipboard"],
-                        command: "xclip",
-                    },
-                    { arguments: ["--clipboard", "--input"], command: "xsel" },
-                ];
+    const candidates = clipboardCandidates();
 
     for (const candidate of candidates) {
         const result = spawnSync(candidate.command, candidate.arguments, {
