@@ -67,4 +67,4 @@ Do not dispatch a second version merely because an infrastructure step failed. I
 
 The `Nick2bad4u_github-badge-layouts` project uses SonarQube Cloud Automatic Analysis through the installed GitHub App. Do not add a `SONAR_TOKEN` or a CI scanner while Automatic Analysis is enabled; SonarQube Cloud treats the two analysis methods as conflicting.
 
-Automatic Analysis reads its supported repository settings from `.sonarcloud.properties`. It does not read `sonar-project.properties` and cannot import coverage reports. Codecov remains the coverage authority and uploads through GitHub OIDC without a repository token.
+[Automatic Analysis](https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/automatic-analysis) reads its supported repository settings from `.sonarcloud.properties`. It does not read `sonar-project.properties` and cannot import coverage reports. Codecov remains the coverage authority and uploads through GitHub OIDC without a repository token.
