@@ -1,100 +1,210 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta
-      name="description"
-      content="Search, preview, customize, and copy curated Badgen badge layouts for GitHub projects."
-    >
-    <meta name="theme-color" content="#08111f">
-    <meta property="og:title" content="GitHub badge layouts">
-    <meta
-      property="og:description"
-      content="Copy-ready badge combinations for GitHub projects, package registries, extensions, apps, and more."
-    >
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nick2bad4u.github.io/github-badge-layouts/">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css">
-    <title>GitHub badge layouts</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#catalog">Skip to badge layouts</a>
-    <header class="hero">
-      <nav class="topbar" aria-label="Primary navigation">
-        <a class="brand" href="./" aria-label="GitHub badge layouts home">
-          <span class="brand-mark" aria-hidden="true">B</span>
-          <span>Badge layouts</span>
-        </a>
-        <div class="nav-links">
-          <a href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md">Library</a>
-          <a href="https://github.com/Nick2bad4u/github-badge-layouts">GitHub</a>
-        </div>
-      </nav>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
+        <meta
+            name="description"
+            content="Search, preview, customize, and copy curated Badgen badge layouts for GitHub projects."
+        />
+        <meta
+            name="theme-color"
+            content="#08111f"
+        />
+        <meta
+            property="og:title"
+            content="GitHub badge layouts"
+        />
+        <meta
+            property="og:description"
+            content="Copy-ready badge combinations for GitHub projects, package registries, extensions, apps, and more."
+        />
+        <meta
+            property="og:type"
+            content="website"
+        />
+        <meta
+            property="og:url"
+            content="https://nick2bad4u.github.io/github-badge-layouts/"
+        />
+        <link
+            rel="icon"
+            href="favicon.svg"
+            type="image/svg+xml"
+        />
+        <link
+            rel="stylesheet"
+            href="styles.css"
+        />
+        <title>GitHub badge layouts</title>
+    </head>
+    <body>
+        <a
+            class="skip-link"
+            href="#catalog"
+            >Skip to badge layouts</a
+        >
+        <header class="hero">
+            <nav
+                class="topbar"
+                aria-label="Primary navigation"
+            >
+                <a
+                    class="brand"
+                    href="./"
+                    aria-label="GitHub badge layouts home"
+                >
+                    <span
+                        class="brand-mark"
+                        aria-hidden="true"
+                        >B</span
+                    >
+                    <span>Badge layouts</span>
+                </a>
+                <div class="nav-links">
+                    <a
+                        href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
+                        >Library</a
+                    >
+                    <a href="https://github.com/Nick2bad4u/github-badge-layouts"
+                        >GitHub</a
+                    >
+                </div>
+            </nav>
 
-      <div class="hero-content">
-        <p class="eyebrow">Curated for useful README signals</p>
-        <h1>Find the right badges.<br><span>Copy the whole row.</span></h1>
-        <p class="lede">
-          Search live previews, customize placeholders, and copy polished Badgen combinations for
-          repositories, packages, extensions, apps, and communities.
-        </p>
-        <dl class="hero-stats" aria-label="Catalog totals">
-          <div><dt id="layout-total">—</dt><dd>layouts</dd></div>
-          <div><dt id="badge-total">—</dt><dd>badges</dd></div>
-          <div><dt id="category-total">—</dt><dd>categories</dd></div>
-        </dl>
-      </div>
-    </header>
+            <div class="hero-content">
+                <p class="eyebrow">Curated for useful README signals</p>
+                <h1
+                    >Find the right badges.<br /><span
+                        >Copy the whole row.</span
+                    ></h1
+                >
+                <p class="lede">
+                    Search live previews, customize placeholders, and copy
+                    polished Badgen combinations for repositories, packages,
+                    extensions, apps, and communities.
+                </p>
+                <dl
+                    class="hero-stats"
+                    aria-label="Catalog totals"
+                >
+                    <div><dt id="layout-total">—</dt><dd>layouts</dd></div>
+                    <div><dt id="badge-total">—</dt><dd>badges</dd></div>
+                    <div><dt id="category-total">—</dt><dd>categories</dd></div>
+                </dl>
+            </div>
+        </header>
 
-    <main id="catalog" class="page-shell">
-      <section class="toolbar" aria-label="Catalog filters">
-        <div class="field search-field">
-          <label for="search">Search layouts</label>
-          <div class="input-shell">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
-              <path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"></path>
-            </svg>
-            <input id="search" type="search" placeholder="Try npm, Docker, extension…" autocomplete="off">
-            <kbd aria-label="Keyboard shortcut: slash">/</kbd>
-          </div>
-        </div>
-        <div class="field category-field">
-          <label for="category">Category</label>
-          <select id="category">
-            <option value="all">All categories</option>
-          </select>
-        </div>
-        <button id="reset" class="secondary-button" type="button">Reset</button>
-      </section>
+        <main
+            id="catalog"
+            class="page-shell"
+        >
+            <section
+                class="toolbar"
+                aria-label="Catalog filters"
+            >
+                <div class="field search-field">
+                    <label for="search">Search layouts</label>
+                    <div class="input-shell">
+                        <svg
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            width="20"
+                            height="20"
+                        >
+                            <path
+                                d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                            ></path>
+                        </svg>
+                        <input
+                            id="search"
+                            type="search"
+                            placeholder="Try npm, Docker, extension…"
+                            autocomplete="off"
+                        />
+                        <kbd aria-label="Keyboard shortcut: slash">/</kbd>
+                    </div>
+                </div>
+                <div class="field category-field">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+                <button
+                    id="reset"
+                    class="secondary-button"
+                    type="button"
+                    >Reset</button
+                >
+            </section>
 
-      <div class="result-bar">
-        <p id="result-count" aria-live="polite">Loading layouts…</p>
-        <p class="preview-note"><span aria-hidden="true">●</span> Previews use public example data</p>
-      </div>
+            <div class="result-bar">
+                <p
+                    id="result-count"
+                    aria-live="polite"
+                    >Loading layouts…</p
+                >
+                <p class="preview-note"
+                    ><span aria-hidden="true">●</span> Previews use public
+                    example data</p
+                >
+            </div>
 
-      <section id="layout-grid" class="layout-grid" aria-label="Badge layouts"></section>
-      <section id="empty-state" class="empty-state" hidden>
-        <p class="empty-icon" aria-hidden="true">⌕</p>
-        <h2>No layouts match</h2>
-        <p>Try a broader search or clear the selected category.</p>
-        <button class="secondary-button" type="button" data-reset-filters>Clear filters</button>
-      </section>
-    </main>
+            <section
+                id="layout-grid"
+                class="layout-grid"
+                aria-label="Badge layouts"
+            ></section>
+            <section
+                id="empty-state"
+                class="empty-state"
+                hidden
+            >
+                <p
+                    class="empty-icon"
+                    aria-hidden="true"
+                    >⌕</p
+                >
+                <h2>No layouts match</h2>
+                <p>Try a broader search or clear the selected category.</p>
+                <button
+                    class="secondary-button"
+                    type="button"
+                    data-reset-filters
+                    >Clear filters</button
+                >
+            </section>
+        </main>
 
-    <footer>
-      <p>
-        Built from the canonical <a href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md">Markdown library</a>.
-        Badge images are served by <a href="https://badgen.net/">Badgen</a>.
-      </p>
-    </footer>
+        <footer>
+            <p>
+                Built from the canonical
+                <a
+                    href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
+                    >Markdown library</a
+                >. Badge images are served by
+                <a href="https://badgen.net/">Badgen</a>.
+            </p>
+        </footer>
 
-    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <noscript>
-      <p class="noscript">JavaScript is required for search, customization, previews, and copying. The full library remains available on GitHub.</p>
-    </noscript>
-    <script src="catalog.js"></script>
-    <script src="app.js"></script>
-  </body>
+        <div
+            id="toast"
+            class="toast"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+        ></div>
+        <noscript>
+            <p class="noscript"
+                >JavaScript is required for search, customization, previews, and
+                copying. The full library remains available on GitHub.</p
+            >
+        </noscript>
+        <script src="catalog.js"></script>
+        <script src="app.js"></script>
+    </body>
 </html>

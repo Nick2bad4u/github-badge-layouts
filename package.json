@@ -1,15 +1,56 @@
 {
-  "name": "github-badge-layouts",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Copy-ready Badgen badge combinations with an interactive GitHub Pages gallery.",
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "build": "node scripts/build-site.mjs",
-    "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js"
-  },
-  "engines": {
-    "node": ">=20"
-  }
+    "name": "github-badge-layouts",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Copy-ready Badgen badge combinations with an interactive GitHub Pages gallery.",
+    "license": "MIT",
+    "type": "module",
+    "scripts": {
+        "build": "node scripts/build-site.mjs",
+        "changelog:generate": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --output CHANGELOG.md",
+        "changelog:preview": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --unreleased",
+        "changelog:release-notes": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --current",
+        "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js",
+        "lint:gitleaks": "gitleaks dir --config .gitleaks.toml .",
+        "lint:jscpd": "jscpd --config node_modules/jscpd-config-nick2bad4u/jscpd.json",
+        "lint:lychee": "lychee --config node_modules/lychee-config-nick2bad4u/lychee.toml .",
+        "lint:lychee:smoke": "lychee --config node_modules/lychee-config-nick2bad4u/lychee.toml --dump-inputs README.md",
+        "lint:package-json": "npmPkgJsonLint . --config .npmpackagejsonlintrc.json",
+        "lint:remark": "remark . --frail --ignore-path .remarkignore",
+        "lint:remark:fix": "remark . --ignore-path .remarkignore --output",
+        "update-deps": "ncu --configFileName .ncurc.json --configFilePath node_modules/ncu-config-nick2bad4u && npm update --force && npm install --force"
+    },
+    "devDependencies": {
+        "@microsoft/tsdoc-config": "^0.18.1",
+        "eslint-config-nick2bad4u": "^14.1.2",
+        "git-cliff": "^2.13.1",
+        "gitcliff-config-nick2bad4u": "^1.5.0",
+        "gitleaks-config-nick2bad4u": "^1.0.5",
+        "jscpd": "^5.0.16",
+        "jscpd-config-nick2bad4u": "^1.1.1",
+        "lychee-config-nick2bad4u": "^3.0.0",
+        "ncu-config-nick2bad4u": "^0.2.1",
+        "npm-check-updates": "^23.0.2",
+        "npm-package-json-lint": "^11.0.0",
+        "npm-package-json-lint-config-nick2bad4u": "^1.0.4",
+        "prettier": "^3.9.6",
+        "prettier-config-nick2bad4u": "^2.0.4",
+        "remark": "^15.0.1",
+        "remark-cli": "^12.0.1",
+        "remark-config-nick2bad4u": "^1.1.4",
+        "secretlint": "^13.0.4",
+        "secretlint-config-nick2bad4u": "^1.1.2",
+        "stylelint": "^17.14.1",
+        "stylelint-config-nick2bad4u": "^2.2.1",
+        "tsdoc-config-nick2bad4u": "^1.0.6"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "allowScripts": {
+        "esbuild@0.27.7 || 0.28.1 || 0.28.2": true,
+        "fsevents@2.3.3": true,
+        "unrs-resolver@1.12.2": true,
+        "core-js": false
+    }
 }

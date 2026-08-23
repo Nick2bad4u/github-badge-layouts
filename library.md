@@ -8,39 +8,39 @@ This library was built against Badgen's current official generator catalog and s
 
 The rows use one stable color vocabulary. Colors are intentionally dark enough for readable white badge text and normally do not repeat within a row.
 
-| Meaning | Hex | Tone |
-| --- | --- | --- |
-| Version or release | `0E7490` | cyan |
-| Downloads or adoption | `BE185D` | pink |
-| Stars, likes, or rating | `B45309` | amber |
-| Forks, assets, or size | `C2410C` | orange |
-| Health or funding | `047857` | emerald |
-| Runtime compatibility | `4D7C0F` | lime |
-| Platform or bundled types | `6D28D9` | violet |
-| Contributors or secondary channel | `7E22CE` | purple |
-| Dependents or ecosystem reach | `0F766E` | teal |
-| Coverage | dynamic | Badgen keeps the meaningful threshold color |
-| Checks, uptime, or security | dynamic | Badgen keeps success/warning/failure semantics |
-| Issues or risk | `B91C1C` | red |
-| License | `4338CA` | indigo |
-| Activity or footprint | `475569` | slate |
+| Meaning                           | Hex      | Tone                                           |
+| --------------------------------- | -------- | ---------------------------------------------- |
+| Version or release                | `0E7490` | cyan                                           |
+| Downloads or adoption             | `BE185D` | pink                                           |
+| Stars, likes, or rating           | `B45309` | amber                                          |
+| Forks, assets, or size            | `C2410C` | orange                                         |
+| Health or funding                 | `047857` | emerald                                        |
+| Runtime compatibility             | `4D7C0F` | lime                                           |
+| Platform or bundled types         | `6D28D9` | violet                                         |
+| Contributors or secondary channel | `7E22CE` | purple                                         |
+| Dependents or ecosystem reach     | `0F766E` | teal                                           |
+| Coverage                          | dynamic  | Badgen keeps the meaningful threshold color    |
+| Checks, uptime, or security       | dynamic  | Badgen keeps success/warning/failure semantics |
+| Issues or risk                    | `B91C1C` | red                                            |
+| License                           | `4338CA` | indigo                                         |
+| Activity or footprint             | `475569` | slate                                          |
 
 Do not force `?color=green` onto checks, security, uptime, or coverage badges. A failed build should not remain green just because the README hard-coded it.
 
 ## Placeholder guide
 
-| Placeholder | Replace with |
-| --- | --- |
-| `OWNER` / `REPO` | GitHub owner and repository |
-| `BRANCH` | Default branch, usually `main` |
-| `PACKAGE` | Registry package name; scoped npm names such as `@scope/package` are supported |
-| `DOCKER_SCOPE` / `IMAGE` / `TAG` / `ARCH` | Docker Hub coordinates, such as `library/ubuntu/latest/amd64` |
-| `CRATE`, `GEM`, `POD`, `FORMULA`, and similar | The package's registry identifier |
-| `PUBLISHER.EXTENSION` | Visual Studio Marketplace identifier |
-| `NAMESPACE` / `EXTENSION` | Open VSX namespace and extension |
-| `EXTENSION_ID` | Chrome or Edge store extension ID |
-| `ADDON_SLUG` | Firefox Add-ons slug |
-| `UPTIME_ROBOT_MONITOR_KEY` | A monitor-specific read-only key, never the account-wide API key |
+| Placeholder                                   | Replace with                                                                   |
+| --------------------------------------------- | ------------------------------------------------------------------------------ |
+| `OWNER` / `REPO`                              | GitHub owner and repository                                                    |
+| `BRANCH`                                      | Default branch, usually `main`                                                 |
+| `PACKAGE`                                     | Registry package name; scoped npm names such as `@scope/package` are supported |
+| `DOCKER_SCOPE` / `IMAGE` / `TAG` / `ARCH`     | Docker Hub coordinates, such as `library/ubuntu/latest/amd64`                  |
+| `CRATE`, `GEM`, `POD`, `FORMULA`, and similar | The package's registry identifier                                              |
+| `PUBLISHER.EXTENSION`                         | Visual Studio Marketplace identifier                                           |
+| `NAMESPACE` / `EXTENSION`                     | Open VSX namespace and extension                                               |
+| `EXTENSION_ID`                                | Chrome or Edge store extension ID                                              |
+| `ADDON_SLUG`                                  | Firefox Add-ons slug                                                           |
+| `UPTIME_ROBOT_MONITOR_KEY`                    | A monitor-specific read-only key, never the account-wide API key               |
 
 URL-encode spaces and special characters in path segments. If your default branch is not `main`, replace it everywhere—including badge URLs and destination links.
 
