@@ -256,9 +256,12 @@ function parseLibrary(markdown) {
     /** @type {string[]} */
     let intro = [];
     let markdownFenceCount = 0;
+    let consumedThrough = -1;
 
-    for (let index = 0; index < lines.length; index += 1) {
-        const line = lines[index] ?? "";
+    for (const [index, line] of lines.entries()) {
+        // A fenced block is parsed as one layout; skip its individual lines.
+        if (index <= consumedThrough) continue;
+
         const categoryMatch = /^## (.+)$/.exec(line);
         if (categoryMatch) {
             category = stripInlineMarkdown(categoryMatch[1] ?? "");
@@ -284,7 +287,7 @@ function parseLibrary(markdown) {
 
         markdownFenceCount += 1;
         const block = readMarkdownBlock(lines, index);
-        index = block.endIndex;
+        consumedThrough = block.endIndex;
         const entry = createCatalogEntry(
             category,
             title,
