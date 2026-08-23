@@ -109,7 +109,7 @@
         "stylelint": "^17.14.1",
         "stylelint-config-nick2bad4u": "^2.2.1",
         "tsdoc-config-nick2bad4u": "^1.0.6",
-        "typescript": "^6.0.3",
+        "typescript": "^7.0.2",
         "vite": "^8.2.2",
         "vitest": "^4.1.11"
     },
