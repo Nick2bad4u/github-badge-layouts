@@ -1,100 +1,595 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta
-      name="description"
-      content="Search, preview, customize, and copy curated Badgen badge layouts for GitHub projects."
-    >
-    <meta name="theme-color" content="#08111f">
-    <meta property="og:title" content="GitHub badge layouts">
-    <meta
-      property="og:description"
-      content="Copy-ready badge combinations for GitHub projects, package registries, extensions, apps, and more."
-    >
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nick2bad4u.github.io/github-badge-layouts/">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css">
-    <title>GitHub badge layouts</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#catalog">Skip to badge layouts</a>
-    <header class="hero">
-      <nav class="topbar" aria-label="Primary navigation">
-        <a class="brand" href="./" aria-label="GitHub badge layouts home">
-          <span class="brand-mark" aria-hidden="true">B</span>
-          <span>Badge layouts</span>
-        </a>
-        <div class="nav-links">
-          <a href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md">Library</a>
-          <a href="https://github.com/Nick2bad4u/github-badge-layouts">GitHub</a>
-        </div>
-      </nav>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            content="width=device-width, initial-scale=1"
+            name="viewport"
+        />
+        <meta
+            content="default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self'; form-action 'none'; img-src 'self' data: https://badgen.net https://flat.badgen.net; object-src 'none'; script-src 'self'; style-src 'self'; upgrade-insecure-requests"
+            http-equiv="Content-Security-Policy"
+        />
+        <title>GitHub Badge Layouts — copy-ready README badges</title>
+        <link
+            href="styles.css"
+            rel="stylesheet"
+        />
+        <meta
+            content="Search, personalize, preview, and copy curated flat or classic Badgen badge layouts for repositories, packages, extensions, apps, and communities."
+            name="description"
+        />
+        <meta
+            content="#08111f"
+            name="theme-color"
+        />
+        <meta
+            content="dark"
+            name="color-scheme"
+        />
+        <meta
+            content="strict-origin-when-cross-origin"
+            name="referrer"
+        />
+        <link
+            href="https://nick2bad4u.github.io/github-badge-layouts/"
+            rel="canonical"
+        />
+        <link
+            type="image/svg+xml"
+            href="favicon.svg"
+            rel="icon"
+        />
+        <link
+            href="site.webmanifest"
+            rel="manifest"
+        />
+        <meta
+            content="website"
+            property="og:type"
+        />
+        <meta
+            content="GitHub Badge Layouts"
+            property="og:site_name"
+        />
+        <meta
+            content="GitHub Badge Layouts"
+            property="og:title"
+        />
+        <meta
+            content="Copy-ready badge combinations with live previews, repository personalization, and flat/classic style conversion."
+            property="og:description"
+        />
+        <meta
+            content="https://nick2bad4u.github.io/github-badge-layouts/"
+            property="og:url"
+        />
+        <meta
+            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero.png"
+            property="og:image"
+        />
+        <meta
+            content="Abstract rows of glowing developer-status badges and modular repository cards."
+            property="og:image:alt"
+        />
+        <meta
+            content="summary_large_image"
+            name="twitter:card"
+        />
+        <meta
+            content="GitHub Badge Layouts"
+            name="twitter:title"
+        />
+        <meta
+            content="Find a useful badge row, personalize it, and copy the Markdown."
+            name="twitter:description"
+        />
+        <meta
+            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero.png"
+            name="twitter:image"
+        />
+    </head>
+    <body>
+        <a
+            class="skip-link"
+            href="#catalog"
+            >Skip to badge layouts</a
+        >
 
-      <div class="hero-content">
-        <p class="eyebrow">Curated for useful README signals</p>
-        <h1>Find the right badges.<br><span>Copy the whole row.</span></h1>
-        <p class="lede">
-          Search live previews, customize placeholders, and copy polished Badgen combinations for
-          repositories, packages, extensions, apps, and communities.
-        </p>
-        <dl class="hero-stats" aria-label="Catalog totals">
-          <div><dt id="layout-total">—</dt><dd>layouts</dd></div>
-          <div><dt id="badge-total">—</dt><dd>badges</dd></div>
-          <div><dt id="category-total">—</dt><dd>categories</dd></div>
-        </dl>
-      </div>
-    </header>
+        <header class="hero">
+            <nav
+                class="topbar"
+                aria-label="Primary navigation"
+            >
+                <a
+                    class="brand"
+                    aria-label="GitHub Badge Layouts home"
+                    href="./"
+                >
+                    <svg
+                        class="brand-mark"
+                        aria-hidden="true"
+                        viewBox="0 0 48 48"
+                    >
+                        <defs>
+                            <linearGradient
+                                id="brand-gradient"
+                                x1="0"
+                                x2="1"
+                                y1="0"
+                                y2="1"
+                            >
+                                <stop
+                                    offset="0"
+                                    stop-color="#33d6ff"
+                                />
+                                <stop
+                                    offset="1"
+                                    stop-color="#a78bfa"
+                                />
+                            </linearGradient>
+                        </defs>
+                        <rect
+                            height="46"
+                            rx="13"
+                            width="46"
+                            x="1"
+                            y="1"
+                        />
+                        <path d="M12 16h15a5 5 0 0 1 0 10H12z" />
+                        <path d="M12 26h19a5 5 0 0 1 0 10H12z" />
+                        <circle
+                            cx="18"
+                            cy="21"
+                            r="2.5"
+                        />
+                        <circle
+                            cx="18"
+                            cy="31"
+                            r="2.5"
+                        />
+                    </svg>
+                    <span>Badge Layouts</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#catalog">
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >⌕</span
+                        >
+                        Browse
+                    </a>
+                    <a
+                        href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
+                    >
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >≡</span
+                        >
+                        Library
+                    </a>
+                    <a
+                        href="https://github.com/Nick2bad4u/github-badge-layouts"
+                    >
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >⌘</span
+                        >
+                        GitHub
+                    </a>
+                </div>
+            </nav>
 
-    <main id="catalog" class="page-shell">
-      <section class="toolbar" aria-label="Catalog filters">
-        <div class="field search-field">
-          <label for="search">Search layouts</label>
-          <div class="input-shell">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
-              <path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"></path>
-            </svg>
-            <input id="search" type="search" placeholder="Try npm, Docker, extension…" autocomplete="off">
-            <kbd aria-label="Keyboard shortcut: slash">/</kbd>
-          </div>
-        </div>
-        <div class="field category-field">
-          <label for="category">Category</label>
-          <select id="category">
-            <option value="all">All categories</option>
-          </select>
-        </div>
-        <button id="reset" class="secondary-button" type="button">Reset</button>
-      </section>
+            <div class="hero-layout">
+                <div class="hero-copy">
+                    <p class="eyebrow">
+                        <span
+                            class="pulse"
+                            aria-hidden="true"
+                        ></span>
+                        README signals, without the badge wall
+                    </p>
+                    <h1>
+                        Find the right badges.
+                        <span>Make the row yours.</span>
+                    </h1>
+                    <p class="lede">
+                        Search curated layouts, apply your repository once,
+                        switch between flat and classic Badgen styles, and copy
+                        clean Markdown for GitHub projects and package
+                        ecosystems.
+                    </p>
+                    <div class="hero-actions">
+                        <a
+                            class="primary-link"
+                            href="#personalize"
+                        >
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >⚙</span
+                            >
+                            Personalize layouts
+                        </a>
+                        <code>npx github-badge-layouts search powershell</code>
+                    </div>
+                    <dl
+                        class="hero-stats"
+                        aria-label="Catalog totals"
+                    >
+                        <div>
+                            <dt id="layout-total">—</dt>
+                            <dd>layouts</dd>
+                        </div>
+                        <div>
+                            <dt id="badge-total">—</dt>
+                            <dd>badges</dd>
+                        </div>
+                        <div>
+                            <dt id="category-total">—</dt>
+                            <dd>categories</dd>
+                        </div>
+                    </dl>
+                </div>
 
-      <div class="result-bar">
-        <p id="result-count" aria-live="polite">Loading layouts…</p>
-        <p class="preview-note"><span aria-hidden="true">●</span> Previews use public example data</p>
-      </div>
+                <div
+                    class="hero-visual"
+                    aria-hidden="true"
+                >
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="demo-card demo-card-one">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="demo-card demo-card-two">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="demo-card demo-card-three">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-      <section id="layout-grid" class="layout-grid" aria-label="Badge layouts"></section>
-      <section id="empty-state" class="empty-state" hidden>
-        <p class="empty-icon" aria-hidden="true">⌕</p>
-        <h2>No layouts match</h2>
-        <p>Try a broader search or clear the selected category.</p>
-        <button class="secondary-button" type="button" data-reset-filters>Clear filters</button>
-      </section>
-    </main>
+        <main
+            id="catalog"
+            class="page-shell"
+        >
+            <section
+                id="personalize"
+                class="personalizer panel"
+                aria-labelledby="personalize-title"
+            >
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >⚙</span
+                            >
+                            Repository context
+                        </p>
+                        <h2 id="personalize-title"
+                            >Set it once. Use it everywhere.</h2
+                        >
+                        <p class="section-description">
+                            These values replace reusable placeholders in every
+                            preview and copied row. They stay in this browser
+                            and never leave the page.
+                        </p>
+                    </div>
+                    <button
+                        id="reset-context"
+                        type="button"
+                        class="secondary-button"
+                    >
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >↺</span
+                        >
+                        Use Nick's defaults
+                    </button>
+                </div>
 
-    <footer>
-      <p>
-        Built from the canonical <a href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md">Markdown library</a>.
-        Badge images are served by <a href="https://badgen.net/">Badgen</a>.
-      </p>
-    </footer>
+                <div class="context-grid">
+                    <div class="field">
+                        <label for="owner">
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >@</span
+                            >
+                            GitHub owner
+                        </label>
+                        <input
+                            id="owner"
+                            type="text"
+                            autocomplete="username"
+                            spellcheck="false"
+                            value="Nick2bad4u"
+                        />
+                    </div>
+                    <div class="field">
+                        <label for="repository">
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >⌘</span
+                            >
+                            Repository
+                        </label>
+                        <input
+                            id="repository"
+                            type="text"
+                            autocomplete="off"
+                            spellcheck="false"
+                            value="gh-runs-cleanup"
+                        />
+                    </div>
+                    <div class="field">
+                        <label for="branch">
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >⑂</span
+                            >
+                            Default branch
+                        </label>
+                        <input
+                            id="branch"
+                            type="text"
+                            autocomplete="off"
+                            spellcheck="false"
+                            value="main"
+                        />
+                    </div>
+                    <fieldset class="field style-field">
+                        <legend>
+                            <span
+                                class="icon"
+                                aria-hidden="true"
+                                >◆</span
+                            >
+                            Badge style
+                        </legend>
+                        <div class="segmented-control">
+                            <input
+                                id="style-flat"
+                                type="radio"
+                                checked
+                                name="badge-style"
+                                value="flat"
+                            />
+                            <label for="style-flat">Flat</label>
+                            <input
+                                id="style-classic"
+                                type="radio"
+                                name="badge-style"
+                                value="classic"
+                            />
+                            <label for="style-classic">Classic</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <p
+                    id="context-summary"
+                    class="context-summary"
+                    aria-live="polite"
+                    >Nick2bad4u/gh-runs-cleanup · main · flat Badgen</p
+                >
+            </section>
 
-    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <noscript>
-      <p class="noscript">JavaScript is required for search, customization, previews, and copying. The full library remains available on GitHub.</p>
-    </noscript>
-    <script src="catalog.js"></script>
-    <script src="app.js"></script>
-  </body>
+            <section
+                class="toolbar panel"
+                aria-label="Catalog filters"
+            >
+                <div class="field search-field">
+                    <label for="search">
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >⌕</span
+                        >
+                        Search layouts
+                    </label>
+                    <div class="input-shell">
+                        <input
+                            id="search"
+                            type="search"
+                            autocomplete="off"
+                            placeholder="Try npm, Docker, PowerShell…"
+                        />
+                        <kbd aria-label="Keyboard shortcut: slash">/</kbd>
+                    </div>
+                </div>
+                <div class="field category-field">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+                <div class="field page-size-field">
+                    <label for="page-size">Per page</label>
+                    <select id="page-size">
+                        <option value="4">4 layouts</option>
+                        <option
+                            selected
+                            value="6"
+                            >6 layouts</option
+                        >
+                        <option value="9">9 layouts</option>
+                        <option value="12">12 layouts</option>
+                    </select>
+                </div>
+                <button
+                    id="reset-filters"
+                    type="button"
+                    class="secondary-button"
+                >
+                    <span
+                        class="icon"
+                        aria-hidden="true"
+                        >↺</span
+                    >
+                    Reset filters
+                </button>
+            </section>
+
+            <div class="result-bar">
+                <p
+                    id="result-count"
+                    class="result-count"
+                    aria-live="polite"
+                    >Loading layouts…</p
+                >
+                <p class="preview-note">
+                    <span aria-hidden="true">●</span>
+                    Only this page loads badge images
+                </p>
+            </div>
+
+            <section
+                id="layout-grid"
+                class="layout-grid"
+                aria-label="Badge layouts"
+            ></section>
+
+            <section
+                id="empty-state"
+                class="empty-state panel"
+                hidden
+            >
+                <p
+                    class="empty-icon icon"
+                    aria-hidden="true"
+                    >⌕</p
+                >
+                <h2>No layouts match</h2>
+                <p>Try a broader search or clear the selected category.</p>
+                <button
+                    type="button"
+                    class="secondary-button"
+                    data-reset-filters
+                >
+                    Clear filters
+                </button>
+            </section>
+
+            <nav
+                id="pagination"
+                class="pagination panel"
+                aria-label="Catalog pages"
+                hidden
+            >
+                <button
+                    id="first-page"
+                    type="button"
+                    aria-label="First page"
+                >
+                    ⇤
+                </button>
+                <button
+                    id="previous-page"
+                    type="button"
+                    aria-label="Previous page"
+                >
+                    ←
+                </button>
+                <div
+                    id="page-list"
+                    class="page-list"
+                ></div>
+                <button
+                    id="next-page"
+                    type="button"
+                    aria-label="Next page"
+                >
+                    →
+                </button>
+                <button
+                    id="last-page"
+                    type="button"
+                    aria-label="Last page"
+                >
+                    ⇥
+                </button>
+                <span
+                    id="page-summary"
+                    class="page-summary"
+                ></span>
+            </nav>
+        </main>
+
+        <footer>
+            <div>
+                <a
+                    class="brand footer-brand"
+                    href="./"
+                >
+                    <span
+                        class="icon"
+                        aria-hidden="true"
+                        >◆</span
+                    >
+                    GitHub Badge Layouts
+                </a>
+                <p class="footer-copy">
+                    Generated from the canonical
+                    <a
+                        href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
+                        >Markdown library</a
+                    >
+                    . Badge images are served by
+                    <a href="https://badgen.net/">Badgen</a>
+                    .
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/Nick2bad4u/github-badge-layouts"
+                    >GitHub repository</a
+                >
+                <a href="https://www.npmjs.com/package/github-badge-layouts"
+                    >npm package</a
+                >
+                <a
+                    href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/CONTRIBUTING.md"
+                    >Contribute</a
+                >
+                <a
+                    href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/SECURITY.md"
+                    >Security</a
+                >
+            </div>
+        </footer>
+
+        <div
+            id="toast"
+            class="toast"
+            aria-atomic="true"
+            aria-live="polite"
+            role="status"
+        ></div>
+        <noscript>
+            <p class="noscript">
+                JavaScript is required for pagination, personalization,
+                previews, and copying. The complete library remains available on
+                GitHub.
+            </p>
+        </noscript>
+        <script
+            type="module"
+            src="app.js"
+        ></script>
+    </body>
 </html>

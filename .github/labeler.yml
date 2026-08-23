@@ -1,0 +1,97 @@
+# yaml-language-server: $schema=https://www.schemastore.org/pull-request-labeler.json
+
+changed-files-labels-limit: 5
+max-files-changed: 100
+
+CI/CD:
+    - changed-files:
+          - any-glob-to-any-file:
+                - ".github/workflows/**"
+                - ".github/actions/**"
+
+breaking change:
+    - head-branch:
+          - "^(?:breaking|major)/"
+
+bug:
+    - head-branch:
+          - "^(?:bug|fix|hotfix|patch)/"
+
+build:
+    - any:
+          - changed-files:
+                - any-glob-to-any-file:
+                      - "scripts/**"
+                      - "tsconfig.build.json"
+                      - "vite.config.ts"
+          - head-branch:
+                - "^(?:build|bundle|compile)/"
+
+cli:
+    - changed-files:
+          - any-glob-to-any-file:
+                - "src/**"
+
+configuration:
+    - changed-files:
+          - any-glob-to-any-file:
+                - ".github/*.yml"
+                - ".github/*.yaml"
+                - ".*rc.*"
+                - "*.config.*"
+                - "*.json"
+                - "*.properties"
+                - "*.toml"
+                - "*.yml"
+                - "*.yaml"
+                - "tsconfig*.json"
+
+dependencies:
+    - changed-files:
+          - any-glob-to-any-file:
+                - "package.json"
+                - "package-lock.json"
+
+documentation:
+    - any:
+          - changed-files:
+                - any-glob-to-any-file:
+                      - "**/*.md"
+                      - "README*"
+          - head-branch:
+                - "^(?:docs|documentation|readme)/"
+
+enhancement:
+    - head-branch:
+          - "^(?:enhancement|feat|feature|improve)/"
+
+performance:
+    - head-branch:
+          - "^(?:optimize|perf|performance)/"
+
+refactor:
+    - head-branch:
+          - "^(?:cleanup|refactor)/"
+
+security:
+    - head-branch:
+          - "^(?:cve|security|vuln|vulnerability)/"
+
+style:
+    - head-branch:
+          - "^(?:format|formatting|lint|style)/"
+
+testing:
+    - any:
+          - changed-files:
+                - any-glob-to-any-file:
+                      - "**/*.test.{js,ts}"
+                      - "**/*.spec.{js,ts}"
+                      - "test/**"
+          - head-branch:
+                - "^(?:test|testing|tests)/"
+
+website:
+    - changed-files:
+          - any-glob-to-any-file:
+                - "docs/**"

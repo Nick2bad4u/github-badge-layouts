@@ -1,0 +1,61 @@
+{
+    "$schema": "https://www.schemastore.org/tsconfig.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "checkJs": true,
+        "esModuleInterop": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ES2024"
+        ],
+        "module": "ESNext",
+        "moduleDetection": "force",
+        "moduleResolution": "Bundler",
+        "noEmit": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noUncheckedSideEffectImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "ES2024",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo/tsconfig.tsbuildinfo",
+        "types": ["node"],
+        "useDefineForClassFields": true,
+        "useUnknownInCatchVariables": true,
+        "verbatimModuleSyntax": true
+    },
+    "exclude": [
+        ".cache/**",
+        "coverage/**",
+        "dist/**",
+        "node_modules/**",
+        "reports/**",
+        "temp/**"
+    ],
+    "include": [
+        "**/*.cjs",
+        "**/*.d.cts",
+        "**/*.d.mts",
+        "**/*.d.ts",
+        "**/*.js",
+        "**/*.mjs",
+        "**/*.mts",
+        "**/*.ts",
+        "**/.*.cjs",
+        "**/.*.js",
+        "**/.*.mjs"
+    ]
+}

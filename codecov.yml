@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://www.schemastore.org/codecov.json
+
+codecov:
+    branch: "main"
+    max_report_age: "24h"
+    notify:
+        wait_for_ci: true
+    require_ci_to_pass: true
+    slug: "Nick2bad4u/github-badge-layouts"
+
+comment:
+    behavior: "default"
+    layout: "header, diff, flags, files, footer"
+    require_base: false
+    require_changes: false
+    require_head: true
+
+component_management:
+    default_rules:
+        statuses:
+            - target: "auto"
+              threshold: "2%"
+              type: "project"
+    individual_components:
+        - component_id: "site"
+          name: "Pages site"
+          paths:
+              - "docs/app.js"
+        - component_id: "catalog-builder"
+          name: "Catalog builder"
+          paths:
+              - "scripts/**"
+        - component_id: "cli"
+          name: "CLI"
+          paths:
+              - "src/**"
+
+coverage:
+    precision: 2
+    range: "60...100"
+    round: "down"
+    status:
+        patch:
+            default:
+                target: "80%"
+                threshold: "2%"
+        project:
+            default:
+                target: "auto"
+                threshold: "2%"
+
+ignore:
+    - "coverage/**"
+    - "dist/**"
+    - "docs/catalog.js"
+    - "test/**"
+    - "**/*.d.ts"
+    - "**/*.test.*"
+    - "**/*.spec.*"

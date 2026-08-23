@@ -1,0 +1,7 @@
+# Generated from library.md by scripts/build-site.mjs.
+docs/catalog.js
+src/generated/catalog.ts
+
+# Tool output.
+dist/
+reports/

@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+
+name: "Quality"
+
+run-name: >-
+    ${{
+        github.event_name == 'pull_request' &&
+        format('Quality #{0}', github.event.pull_request.number) ||
+        github.event_name == 'merge_group' &&
+        format('Quality merge group {0}', github.sha || github.run_id) ||
+        format('Quality {0}', github.ref_name || github.run_id)
+    }}
+
+concurrency:
+    group: >-
+        quality-${{ github.workflow }}-${{
+            github.event.pull_request.number ||
+            github.sha ||
+            github.ref ||
+            github.run_id
+        }}
+    cancel-in-progress: true
+
+on:
+    pull_request:
+    merge_group:
+        types:
+            - "checks_requested"
+    push:
+        branches:
+            - "main"
+    workflow_dispatch:
+
+permissions: {}
+
+defaults:
+    run:
+        shell: "bash"
+
+jobs:
+    validate:
+        name: "Validate"
+        env:
+            SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+        permissions:
+            contents: "read"
+            id-token: "write"
+        runs-on: "ubuntu-latest"
+        timeout-minutes: 20
+
+        steps:
+            - name: "Harden runner"
+              uses: "step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920" # v2.20.0
+              with:
+                  egress-policy: "audit"
+
+            - name: "Checkout"
+              uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+
+            - name: "Set up Node.js"
+              uses: "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" # v7.0.0
+              with:
+                  cache: "npm"
+                  node-version-file: ".node-version"
+
+            - name: "Set up declared npm version"
+              working-directory: "${{ runner.temp }}"
+              run: |
+                  npm_version="$(
+                      node -e "const value = require(process.env.GITHUB_WORKSPACE + '/package.json').packageManager; if (typeof value !== 'string' || !value.startsWith('npm@')) process.exit(1); process.stdout.write(value.slice(4));"
+                  )"
+
+                  if [[ ! "${npm_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                      echo "::error::packageManager must declare an exact npm version."
+                      exit 1
+                  fi
+
+                  npm install --global --ignore-scripts --no-audit --no-fund "npm@${npm_version}"
+
+            - name: "Install dependencies"
+              run: "npm ci"
+
+            - name: "Validate repository"
+              run: "npm run validate"
+
+            - name: "Generate coverage and test reports"
+              run: "npm run test:coverage"
+
+            - name: "Upload coverage to Codecov"
+              uses: "codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f" # v7.0.0
+              with:
+                  disable_search: true
+                  fail_ci_if_error: true
+                  files: "coverage/lcov.info"
+                  use_oidc: true
+
+            - name: "Report unavailable Sonar authentication"
+              if: >-
+                  github.event_name == 'push' && github.ref == 'refs/heads/main' && env.SONAR_TOKEN == ''
+              run: 'echo "::warning::Add the SONAR_TOKEN Actions secret to enable SonarQube Cloud analysis."'
+
+            - name: "Run SonarQube Cloud analysis"
+              if: >-
+                  github.event_name == 'push' && github.ref == 'refs/heads/main' && env.SONAR_TOKEN != ''
+              uses: "SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f" # v8.2.1
+
+            - name: "Upload coverage diagnostics"
+              if: "always()"
+              uses: "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a" # v7.0.1
+              with:
+                  if-no-files-found: "warn"
+                  name: "coverage-${{ github.sha }}"
+                  path: |
+                      coverage/
+                      reports/
+                  retention-days: 7

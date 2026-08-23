@@ -1,0 +1,131 @@
+# Publish an already-versioned package after the one-time manual npm publish.
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+
+name: "Release"
+
+run-name: "Release v${{ inputs.version }} by @${{ github.actor }}"
+
+concurrency:
+    group: "npm-release"
+    cancel-in-progress: "${{ false }}"
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Exact package.json version to publish (x.y.z)"
+                required: true
+                type: "string"
+
+permissions: {}
+
+defaults:
+    run:
+        shell: "bash"
+
+jobs:
+    publish:
+        name: "Publish npm package and GitHub release"
+        if: "github.ref == 'refs/heads/main'"
+        permissions:
+            contents: "write"
+            id-token: "write"
+        environment:
+            name: "npm"
+            url: "https://www.npmjs.com/package/github-badge-layouts/v/${{ inputs.version }}"
+        env:
+            NPM_CONFIG_PROVENANCE: "true"
+            NPM_REGISTRY_URL: "https://registry.npmjs.org"
+        runs-on: "ubuntu-latest"
+        timeout-minutes: 30
+
+        steps:
+            - name: "Harden runner"
+              uses: "step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c" # v2.21.0
+              with:
+                  egress-policy: "audit"
+
+            - name: "Checkout"
+              uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+              with:
+                  fetch-depth: 0
+                  fetch-tags: true
+
+            - name: "Set up Node.js"
+              uses: "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" # v7.0.0
+              with:
+                  cache: "npm"
+                  node-version-file: ".node-version"
+                  registry-url: "${{ env.NPM_REGISTRY_URL }}"
+
+            - name: "Set up declared npm version"
+              working-directory: "${{ runner.temp }}"
+              run: |
+                  npm_version="$(node -p "require(process.env.GITHUB_WORKSPACE + '/package.json').packageManager.split('@').at(-1)")"
+                  npm install --global --ignore-scripts --no-audit --no-fund "npm@${npm_version}"
+                  test "$(npm --version)" = "${npm_version}"
+
+            - name: "Install dependencies"
+              run: "npm ci"
+
+            - name: "Validate release input and package version"
+              env:
+                  REQUESTED_VERSION: "${{ inputs.version }}"
+              run: |
+                  if [[ ! "${REQUESTED_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                      echo "Version must use x.y.z format: ${REQUESTED_VERSION}" >&2
+                      exit 1
+                  fi
+                  package_version="$(node -p "require('./package.json').version")"
+                  if [ "${package_version}" != "${REQUESTED_VERSION}" ]; then
+                      echo "package.json has ${package_version}; requested ${REQUESTED_VERSION}." >&2
+                      exit 1
+                  fi
+
+            - name: "Verify release source"
+              run: "npm run release:verify"
+
+            - name: "Require deterministic verification"
+              run: |
+                  if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                      echo "Release verification modified repository files." >&2
+                      git status --short --untracked-files=all
+                      exit 1
+                  fi
+
+            - name: "Check npm publication state"
+              id: "npm"
+              env:
+                  VERSION: "${{ inputs.version }}"
+              run: |
+                  if npm view "github-badge-layouts@${VERSION}" version >/dev/null 2>&1; then
+                      echo "published=true" >> "${GITHUB_OUTPUT}"
+                  else
+                      echo "published=false" >> "${GITHUB_OUTPUT}"
+                  fi
+
+            - name: "Publish to npm with trusted publishing"
+              if: "steps.npm.outputs.published != 'true'"
+              run: "npm publish --access public --provenance"
+
+            - name: "Create or verify Git tag"
+              env:
+                  TAG: "v${{ inputs.version }}"
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  if git rev-parse "refs/tags/${TAG}" >/dev/null 2>&1; then
+                      test "$(git rev-list -n 1 "${TAG}")" = "${GITHUB_SHA}"
+                  else
+                      git tag --annotate "${TAG}" --message "${TAG}"
+                      git push origin "refs/tags/${TAG}:refs/tags/${TAG}"
+                  fi
+
+            - name: "Create GitHub release if missing"
+              env:
+                  GH_TOKEN: "${{ github.token }}"
+                  TAG: "v${{ inputs.version }}"
+              run: |
+                  if ! gh release view "${TAG}" >/dev/null 2>&1; then
+                      gh release create "${TAG}" --generate-notes --title "${TAG}" --verify-tag
+                  fi

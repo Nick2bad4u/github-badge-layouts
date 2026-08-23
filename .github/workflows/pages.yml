@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+
+name: "Deploy Pages"
+
+run-name: "Deploy Pages ${{ github.ref_name || github.run_id }}"
+
+concurrency:
+    group: "pages"
+    cancel-in-progress: true
+
+on:
+    push:
+        branches:
+            - "main"
+    workflow_dispatch:
+
+permissions: {}
+
+defaults:
+    run:
+        shell: "bash"
+
+jobs:
+    build:
+        name: "Build Pages artifact"
+        permissions:
+            contents: "read"
+            pages: "read"
+        runs-on: "ubuntu-latest"
+        timeout-minutes: 15
+
+        steps:
+            - name: "Harden runner"
+              uses: "step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c" # v2.21.0
+              with:
+                  egress-policy: "audit"
+
+            - name: "Checkout"
+              uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+
+            - name: "Set up Node.js"
+              uses: "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" # v7.0.0
+              with:
+                  cache: "npm"
+                  node-version-file: ".node-version"
+
+            - name: "Set up declared npm version"
+              working-directory: "${{ runner.temp }}"
+              run: |
+                  npm_version="$(node -p "require(process.env.GITHUB_WORKSPACE + '/package.json').packageManager.split('@').at(-1)")"
+                  npm install --global --ignore-scripts --no-audit --no-fund "npm@${npm_version}"
+                  test "$(npm --version)" = "${npm_version}"
+
+            - name: "Install dependencies"
+              run: "npm ci"
+
+            - name: "Build site"
+              run: "npm run site:build"
+
+            - name: "Configure Pages"
+              uses: "actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d" # v6.0.0
+
+            - name: "Upload Pages artifact"
+              uses: "actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9" # v5.0.0
+              with:
+                  path: "dist/site"
+                  retention-days: 1
+
+    deploy:
+        name: "Deploy Pages"
+        needs: "build"
+        permissions:
+            id-token: "write"
+            pages: "write"
+        environment:
+            name: "github-pages"
+            url: "${{ steps.deployment.outputs.page_url }}"
+        runs-on: "ubuntu-latest"
+        timeout-minutes: 10
+
+        steps:
+            - name: "Deploy Pages"
+              id: "deployment"
+              uses: "actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128" # v5.0.0
