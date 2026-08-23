@@ -259,6 +259,7 @@ function parseLibrary(markdown) {
     let consumedThrough = -1;
 
     for (const [index, line] of lines.entries()) {
+        // A fenced block is parsed as one layout; skip its individual lines.
         if (index <= consumedThrough) continue;
 
         const categoryMatch = /^## (.+)$/.exec(line);
