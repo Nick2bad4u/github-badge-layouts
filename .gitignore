@@ -1,5 +1,8 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 # Created from a broad multi-platform Toptal gitignore template set.
+# Generated local link-check reports.
+.lychee.report.md
+.lycheecache
 # Edit or regenerate it at https://www.toptal.com/developers/gitignore
 
 ### Astro ###

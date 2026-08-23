@@ -977,4 +977,4 @@ export const badgeCatalog = {
             "badgeCount": 4
         }
     ]
-};
+} as const;

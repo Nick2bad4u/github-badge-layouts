@@ -1,27 +1,92 @@
 {
     "name": "github-badge-layouts",
-    "version": "1.0.0",
-    "private": true,
-    "description": "Copy-ready Badgen badge combinations with an interactive GitHub Pages gallery.",
+    "version": "0.1.0",
+    "private": false,
+    "description": "Curated Badgen layouts with a personalized gallery and a dependency-free README badge CLI.",
+    "keywords": [
+        "badges",
+        "badgen",
+        "github-pages",
+        "cli",
+        "markdown",
+        "readme",
+        "readme-badges"
+    ],
+    "homepage": "https://nick2bad4u.github.io/github-badge-layouts/",
+    "bugs": {
+        "url": "https://github.com/Nick2bad4u/github-badge-layouts/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Nick2bad4u/github-badge-layouts.git"
+    },
     "license": "MIT",
+    "author": "Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> (https://github.com/Nick2bad4u)",
+    "sideEffects": false,
     "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/cli/index.d.ts",
+            "import": "./dist/cli/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "main": "./dist/cli/index.js",
+    "types": "./dist/cli/index.d.ts",
+    "bin": {
+        "badge-layouts": "./dist/cli/bin.js",
+        "github-badge-layouts": "./dist/cli/bin.js"
+    },
+    "files": [
+        "dist/cli",
+        "library.md"
+    ],
     "scripts": {
-        "build": "node scripts/build-site.mjs",
+        "build": "npm run build:catalog && npm run build:package && npm run site:build",
+        "build:catalog": "node scripts/build-site.mjs",
+        "build:package": "tsc -p tsconfig.build.json",
         "changelog:generate": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --output CHANGELOG.md",
         "changelog:preview": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --unreleased",
         "changelog:release-notes": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --current",
-        "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js",
+        "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js && npm run check:package",
+        "check:node-config": "node --experimental-config-file=node.config.json --check scripts/build-site.mjs",
+        "check:package": "node --check dist/cli/bin.js && node --check dist/cli/cli.js && node --check dist/cli/index.js",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "lint": "npm run lint:eslint && npm run lint:package-json && npm run lint:remark && npm run lint:secretlint && npm run lint:stylelint",
+        "lint:actions": "actionlint -color",
+        "lint:all": "npm run validate && npm run lint:actions && npm run lint:gitleaks && npm run lint:jscpd && npm run lint:lychee",
+        "lint:eslint": "eslint . --cache --cache-strategy content --cache-location .cache/.eslintcache",
+        "lint:eslint:fix": "npm run lint:eslint -- --fix",
         "lint:gitleaks": "gitleaks dir --config .gitleaks.toml .",
         "lint:jscpd": "jscpd --config node_modules/jscpd-config-nick2bad4u/jscpd.json",
-        "lint:lychee": "lychee --config node_modules/lychee-config-nick2bad4u/lychee.toml .",
+        "lint:lychee": "lychee --config node_modules/lychee-config-nick2bad4u/lychee.toml README.md CONTRIBUTING.md SECURITY.md docs/index.html",
         "lint:lychee:smoke": "lychee --config node_modules/lychee-config-nick2bad4u/lychee.toml --dump-inputs README.md",
         "lint:package-json": "npmPkgJsonLint . --config .npmpackagejsonlintrc.json",
+        "lint:package-surface": "publint && attw --pack . --profile esm-only",
         "lint:remark": "remark . --frail --ignore-path .remarkignore",
         "lint:remark:fix": "remark . --ignore-path .remarkignore --output",
-        "update-deps": "ncu --configFileName .ncurc.json --configFilePath node_modules/ncu-config-nick2bad4u && npm update --force && npm install --force"
+        "lint:secretlint": "secretlint --secretlintrc .secretlintrc.cjs --secretlintignore .gitignore \"**/*\"",
+        "lint:stylelint": "stylelint \"docs/**/*.css\" --quiet",
+        "lint:stylelint:report": "stylelint \"docs/**/*.css\"",
+        "pack:check": "npm pack --dry-run --json",
+        "release:verify": "npm run lint:all && npm run test:coverage && npm run lint:package-surface && npm run pack:check",
+        "site:build": "vite build --config vite.config.ts",
+        "site:dev": "vite --config vite.config.ts",
+        "site:preview": "vite preview --config vite.config.ts",
+        "test": "npm run build:catalog && npm run build:package && vitest run",
+        "test:coverage": "npm run build:catalog && npm run build:package && vitest run --coverage",
+        "test:watch": "vitest",
+        "typecheck": "tsc -p tsconfig.build.json --noEmit && tsc -p tsconfig.js.json --noEmit && tsc -p tsconfig.eslint.json --noEmit && tsc -p tsconfig.vitest-typecheck.json --noEmit",
+        "update-deps": "ncu --configFileName .ncurc.json --configFilePath node_modules/ncu-config-nick2bad4u && npm update --force && npm install --force",
+        "validate": "npm run build && npm run check && npm run check:node-config && npm run typecheck && npm run lint && npm run format:check && npm test"
     },
     "devDependencies": {
+        "@arethetypeswrong/cli": "^0.18.5",
         "@microsoft/tsdoc-config": "^0.18.1",
+        "@types/node": "^26.2.0",
+        "@vitest/coverage-v8": "^4.1.11",
+        "eslint": "^10.9.0",
         "eslint-config-nick2bad4u": "^14.1.2",
         "git-cliff": "^2.13.1",
         "gitcliff-config-nick2bad4u": "^1.5.0",
@@ -35,6 +100,7 @@
         "npm-package-json-lint-config-nick2bad4u": "^1.0.4",
         "prettier": "^3.9.6",
         "prettier-config-nick2bad4u": "^2.0.4",
+        "publint": "^0.3.24",
         "remark": "^15.0.1",
         "remark-cli": "^12.0.1",
         "remark-config-nick2bad4u": "^1.1.4",
@@ -42,10 +108,18 @@
         "secretlint-config-nick2bad4u": "^1.1.2",
         "stylelint": "^17.14.1",
         "stylelint-config-nick2bad4u": "^2.2.1",
-        "tsdoc-config-nick2bad4u": "^1.0.6"
+        "tsdoc-config-nick2bad4u": "^1.0.6",
+        "typescript": "^6.0.3",
+        "vite": "^8.2.2",
+        "vitest": "^4.1.11"
     },
+    "packageManager": "npm@12.0.2",
     "engines": {
-        "node": ">=20"
+        "node": ">=22.14.0",
+        "npm": ">=12.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "allowScripts": {
         "esbuild@0.27.7 || 0.28.1 || 0.28.2": true,

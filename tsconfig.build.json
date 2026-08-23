@@ -1,0 +1,19 @@
+{
+    "$schema": "https://www.schemastore.org/tsconfig.json",
+    "compilerOptions": {
+        "allowJs": false,
+        "checkJs": false,
+        "declaration": true,
+        "declarationMap": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "noEmit": false,
+        "outDir": "./dist/cli",
+        "rootDir": "./src",
+        "sourceMap": true,
+        "tsBuildInfoFile": "./.cache/tsbuildinfo/tsconfig.build.tsbuildinfo",
+        "types": ["node"]
+    },
+    "extends": "./tsconfig.json",
+    "include": ["src/**/*.d.ts", "src/**/*.ts"]
+}

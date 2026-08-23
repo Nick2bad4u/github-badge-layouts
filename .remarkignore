@@ -12,6 +12,7 @@
 **/dist/
 **/node_modules/
 **/playwright-report/
+**/reports/
 **/temp/
 **/test-results/
 **/tmp/
@@ -46,6 +47,7 @@
 # Changelog and similar files with different formatting needs
 **/CHANGELOG.md
 **/HISTORY.md
+.lychee.report.md
 
 # Documentation that may have different formatting requirements
 **/LICENSE

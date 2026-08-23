@@ -1,0 +1,9 @@
+{
+    "$schema": "https://www.schemastore.org/tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "tsBuildInfoFile": "./.cache/tsbuildinfo/tsconfig.vitest-typecheck.tsbuildinfo"
+    },
+    "extends": "./tsconfig.json",
+    "include": ["test/**/*.d.ts", "test/**/*.ts"]
+}

@@ -1,3 +1,8 @@
 {
-    "extends": "npm-package-json-lint-config-nick2bad4u"
+    "extends": "npm-package-json-lint-config-nick2bad4u",
+    "rules": {
+        "prefer-no-bin": "off",
+        "prefer-provenance": "off",
+        "require-contributors": "off"
+    }
 }
