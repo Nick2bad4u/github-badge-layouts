@@ -1,12 +1,16 @@
 import type { BadgeStyle } from "./types.js";
 
-const badgenUrlPattern = /https:\/\/(?:flat\.)?badgen\.net\//gv;
+const flatImagePrefix = "](https://flat.badgen.net/";
+const classicImagePrefix = "](https://badgen.net/";
 
 /** Convert every Badgen image URL in Markdown to the selected renderer. */
 export function convertBadgeStyle(markdown: string, style: BadgeStyle): string {
     const host =
         style === "flat" ? "https://flat.badgen.net/" : "https://badgen.net/";
-    return markdown.replaceAll(badgenUrlPattern, () => host);
+    const replacement = `](${host}`;
+    return markdown
+        .replaceAll(flatImagePrefix, () => replacement)
+        .replaceAll(classicImagePrefix, () => replacement);
 }
 
 /**

@@ -509,10 +509,10 @@ function contextIsValid() {
 function convertStyle(markdown, style) {
     const host =
         style === "flat" ? "https://flat.badgen.net/" : "https://badgen.net/";
-    return markdown.replaceAll(
-        /https:\/\/(?:flat\.)?badgen\.net\//gv,
-        () => host
-    );
+    const replacement = `](${host}`;
+    return markdown
+        .replaceAll("](https://flat.badgen.net/", () => replacement)
+        .replaceAll("](https://badgen.net/", () => replacement);
 }
 
 /** @param {BadgeCatalogEntry} entry */
@@ -644,7 +644,20 @@ function isValidGitRefName(value) {
 
 /** @param {string} value */
 function normalizeReplacement(value) {
-    return value.trim().replaceAll(" ", "%20");
+    let encoded = encodeURIComponent(value.trim());
+    for (const character of [
+        "!",
+        "'",
+        "(",
+        ")",
+        "*",
+    ]) {
+        const hexadecimal = (character.codePointAt(0) ?? 0)
+            .toString(16)
+            .toUpperCase();
+        encoded = encoded.replaceAll(character, () => `%${hexadecimal}`);
+    }
+    return encoded;
 }
 
 /** @param {number} totalPages */
@@ -683,7 +696,11 @@ function parseBadgeLinks(markdown) {
     let match;
     while ((match = pattern.exec(markdown)) !== null) {
         const { alt = "", image = "", target = "" } = match.groups ?? {};
-        links.push({ alt, image, target });
+        const imageUrl = securePreviewUrl(image, true);
+        const targetUrl = securePreviewUrl(target, false);
+        if (imageUrl !== null && targetUrl !== null) {
+            links.push({ alt, image: imageUrl, target: targetUrl });
+        }
     }
     return links;
 }
@@ -852,6 +869,37 @@ function scheduleContextRender() {
         state.branch = branchInput.value.trim();
         render();
     }, 240);
+}
+
+/**
+ * @param {string} value
+ * @param {boolean} isBadgeImage
+ *
+ * @returns {string | null}
+ */
+function securePreviewUrl(value, isBadgeImage) {
+    /** @type {URL} */
+    let url;
+    try {
+        url = new URL(value);
+    } catch {
+        return null;
+    }
+    if (
+        url.protocol !== "https:" ||
+        url.username.length > 0 ||
+        url.password.length > 0
+    ) {
+        return null;
+    }
+    if (
+        isBadgeImage &&
+        url.hostname !== "flat.badgen.net" &&
+        url.hostname !== "badgen.net"
+    ) {
+        return null;
+    }
+    return url.href;
 }
 
 /** @param {number} page @param {boolean} [shouldScroll] */

@@ -21,6 +21,12 @@ describe("badge style conversion", () => {
         expect(convertBadgeStyle(classic, "flat")).toBe(markdown);
     });
 
+    it("does not rewrite Badgen-like text outside a Markdown image URL", () => {
+        const unrelated =
+            "https://example.com/https://badgen.net/static/not-a-badge";
+        expect(convertBadgeStyle(unrelated, "flat")).toBe(unrelated);
+    });
+
     it("accepts user-friendly style aliases and rejects unknown styles", () => {
         expect(parseBadgeStyle("non-flat")).toBe("classic");
         expect(parseBadgeStyle("FLAT")).toBe("flat");

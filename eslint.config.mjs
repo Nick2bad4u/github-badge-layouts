@@ -37,6 +37,15 @@ const config = [
         },
     },
     {
+        files: [".gitleaks.toml"],
+        name: "Cross-platform Gitleaks configuration",
+        rules: {
+            // Tombi's platform binaries disagree on table indentation. Gitleaks
+            // still parses this file in every local and CI release gate.
+            "tombi/tombi": "off",
+        },
+    },
+    {
         files: ["src/**/*.ts"],
         name: "Dependency-free package source",
         rules: {
