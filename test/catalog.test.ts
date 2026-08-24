@@ -31,12 +31,45 @@ describe("catalog", () => {
         expect(
             listLayouts({ category: "JavaScript and TypeScript" })
         ).toHaveLength(5);
+        expect(
+            listLayouts({ category: "External CI and code quality" })
+        ).toHaveLength(4);
+        expect(listLayouts({ query: "MATRIX_SERVER" })).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    title: "Project with a Matrix community",
+                }),
+            ])
+        );
+        expect(listLayouts({ query: "MELPA" })).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({ title: "Emacs package on MELPA" }),
+            ])
+        );
     });
 
     it("finds exact and unambiguous partial layout identifiers", () => {
         const layout = getLayoutOrThrow("balanced-public-repository");
         expect(findLayout(layout.title)).toBe(layout);
         expect(findLayout("balanced-public")).toBe(layout);
+    });
+
+    it("distinguishes composite placeholders from nested names", () => {
+        expect(
+            getLayoutOrThrow("visual-studio-marketplace-extension").placeholders
+        ).not.toContain("EXTENSION");
+        expect(getLayoutOrThrow("dual-published-vs-code").placeholders).toEqual(
+            expect.arrayContaining(["PUBLISHER.EXTENSION", "EXTENSION"])
+        );
+        expect(
+            getLayoutOrThrow("azure-pipelines-project").placeholders
+        ).toEqual(
+            expect.arrayContaining([
+                "AZURE_ORG",
+                "AZURE_PIPELINE",
+                "AZURE_PROJECT",
+            ])
+        );
     });
 
     it("rejects unknown or ambiguous identifiers with guidance", () => {

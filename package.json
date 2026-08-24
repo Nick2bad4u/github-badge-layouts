@@ -48,7 +48,7 @@
         "changelog:generate": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --output CHANGELOG.md",
         "changelog:preview": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --unreleased",
         "changelog:release-notes": "git cliff --config node_modules/gitcliff-config-nick2bad4u/cliff.toml --github-repo Nick2bad4u/github-badge-layouts --current",
-        "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/app.js && npm run check:package",
+        "check": "node scripts/build-site.mjs --check && node --check scripts/build-site.mjs && node --check docs/catalog.js && node --check docs/gallery-state.js && node --check docs/app.js && npm run check:package",
         "check:node-config": "node --experimental-config-file=node.config.json --check scripts/build-site.mjs",
         "check:package": "node --check dist/cli/bin.js && node --check dist/cli/cli.js && node --check dist/cli/index.js",
         "format": "prettier . --write",
