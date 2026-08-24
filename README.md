@@ -8,7 +8,7 @@
 
 A curated library of copy-ready [Badgen](https://badgen.net/) combinations, a personalized browser gallery, and a dependency-free npm CLI/API for maintaining README badges.
 
-The canonical [`library.md`](library.md) currently contains **72 layouts**, **447 badges**, and **11 categories** covering GitHub projects, JavaScript and TypeScript, native and managed languages, package registries, containers, infrastructure, external CI and code quality, editor/browser extensions, operating-system distribution, and community metadata.
+The canonical [`library.md`](library.md) currently contains **75 layouts**, **470 badges**, **11 categories**, and **45 language facets** covering GitHub projects, JavaScript and TypeScript, native and managed languages, package registries, containers, infrastructure, external CI and code quality, editor/browser extensions, operating-system distribution, and community metadata.
 
 ## Interactive gallery
 
@@ -16,7 +16,7 @@ The canonical [`library.md`](library.md) currently contains **72 layouts**, **44
 
 - Personalize every visible layout from one owner, repository, and branch form. Defaults use `Nick2bad4u/gh-runs-cleanup` on `main`.
 - Switch every Badgen image between flat and classic rendering without changing its destination.
-- Search and filter the catalog, sort by title, category, or badge count, and switch between detailed grid cards and compact list rows with inline copy actions.
+- Search and filter the catalog by category and language, sort by title, category, or badge count, and switch between detailed grid cards and compact list rows with inline copy actions.
 - Select 4, 6, 9, or 12 layouts per page and use real pagination. Only the current page creates badge-image requests.
 - Apply layout-specific placeholders such as `PACKAGE`, `CRATE`, `POD`, or `EXTENSION_ID`.
 - Copy rendered Markdown or the equivalent CLI command.
@@ -30,10 +30,7 @@ Run the CLI without installing it:
 
 ```sh
 npx github-badge-layouts search powershell
-npx github-badge-layouts render powershell-automation-repository \
-  --owner acme \
-  --repo toolkit \
-  --branch main
+npx github-badge-layouts preview powershell-automation-repository --live
 ```
 
 Install it globally if you use it frequently:
@@ -45,20 +42,32 @@ badge-layouts --help
 
 The two executable names, `badge-layouts` and `github-badge-layouts`, are aliases.
 
-| Command           | Purpose                                                                     |
-| ----------------- | --------------------------------------------------------------------------- |
-| `list`            | List layouts with optional category, query, JSON, and result-limit filters. |
-| `search <query>`  | Search titles, categories, descriptions, placeholders, and Markdown.        |
-| `categories`      | Print the canonical category list.                                          |
-| `show <layout>`   | Inspect a layout and its unresolved template.                               |
-| `render <layout>` | Render copy-ready Markdown with repository and custom placeholder values.   |
-| `convert`         | Convert Badgen image URLs between flat and classic styles.                  |
-| `inspect`         | Count badge renderers and known unresolved placeholders in Markdown.        |
-| `readme <layout>` | Preview or safely update a managed badge block in a README.                 |
+| Command            | Purpose                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| `list`             | Browse layouts with category, language, query, JSON, and result-limit filters.          |
+| `search <query>`   | Search titles, languages, categories, descriptions, placeholders, and Markdown.         |
+| `categories`       | Print categories with layout counts.                                                    |
+| `languages`        | Print language facets with layout counts.                                               |
+| `show <layout>`    | Inspect a layout and its unresolved template.                                           |
+| `preview <layout>` | Render ANSI terminal badges, fetch live SVG values, or format a linked summary in Glow. |
+| `context`          | Show repository coordinates detected from the current Git checkout.                     |
+| `render <layout>`  | Render copy-ready Markdown with repository and custom placeholder values.               |
+| `convert`          | Convert Badgen image URLs between flat and classic styles.                              |
+| `inspect`          | Count badge renderers and known unresolved placeholders in Markdown.                    |
+| `readme <layout>`  | Preview or safely update a managed badge block in a README.                             |
 
 Useful examples:
 
 ```sh
+# Filter the catalog by an explicit language facet.
+badge-layouts search package --language Rust
+
+# Preview portable ANSI badges, optionally with current live SVG titles.
+badge-layouts preview bundle-conscious-npm-library --set PACKAGE=react --live
+
+# Use the optional Glow terminal Markdown reader.
+badge-layouts preview balanced-public-repository --glow
+
 # Render an npm layout with a scoped package name.
 badge-layouts render general-npm-package \
   --owner acme \
@@ -107,7 +116,7 @@ console.log(markdown);
 console.log(inspectBadgeMarkdown(markdown));
 ```
 
-The public API also exports the generated `badgeCatalog`, `findLayout`, `listLayouts`, style conversion/parsing helpers, placeholder inspection, and managed README-block helpers.
+The public API also exports the generated `badgeCatalog`, `findLayout`, `listLayouts`, style conversion/parsing helpers, placeholder inspection, and managed README-block helpers. `listLayouts` accepts independent `category`, `language`, and free-text `query` filters.
 
 ## Use a layout manually
 
