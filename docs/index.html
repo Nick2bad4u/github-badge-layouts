@@ -234,6 +234,10 @@
                             <dt id="category-total">—</dt>
                             <dd>categories</dd>
                         </div>
+                        <div>
+                            <dt id="language-total">—</dt>
+                            <dd>languages</dd>
+                        </div>
                     </dl>
                 </div>
 
@@ -421,6 +425,12 @@
                         <option value="all">All categories</option>
                     </select>
                 </div>
+                <div class="field language-field">
+                    <label for="language">Language</label>
+                    <select id="language">
+                        <option value="all">All languages</option>
+                    </select>
+                </div>
                 <div class="field sort-field">
                     <label for="sort">Sort by</label>
                     <select id="sort">
@@ -526,7 +536,10 @@
                     >⌕</p
                 >
                 <h2>No layouts match</h2>
-                <p>Try a broader search or clear the selected category.</p>
+                <p>
+                    Try a broader search or clear the selected category and
+                    language.
+                </p>
                 <button
                     type="button"
                     class="secondary-button"

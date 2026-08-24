@@ -6,11 +6,12 @@ Thanks for improving the badge library.
 
 1. Edit `library.md`, the source of truth.
 2. Put each copyable row in a fenced `md` block beneath a level-three heading.
-3. Keep reusable values as descriptive uppercase placeholders such as `OWNER`, `REPO`, and `PACKAGE`.
-4. Keep status, security, uptime, and coverage colors dynamic so failures cannot appear successful.
-5. Run `npm run build` to regenerate the Pages catalog.
-6. Add or update focused tests when parser, renderer, CLI, or browser behavior changes.
-7. Run the full validation suite and preview the Vite-powered site locally.
+3. Add exactly one `<!-- languages: ... -->` annotation between the heading and its fenced layout. Use comma-separated language names or `Language agnostic`; multi-language layouts are indexed under every value.
+4. Keep reusable values as descriptive uppercase placeholders such as `OWNER`, `REPO`, and `PACKAGE`.
+5. Keep status, security, uptime, and coverage colors dynamic so failures cannot appear successful.
+6. Run `npm run build` to regenerate the Pages and package catalogs.
+7. Add or update focused tests when parser, renderer, CLI, or browser behavior changes.
+8. Run the full validation suite and preview the Vite-powered site locally.
 
    ```powershell
    npm run build
@@ -28,6 +29,7 @@ Then open the URL printed by Vite.
 - Every badge must link to the exact project, registry, report, workflow, issue list, or license it describes.
 - Use sentence-style alternative text ending with a period.
 - Preview upstream-dependent badges before keeping them; an HTTP 200 response can still contain an error badge.
+- Reject live SVG titles containing `429`, `500`, `error`, `unknown`, `undefined`, `timeout`, or `discontinued` unless the layout is explicitly documenting a conditional endpoint.
 - Never publish an account-wide monitoring key, access token, or other secret. UptimeRobot layouts accept only monitor-specific read-only keys.
 
 ## Generated files

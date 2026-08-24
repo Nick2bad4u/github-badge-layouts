@@ -48,10 +48,12 @@ export function getLayoutOrThrow(identifier: string): BadgeCatalogEntry {
 export function listLayouts(
     options: {
         readonly category?: string;
+        readonly language?: string;
         readonly query?: string;
     } = {}
 ): readonly BadgeCatalogEntry[] {
     const category = options.category?.trim().toLocaleLowerCase();
+    const language = options.language?.trim().toLocaleLowerCase();
     const query = options.query?.trim().toLocaleLowerCase();
 
     return badgeCatalog.entries.filter((entry) => {
@@ -62,6 +64,16 @@ export function listLayouts(
         ) {
             return false;
         }
+        if (
+            language !== undefined &&
+            language.length > 0 &&
+            entry.languages.every(
+                (entryLanguage) =>
+                    entryLanguage.toLocaleLowerCase() !== language
+            )
+        ) {
+            return false;
+        }
         if (query === undefined || query.length === 0) return true;
 
         return [
@@ -69,6 +81,7 @@ export function listLayouts(
             entry.title,
             entry.category,
             entry.description,
+            entry.languages.join(" "),
             entry.placeholders.join(" "),
             entry.template,
         ]

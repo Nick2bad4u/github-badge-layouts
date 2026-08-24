@@ -13,6 +13,7 @@ const entries = [
         badgeCount: 5,
         category: "Packages",
         description: "An npm layout.",
+        languages: ["JavaScript", "TypeScript"],
         placeholders: ["PACKAGE"],
         template: "npm PACKAGE",
         title: "Zulu package",
@@ -21,6 +22,7 @@ const entries = [
         badgeCount: 2,
         category: "Projects",
         description: "A GitHub layout.",
+        languages: ["Language agnostic"],
         placeholders: ["OWNER", "REPO"],
         template: "github OWNER/REPO",
         title: "Alpha project",
@@ -29,6 +31,7 @@ const entries = [
         badgeCount: 5,
         category: "Packages",
         description: "A Rust layout.",
+        languages: ["Rust"],
         placeholders: ["CRATE"],
         template: "crates CRATE",
         title: "Alpha package",
@@ -40,6 +43,7 @@ describe("gallery state", () => {
         expect(
             filterAndSortEntries(entries, {
                 category: "Packages",
+                language: "Rust",
                 query: "crate",
                 sort: "featured",
             })
@@ -47,6 +51,7 @@ describe("gallery state", () => {
         expect(
             filterAndSortEntries(entries, {
                 category: "all",
+                language: "all",
                 query: "OWNER/REPO",
                 sort: "featured",
             })
@@ -57,6 +62,7 @@ describe("gallery state", () => {
         expect(
             filterAndSortEntries(entries, {
                 category: "all",
+                language: "all",
                 query: "",
                 sort: "featured",
             })
@@ -66,6 +72,7 @@ describe("gallery state", () => {
     it("sorts badge totals in either direction with stable title ties", () => {
         const descending = filterAndSortEntries(entries, {
             category: "all",
+            language: "all",
             query: "",
             sort: "badges-desc",
         });
@@ -77,6 +84,7 @@ describe("gallery state", () => {
 
         const ascending = filterAndSortEntries(entries, {
             category: "all",
+            language: "all",
             query: "",
             sort: "badges-asc",
         });
@@ -90,6 +98,7 @@ describe("gallery state", () => {
     it("sorts by title or category", () => {
         const titleDescending = filterAndSortEntries(entries, {
             category: "all",
+            language: "all",
             query: "",
             sort: "title-desc",
         });
@@ -101,6 +110,7 @@ describe("gallery state", () => {
 
         const categoryAscending = filterAndSortEntries(entries, {
             category: "all",
+            language: "all",
             query: "",
             sort: "category-asc",
         });
@@ -114,6 +124,7 @@ describe("gallery state", () => {
     it("defaults ascending title sort and ignores blank category mismatches", () => {
         const titleAscending = filterAndSortEntries(entries, {
             category: "all",
+            language: "all",
             query: "npm",
             sort: "title-asc",
         });
@@ -121,6 +132,7 @@ describe("gallery state", () => {
         expect(
             filterAndSortEntries(entries, {
                 category: "Missing",
+                language: "all",
                 query: "",
                 sort: "title-asc",
             })
@@ -148,8 +160,22 @@ describe("gallery state", () => {
         expect(parseGalleryView("list", "grid")).toBe("list");
         expect(parseGalleryView("cards", "grid")).toBe("grid");
         expect(parseGalleryView("cards", "grid")).not.toBe("cards");
+        expect(parseGalleryView("cards", "list")).toBe("list");
+        expect(
+            parseGalleryView(
+                "cards",
+                "cards" as Parameters<typeof parseGalleryView>[1]
+            )
+        ).toBe("grid");
         expect(parseSortMode("badges-desc", "featured")).toBe("badges-desc");
         expect(parseSortMode("popular", "featured")).toBe("featured");
+        expect(parseSortMode("popular", "title-desc")).toBe("title-desc");
+        expect(
+            parseSortMode(
+                "popular",
+                "popular" as Parameters<typeof parseSortMode>[1]
+            )
+        ).toBe("featured");
     });
 
     it("decodes safe hash targets without throwing on malformed input", () => {

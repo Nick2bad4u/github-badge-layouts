@@ -24,7 +24,8 @@ describe("CLI", () => {
     it("prints help and version", () => {
         const help = runCli(["--help"]);
         expect(help.status).toBe(0);
-        expect(help.stdout).toContain("discover, customize, and maintain");
+        expect(help.stdout).toContain("discover, preview, and maintain");
+        expect(help.stdout).toContain("preview <layout>");
 
         const version = runCli(["--version"]);
         expect(version.status).toBe(0);
@@ -44,6 +45,63 @@ describe("CLI", () => {
         expect(layouts.map((layout) => layout.title)).toContain(
             "PowerShell module"
         );
+    });
+
+    it("filters layouts by language and lists language counts", () => {
+        const search = runCli([
+            "search",
+            "package",
+            "--language",
+            "Rust",
+            "--json",
+        ]);
+        expect(search.status).toBe(0);
+        const layouts = JSON.parse(search.stdout) as {
+            readonly languages: readonly string[];
+            readonly title: string;
+        }[];
+        expect(layouts).toEqual([
+            expect.objectContaining({
+                languages: expect.arrayContaining(["Rust"]),
+                title: "Rust crate",
+            }),
+        ]);
+
+        const languages = runCli(["languages"]);
+        expect(languages.status).toBe(0);
+        expect(languages.stdout).toContain("Language agnostic");
+        expect(languages.stdout).toContain("TypeScript");
+    });
+
+    it("renders ANSI previews and command-specific help", () => {
+        const preview = runCli([
+            "preview",
+            "balanced-public-repository",
+            "--color",
+            "always",
+        ]);
+        expect(preview.status).toBe(0);
+        expect(preview.stdout).toContain("\u{1B}[");
+        expect(preview.stdout).toContain("Latest stable GitHub release");
+        expect(preview.stdout).toContain("Add --live");
+
+        const help = runCli(["preview", "--help"]);
+        expect(help.status).toBe(0);
+        expect(help.stdout).toContain("--renderer <ansi|glow>");
+    });
+
+    it("detects repository context and suggests misspelled commands", () => {
+        const context = runCli(["context", "--json"]);
+        expect(context.status).toBe(0);
+        expect(JSON.parse(context.stdout)).toMatchObject({
+            owner: "Nick2bad4u",
+            repo: "github-badge-layouts",
+            source: "git",
+        });
+
+        const misspelled = runCli(["previe"]);
+        expect(misspelled.status).toBe(1);
+        expect(misspelled.stderr).toContain("Did you mean preview?");
     });
 
     it("renders personalized classic badges", () => {

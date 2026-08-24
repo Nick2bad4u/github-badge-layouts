@@ -32,6 +32,7 @@ const minimumLayoutCount = 52;
  * @property {string} category
  * @property {string} description
  * @property {string} id
+ * @property {string[]} languages
  * @property {string[]} placeholders
  * @property {number} sourceLine
  * @property {string} template
@@ -42,6 +43,9 @@ const placeholderNames = [
     "UPTIME_ROBOT_MONITOR_KEY",
     "CODECLIMATE_REPO",
     "CODECLIMATE_ORG",
+    "DEEPSCAN_PROJECT",
+    "DEEPSCAN_BRANCH",
+    "DEEPSCAN_TEAM",
     "LIBERAPAY_ACCOUNT",
     "APPVEYOR_PROJECT",
     "APPVEYOR_ACCOUNT",
@@ -51,6 +55,8 @@ const placeholderNames = [
     "WINGET_PACKAGE_ID",
     "AZURE_PROJECT",
     "MATRIX_SERVER",
+    "MASTODON_SERVER",
+    "MASTODON_USER",
     "SNYK_PROJECT_ID",
     "GITLAB_NAMESPACE",
     "SCOOP_PACKAGE",
@@ -89,6 +95,8 @@ const placeholderNames = [
     "ARCH",
     "TAG",
 ];
+
+const languageAnnotationPattern = /^<!-- languages: ([^<>]+) -->$/;
 
 /** @param {string} template */
 function findPlaceholders(template) {
@@ -143,8 +151,46 @@ function stripInlineLinks(value) {
 /** @param {string[]} lines */
 function cleanDescription(lines) {
     return stripInlineMarkdown(
-        lines.filter((line) => !line.trimStart().startsWith("[![")).join(" ")
+        lines
+            .filter(
+                (line) =>
+                    !line.trimStart().startsWith("[![") &&
+                    !languageAnnotationPattern.test(line.trim())
+            )
+            .join(" ")
     );
+}
+
+/**
+ * @param {string[]} lines
+ * @param {string} title
+ * @param {number} sourceLine
+ *
+ * @returns {string[]}
+ */
+function parseLanguages(lines, title, sourceLine) {
+    const annotations = lines
+        .map((line) => languageAnnotationPattern.exec(line.trim()))
+        .filter((match) => match !== null);
+    if (annotations.length !== 1) {
+        throw new Error(
+            `Layout "${title}" at library.md:${sourceLine} must have exactly one <!-- languages: ... --> annotation.`
+        );
+    }
+
+    const languages = (annotations[0]?.[1] ?? "")
+        .split(",")
+        .map((language) => language.trim())
+        .filter(Boolean);
+    if (
+        languages.length === 0 ||
+        new Set(languages).size !== languages.length
+    ) {
+        throw new Error(
+            `Layout "${title}" at library.md:${sourceLine} has empty or duplicate language values.`
+        );
+    }
+    return languages;
 }
 
 /** @param {string} value */
@@ -261,6 +307,7 @@ function createCatalogEntry(
         category,
         title: entryTitle,
         description: "",
+        languages: [],
         sourceLine: headingLine,
         template,
         placeholders,
@@ -325,6 +372,7 @@ function parseLibrary(markdown) {
             block.template,
             usedIds
         );
+        entry.languages = parseLanguages(intro, entry.title, headingLine);
         entry.description = cleanDescription(intro);
         entry.sourceLine = headingLine;
         entries.push(entry);
@@ -366,6 +414,13 @@ function parseLibrary(markdown) {
 const library = await readFile(libraryPath, "utf8");
 const entries = parseLibrary(library);
 const categories = [...new Set(entries.map((entry) => entry.category))];
+const languages = [
+    ...new Set(entries.flatMap((entry) => entry.languages)),
+].toSorted((left, right) => {
+    if (left === "Language agnostic") return -1;
+    if (right === "Language agnostic") return 1;
+    return left.localeCompare(right);
+});
 const badgeCount = entries.reduce(
     (total, entry) => total + entry.badgeCount,
     0
@@ -376,6 +431,8 @@ const catalog = {
     badgeCount,
     categoryCount: categories.length,
     categories,
+    languageCount: languages.length,
+    languages,
     entries,
 };
 const catalogJson = JSON.stringify(catalog, null, 4);
@@ -404,7 +461,7 @@ if (checkOnly) {
         );
     }
     console.log(
-        `Catalog is current: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories.`
+        `Catalog is current: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages.`
     );
 } else {
     await mkdir(path.dirname(packageOutputPath), { recursive: true });
@@ -414,6 +471,6 @@ if (checkOnly) {
         )
     );
     console.log(
-        `Generated site and package catalogs: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories.`
+        `Generated site and package catalogs: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages.`
     );
 }

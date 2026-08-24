@@ -768,8 +768,9 @@ h1 {
     z-index: 20;
     grid-template-columns:
         [search-start] minmax(16rem, 1.45fr)
-        [search-end category-start] minmax(10rem, 0.72fr)
-        [category-end sort-start] minmax(12rem, 0.9fr)
+        [search-end category-start] minmax(9rem, 0.68fr)
+        [category-end language-start] minmax(8rem, 0.58fr)
+        [language-end sort-start] minmax(10rem, 0.78fr)
         [sort-end view-start] minmax(9rem, 0.58fr)
         [view-end size-start] minmax(8rem, 0.42fr)
         [size-end reset-start] auto [reset-end];
@@ -980,6 +981,12 @@ h1 {
     margin-block: 0.375rem 0;
     font-size: 1.25rem;
     line-height: 1.375;
+}
+
+.language-tags {
+    margin-block: 0.375rem 0;
+    font-size: 0.75rem;
+    color: var(--faint);
 }
 
 .source-link {
@@ -1368,6 +1375,12 @@ footer {
     .hero-layout {
         gap: 1rem;
         padding-block: 3rem;
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem 2rem;
     }
 
     .hero-visual {
