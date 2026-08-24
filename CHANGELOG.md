@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-23
+
 ### Added
 
 - Grid and compact list gallery views with inline copy actions, persisted view preferences, and sorting by badge count, title, or category.
@@ -27,5 +29,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Strict shared lint, formatting, secret, duplication, link, package-surface, TypeScript, and Vitest coverage gates.
 - Pinned GitHub Pages, CodeQL, Codecov, SonarQube Cloud, security, maintenance, and OIDC trusted-release workflows.
 
-[Unreleased]: https://github.com/Nick2bad4u/github-badge-layouts/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Nick2bad4u/github-badge-layouts/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Nick2bad4u/github-badge-layouts/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Nick2bad4u/github-badge-layouts/releases/tag/v0.2.0
+[0.1.0]: https://www.npmjs.com/package/github-badge-layouts/v/0.1.0
