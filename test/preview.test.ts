@@ -43,6 +43,26 @@ describe("terminal badge preview", () => {
         ]);
     });
 
+    it("decodes each XML entity exactly once", async () => {
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    new Response(
+                        "<svg><title>&amp;lt; &#38;lt; &#x1F680; &quot;x&quot; &#999999999;</title></svg>",
+                        { status: 200 }
+                    )
+                )
+            )
+        );
+        const badges = parseTerminalBadges(markdown);
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({
+                title: `&lt; &lt; 🚀 "x" &#999999999;`,
+            }),
+        ]);
+    });
+
     it("flags error text hidden inside successful SVG responses", async () => {
         vi.stubGlobal(
             "fetch",

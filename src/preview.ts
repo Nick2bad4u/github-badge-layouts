@@ -13,6 +13,7 @@ const badgePattern =
     /\[!\[(?<alt>[^\]]*)\]\((?<image>https:\/\/[^\s\)]+)\)\]\((?<target>https:\/\/[^\s\)]+)\)/gv;
 const suspiciousTitlePattern =
     /(?:^|\b)(?:429|500|discontinued|error|timeout|undefined|unknown)(?:\b|$)/iv;
+const xmlEntityPattern = /&(?:amp|apos|gt|lt|quot|#\d+|#x[\da-f]+);/giv;
 
 /** Fetch live SVG titles for parsed Badgen images with bounded timeouts. */
 export async function loadLiveBadgeTitles(
@@ -58,38 +59,32 @@ function badgeColor(url: Readonly<URL>): string {
     return "0E7490";
 }
 
-function decodeDecimalEntities(value: string): string {
-    let decoded = value;
-    for (const match of value.matchAll(/&#(?<decimal>\d+);/gv)) {
-        const codePoint = Number(match.groups?.["decimal"] ?? "0");
-        decoded = decoded.replaceAll(match[0], () =>
-            String.fromCodePoint(codePoint)
-        );
-    }
-    return decoded;
-}
-
-function decodeHexadecimalEntities(value: string): string {
-    let decoded = value;
-    for (const match of value.matchAll(/&#x(?<hexadecimal>[\da-f]+);/giv)) {
-        const codePoint = Number.parseInt(
-            match.groups?.["hexadecimal"] ?? "0",
-            16
-        );
-        decoded = decoded.replaceAll(match[0], () =>
-            String.fromCodePoint(codePoint)
-        );
-    }
-    return decoded;
-}
-
 function decodeXml(value: string): string {
-    return decodeHexadecimalEntities(decodeDecimalEntities(value))
-        .replaceAll("&amp;", "&")
-        .replaceAll("&lt;", "<")
-        .replaceAll("&gt;", ">")
-        .replaceAll("&quot;", '"')
-        .replaceAll("&apos;", "'");
+    let decoded = "";
+    let cursor = 0;
+    for (const match of value.matchAll(xmlEntityPattern)) {
+        const index = match.index;
+        decoded += value.slice(cursor, index);
+        decoded += decodeXmlEntity(match[0]);
+        cursor = index + match[0].length;
+    }
+    return decoded + value.slice(cursor);
+}
+
+function decodeXmlEntity(entity: string): string {
+    const normalized = entity.toLowerCase();
+    if (normalized === "&amp;") return "&";
+    if (normalized === "&apos;") return "'";
+    if (normalized === "&gt;") return ">";
+    if (normalized === "&lt;") return "<";
+    if (normalized === "&quot;") return '"';
+
+    const isHexadecimal = normalized.startsWith("&#x");
+    const codePoint = Number.parseInt(
+        normalized.slice(isHexadecimal ? 3 : 2, -1),
+        isHexadecimal ? 16 : 10
+    );
+    return isXmlCodePoint(codePoint) ? String.fromCodePoint(codePoint) : entity;
 }
 
 async function fetchLiveBadgeTitle(
@@ -134,6 +129,17 @@ function firstPathSegment(pathname: string): string {
             ? pathWithoutRoot
             : pathWithoutRoot.slice(0, separator);
     return segment.length > 0 ? segment : "badge";
+}
+
+function isXmlCodePoint(codePoint: number): boolean {
+    return (
+        codePoint === 0x9 ||
+        codePoint === 0xa ||
+        codePoint === 0xd ||
+        (codePoint >= 0x20 && codePoint <= 0xd7_ff) ||
+        (codePoint >= 0xe0_00 && codePoint <= 0xff_fd) ||
+        (codePoint >= 0x1_00_00 && codePoint <= 0x10_ff_ff)
+    );
 }
 
 async function loadLiveBadgeTitle(
