@@ -1,6 +1,6 @@
 {
     "name": "github-badge-layouts",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "private": false,
     "description": "Curated Badgen layouts with a personalized gallery and a dependency-free README badge CLI.",
     "keywords": [
