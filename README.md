@@ -8,7 +8,7 @@
 
 A curated library of copy-ready [Badgen](https://badgen.net/) combinations, a personalized browser gallery, and a dependency-free npm CLI/API for maintaining README badges.
 
-The canonical [`library.md`](library.md) currently contains **65 layouts**, **410 badges**, and **10 categories** covering GitHub projects, JavaScript and TypeScript, native and managed languages, package registries, containers, infrastructure, editor/browser extensions, operating-system distribution, and community metadata.
+The canonical [`library.md`](library.md) currently contains **72 layouts**, **447 badges**, and **11 categories** covering GitHub projects, JavaScript and TypeScript, native and managed languages, package registries, containers, infrastructure, external CI and code quality, editor/browser extensions, operating-system distribution, and community metadata.
 
 ## Interactive gallery
 
@@ -16,16 +16,17 @@ The canonical [`library.md`](library.md) currently contains **65 layouts**, **41
 
 - Personalize every visible layout from one owner, repository, and branch form. Defaults use `Nick2bad4u/gh-runs-cleanup` on `main`.
 - Switch every Badgen image between flat and classic rendering without changing its destination.
-- Search and filter the catalog, select 4, 6, 9, or 12 layouts per page, and use real pagination. Only the current page creates badge-image requests.
+- Search and filter the catalog, sort by title, category, or badge count, and switch between detailed grid cards and compact list rows with inline copy actions.
+- Select 4, 6, 9, or 12 layouts per page and use real pagination. Only the current page creates badge-image requests.
 - Apply layout-specific placeholders such as `PACKAGE`, `CRATE`, `POD`, or `EXTENSION_ID`.
 - Copy rendered Markdown or the equivalent CLI command.
-- Preserve filters and personalization in the URL and local browser preferences.
+- Preserve shareable filters and personalization in the URL, with view, sort, style, and page-size preferences stored locally.
 
 The interface uses code-native SVG/CSS motion and the generated hero artwork above. It uses an installed `Symbols Nerd Font Mono` when available, with Unicode and system-font fallbacks; the repository does not vendor the multi-license Nerd Fonts symbols archive.
 
 ## CLI
 
-After the first npm publication:
+Run the CLI without installing it:
 
 ```sh
 npx github-badge-layouts search powershell

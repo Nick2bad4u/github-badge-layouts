@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Grid and compact list gallery views with inline copy actions, persisted view preferences, and sorting by badge count, title, or category.
+- Seven copy-ready layouts for Azure Pipelines, CircleCI, AppVeyor, Code Climate, MELPA, Matrix, and Liberapay.
+- Unit coverage for gallery filtering, sorting, pagination, and preference parsing.
+
+### Changed
+
+- Reworked the responsive hero so its CSS artwork stays adjacent to the introduction instead of falling below the complete call-to-action block.
+- Expanded the canonical catalog to 72 layouts and 447 badges across 11 categories.
+
 ## [0.1.0] - 2026-08-23
 
 ### Added
