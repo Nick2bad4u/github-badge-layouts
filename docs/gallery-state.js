@@ -4,6 +4,7 @@
  * @property {number} badgeCount
  * @property {string} category
  * @property {string} description
+ * @property {ReadonlyArray<string>} languages
  * @property {ReadonlyArray<string>} placeholders
  * @property {string} template
  * @property {string} title
@@ -23,7 +24,8 @@ const titleCollator = new Intl.Collator("en", {
     numeric: true,
     sensitivity: "base",
 });
-const sortModes = new Set([
+/** @type {ReadonlyArray<SortMode>} */
+const sortModes = Object.freeze([
     "badges-asc",
     "badges-desc",
     "category-asc",
@@ -31,7 +33,6 @@ const sortModes = new Set([
     "title-asc",
     "title-desc",
 ]);
-
 /** @param {string} hash */
 export function decodeHashTarget(hash) {
     if (!hash.startsWith("#") || hash.length === 1) return "";
@@ -46,7 +47,12 @@ export function decodeHashTarget(hash) {
  * @template {GalleryEntry} T
  *
  * @param {ReadonlyArray<T>} entries
- * @param {{ category: string; query: string; sort: SortMode }} options
+ * @param {{
+ *     category: string;
+ *     language: string;
+ *     query: string;
+ *     sort: SortMode;
+ * }} options
  *
  * @returns {T[]}
  */
@@ -56,8 +62,12 @@ export function filterAndSortEntries(entries, options) {
         const isInCategory =
             options.category === "all" || entry.category === options.category;
         if (!isInCategory) return false;
+        const hasLanguage =
+            options.language === "all" ||
+            entry.languages.includes(options.language);
+        if (!hasLanguage) return false;
         if (!query) return true;
-        return `${entry.title} ${entry.category} ${entry.description} ${entry.placeholders.join(" ")} ${entry.template}`
+        return `${entry.title} ${entry.category} ${entry.languages.join(" ")} ${entry.description} ${entry.placeholders.join(" ")} ${entry.template}`
             .toLocaleLowerCase()
             .includes(query);
     });
@@ -114,13 +124,15 @@ export function paginateEntries(entries, requestedPage, requestedPageSize) {
 
 /** @param {string | null | undefined} value @param {GalleryView} fallback */
 export function parseGalleryView(value, fallback) {
-    return value === "grid" || value === "list" ? value : fallback;
+    // Return trusted literals so URL and storage values cannot flow to a sink.
+    if (value === "grid") return "grid";
+    if (value === "list") return "list";
+    return fallback === "list" ? "list" : "grid";
 }
 
 /** @param {string | null | undefined} value @param {SortMode} fallback */
 export function parseSortMode(value, fallback) {
-    if (sortModes.has(value ?? "")) {
-        return /** @type {SortMode} */ (value);
-    }
-    return fallback;
+    const parsedValue = sortModes.find((mode) => mode === value);
+    const parsedFallback = sortModes.find((mode) => mode === fallback);
+    return parsedValue ?? parsedFallback ?? "featured";
 }

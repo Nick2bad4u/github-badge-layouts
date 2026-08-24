@@ -5,6 +5,8 @@ export interface BadgeCatalog {
     readonly categoryCount: number;
     readonly entries: readonly BadgeCatalogEntry[];
     readonly generatedFrom: string;
+    readonly languageCount: number;
+    readonly languages: readonly string[];
     readonly layoutCount: number;
 }
 
@@ -14,6 +16,7 @@ export interface BadgeCatalogEntry {
     readonly category: string;
     readonly description: string;
     readonly id: string;
+    readonly languages: readonly string[];
     readonly placeholders: readonly string[];
     readonly sourceLine: number;
     readonly template: string;

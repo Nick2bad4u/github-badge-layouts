@@ -28,6 +28,7 @@ import {
  * @property {string} category
  * @property {string} description
  * @property {string} id
+ * @property {string[]} languages
  * @property {string[]} placeholders
  * @property {number} sourceLine
  * @property {string} template
@@ -47,6 +48,7 @@ import {
  *
  * @property {string} branch
  * @property {string} category
+ * @property {string} language
  * @property {string} owner
  * @property {number} page
  * @property {number} pageSize
@@ -62,6 +64,7 @@ const storageKey = "github-badge-layouts:preferences:v1";
 const defaultState = Object.freeze({
     branch: "main",
     category: "all",
+    language: "all",
     owner: "Nick2bad4u",
     page: 1,
     pageSize: 6,
@@ -115,6 +118,8 @@ const branchInput = queryRequired(document, "#branch");
 const searchInput = queryRequired(document, "#search");
 /** @type {HTMLSelectElement} */
 const categorySelect = queryRequired(document, "#category");
+/** @type {HTMLSelectElement} */
+const languageSelect = queryRequired(document, "#language");
 /** @type {HTMLSelectElement} */
 const sortSelect = queryRequired(document, "#sort");
 /** @type {HTMLSelectElement} */
@@ -287,7 +292,9 @@ function parseStoredPreferences(raw) {
 
 /** @param {string | null} value @param {BadgeStyle} fallback */
 function parseStyle(value, fallback) {
-    return value === "classic" || value === "flat" ? value : fallback;
+    if (value === "classic") return "classic";
+    if (value === "flat") return "flat";
+    return fallback === "classic" ? "classic" : "flat";
 }
 
 const storedPreferences = loadStoredPreferences();
@@ -296,6 +303,7 @@ const initialParameters = new URLSearchParams(location.search);
 const state = {
     branch: initialParameters.get("branch") ?? defaultState.branch,
     category: initialParameters.get("category") ?? defaultState.category,
+    language: initialParameters.get("language") ?? defaultState.language,
     owner: initialParameters.get("owner") ?? defaultState.owner,
     page: parsePositiveInteger(
         initialParameters.get("page"),
@@ -342,7 +350,10 @@ function buildCard(entry) {
     category.textContent = entry.category;
     const heading = document.createElement("h2");
     heading.textContent = entry.title;
-    headingGroup.append(category, heading);
+    const languages = document.createElement("p");
+    languages.className = "language-tags";
+    languages.textContent = entry.languages.join(" · ");
+    headingGroup.append(category, heading, languages);
     const source = document.createElement("a");
     source.className = "source-link";
     source.href = `${repositoryUrl}/blob/main/library.md#L${entry.sourceLine}`;
@@ -600,7 +611,7 @@ async function copyText(text) {
 
 /** @param {BadgeCatalogEntry} entry @param {string} placeholder */
 function exampleValue(entry, placeholder) {
-    const haystack = `${entry.category} ${entry.title}`;
+    const haystack = `${entry.category} ${entry.languages.join(" ")} ${entry.title}`;
     const ecosystem = ecosystemExamples.find(({ test }) => test.test(haystack));
     return (
         ecosystem?.values[placeholder] ??
@@ -612,6 +623,7 @@ function exampleValue(entry, placeholder) {
 function getFilteredEntries() {
     return filterAndSortEntries(badgeCatalog.entries, {
         category: state.category,
+        language: state.language,
         query: state.query,
         sort: state.sort,
     });
@@ -759,6 +771,9 @@ function persistState() {
     if (state.query) parameters.set("q", state.query);
     if (state.category !== defaultState.category) {
         parameters.set("category", state.category);
+    }
+    if (state.language !== defaultState.language) {
+        parameters.set("language", state.language);
     }
     if (state.page !== defaultState.page)
         parameters.set("page", String(state.page));
@@ -912,10 +927,12 @@ function resetContext() {
 function resetFilters() {
     state.query = defaultState.query;
     state.category = defaultState.category;
+    state.language = defaultState.language;
     state.page = defaultState.page;
     state.sort = defaultState.sort;
     searchInput.value = state.query;
     categorySelect.value = state.category;
+    languageSelect.value = state.language;
     sortSelect.value = state.sort;
     render();
     searchInput.focus();
@@ -1040,6 +1057,13 @@ for (const category of badgeCatalog.categories) {
     categorySelect.append(option);
 }
 
+for (const language of badgeCatalog.languages) {
+    const option = document.createElement("option");
+    option.value = language;
+    option.textContent = language;
+    languageSelect.append(option);
+}
+
 ownerInput.value = state.owner;
 repositoryInput.value = state.repo;
 branchInput.value = state.branch;
@@ -1048,6 +1072,10 @@ categorySelect.value = badgeCatalog.categories.includes(state.category)
     ? state.category
     : defaultState.category;
 state.category = categorySelect.value;
+languageSelect.value = badgeCatalog.languages.includes(state.language)
+    ? state.language
+    : defaultState.language;
+state.language = languageSelect.value;
 sortSelect.value = state.sort;
 const allowedPageSizes = [
     4,
@@ -1079,6 +1107,8 @@ queryRequired(document, "#badge-total").textContent =
     badgeCatalog.badgeCount.toLocaleString();
 queryRequired(document, "#category-total").textContent =
     badgeCatalog.categoryCount.toLocaleString();
+queryRequired(document, "#language-total").textContent =
+    badgeCatalog.languageCount.toLocaleString();
 
 searchInput.addEventListener("input", () => {
     state.query = searchInput.value;
@@ -1087,6 +1117,11 @@ searchInput.addEventListener("input", () => {
 });
 categorySelect.addEventListener("change", () => {
     state.category = categorySelect.value;
+    state.page = 1;
+    render();
+});
+languageSelect.addEventListener("change", () => {
+    state.language = languageSelect.value;
     state.page = 1;
     render();
 });

@@ -11,6 +11,7 @@ describe("catalog", () => {
     it("exposes internally consistent totals", () => {
         expect(badgeCatalog.layoutCount).toBe(badgeCatalog.entries.length);
         expect(badgeCatalog.categoryCount).toBe(badgeCatalog.categories.length);
+        expect(badgeCatalog.languageCount).toBe(badgeCatalog.languages.length);
         expect(badgeCatalog.badgeCount).toBe(
             badgeCatalog.entries.reduce(
                 (total, entry) => total + entry.badgeCount,
@@ -30,10 +31,21 @@ describe("catalog", () => {
         ).toBeGreaterThan(0);
         expect(
             listLayouts({ category: "JavaScript and TypeScript" })
-        ).toHaveLength(5);
+        ).toHaveLength(6);
         expect(
             listLayouts({ category: "External CI and code quality" })
-        ).toHaveLength(4);
+        ).toHaveLength(5);
+        expect(listLayouts({ language: "Rust" })).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({ title: "Rust crate" }),
+                expect.objectContaining({
+                    title: "Rust application or command-line tool",
+                }),
+            ])
+        );
+        expect(listLayouts({ language: "TypeScript" }).length).toBeGreaterThan(
+            listLayouts({ category: "JavaScript and TypeScript" }).length
+        );
         expect(listLayouts({ query: "MATRIX_SERVER" })).toEqual(
             expect.arrayContaining([
                 expect.objectContaining({
