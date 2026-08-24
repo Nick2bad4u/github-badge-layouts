@@ -310,6 +310,10 @@ function escapeMarkdownText(value: string): string {
         .replaceAll("]", String.raw`\]`);
 }
 
+function formatLayoutCount(count: number): string {
+    return `${count} ${count === 1 ? "layout" : "layouts"}`;
+}
+
 function gitOutput(commandArguments: readonly string[]): string | undefined {
     // eslint-disable-next-line sonarjs/no-os-command-from-path -- Git must resolve from the user's configured CLI PATH.
     const result = spawnSync("git", commandArguments, {
@@ -399,13 +403,7 @@ function parseArguments(cliArguments: readonly string[]): ParsedArguments {
             isOptionsEnded = true;
         } else if (!isOptionsEnded && token.startsWith("--")) {
             const parsedOption = parseLongOption(token, tokens[index + 1]);
-            if (parsedOption.kind === "boolean") {
-                booleans.add(parsedOption.name);
-            } else {
-                const values = options.get(parsedOption.name) ?? [];
-                values.push(parsedOption.value ?? "");
-                options.set(parsedOption.name, values);
-            }
+            recordParsedOption(parsedOption, booleans, options);
             if (parsedOption.shouldConsumeNextToken) index += 1;
         } else {
             positionals.push(token);
@@ -555,6 +553,20 @@ async function readMarkdownInput(parsed: ParsedArguments): Promise<string> {
     throw new Error(
         "Provide Markdown, --input <file>, or pipe Markdown on stdin."
     );
+}
+
+function recordParsedOption(
+    parsedOption: Readonly<ParsedLongOption>,
+    booleans: Set<string>,
+    options: Map<string, string[]>
+): void {
+    if (parsedOption.kind === "boolean") {
+        booleans.add(parsedOption.name);
+        return;
+    }
+    const values = options.get(parsedOption.name) ?? [];
+    values.push(parsedOption.value ?? "");
+    options.set(parsedOption.name, values);
 }
 
 function requiredLayout(
@@ -793,7 +805,7 @@ function runListCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
     ]);
     const shown =
         layouts.length === allMatches.length
-            ? `${layouts.length} ${layouts.length === 1 ? "layout" : "layouts"}`
+            ? formatLayoutCount(layouts.length)
             : `${layouts.length} of ${allMatches.length} layouts`;
     const countLabel = theme.dim(`(${shown})`);
     process.stdout.write(
