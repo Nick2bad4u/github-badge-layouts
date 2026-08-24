@@ -1,10 +1,16 @@
 import { spawnSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const cliPath = path.join(repositoryRoot, "dist", "cli", "bin.js");
+const packageVersion = (
+    JSON.parse(
+        readFileSync(path.join(repositoryRoot, "package.json"), "utf8")
+    ) as { readonly version: string }
+).version;
 
 function runCli(cliArguments: readonly string[], input?: string) {
     return spawnSync(process.execPath, [cliPath, ...cliArguments], {
@@ -22,7 +28,7 @@ describe("CLI", () => {
 
         const version = runCli(["--version"]);
         expect(version.status).toBe(0);
-        expect(version.stdout).toMatch(/^0\.1\.0\s*$/v);
+        expect(version.stdout.trim()).toBe(packageVersion);
     });
 
     it("searches the catalog as JSON", () => {

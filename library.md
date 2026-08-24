@@ -2,7 +2,7 @@
 
 Copy a row, replace its uppercase placeholders, and remove any badge whose service you do not actually use. Every image URL uses `flat.badgen.net`; every click target goes to the underlying project, registry, report, or workflow rather than to the badge image.
 
-This library was built against Badgen's current official generator catalog and spot-checked against live SVG responses on 2026-08-22.
+This library was built against Badgen's current official generator catalog and spot-checked against live SVG responses on 2026-08-23.
 
 ## Styling system
 
@@ -29,18 +29,24 @@ Do not force `?color=green` onto checks, security, uptime, or coverage badges. A
 
 ## Placeholder guide
 
-| Placeholder                                   | Replace with                                                                   |
-| --------------------------------------------- | ------------------------------------------------------------------------------ |
-| `OWNER` / `REPO`                              | GitHub owner and repository                                                    |
-| `BRANCH`                                      | Default branch, usually `main`                                                 |
-| `PACKAGE`                                     | Registry package name; scoped npm names such as `@scope/package` are supported |
-| `DOCKER_SCOPE` / `IMAGE` / `TAG` / `ARCH`     | Docker Hub coordinates, such as `library/ubuntu/latest/amd64`                  |
-| `CRATE`, `GEM`, `POD`, `FORMULA`, and similar | The package's registry identifier                                              |
-| `PUBLISHER.EXTENSION`                         | Visual Studio Marketplace identifier                                           |
-| `NAMESPACE` / `EXTENSION`                     | Open VSX namespace and extension                                               |
-| `EXTENSION_ID`                                | Chrome or Edge store extension ID                                              |
-| `ADDON_SLUG`                                  | Firefox Add-ons slug                                                           |
-| `UPTIME_ROBOT_MONITOR_KEY`                    | A monitor-specific read-only key, never the account-wide API key               |
+| Placeholder                                      | Replace with                                                                   |
+| ------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `OWNER` / `REPO`                                 | GitHub owner and repository                                                    |
+| `BRANCH`                                         | Default branch, usually `main`                                                 |
+| `PACKAGE`                                        | Registry package name; scoped npm names such as `@scope/package` are supported |
+| `DOCKER_SCOPE` / `IMAGE` / `TAG` / `ARCH`        | Docker Hub coordinates, such as `library/ubuntu/latest/amd64`                  |
+| `CRATE`, `GEM`, `POD`, `FORMULA`, and similar    | The package's registry identifier                                              |
+| `PUBLISHER.EXTENSION`                            | Visual Studio Marketplace identifier                                           |
+| `NAMESPACE` / `EXTENSION`                        | Open VSX namespace and extension                                               |
+| `EXTENSION_ID`                                   | Chrome or Edge store extension ID                                              |
+| `ADDON_SLUG`                                     | Firefox Add-ons slug                                                           |
+| `UPTIME_ROBOT_MONITOR_KEY`                       | A monitor-specific read-only key, never the account-wide API key               |
+| `AZURE_ORG` / `AZURE_PROJECT` / `AZURE_PIPELINE` | Azure DevOps organization, project, and pipeline definition ID                 |
+| `CI_OWNER` / `CI_REPO` / `CI_BRANCH`             | Repository coordinates as configured in an external CI provider                |
+| `APPVEYOR_ACCOUNT` / `APPVEYOR_PROJECT`          | AppVeyor account and project slug                                              |
+| `CODECLIMATE_ORG` / `CODECLIMATE_REPO`           | Code Climate organization and repository slug                                  |
+| `MATRIX_ROOM` / `MATRIX_SERVER`                  | Public Matrix room alias and homeserver, without the leading `#`               |
+| `LIBERAPAY_ACCOUNT`                              | Liberapay account slug                                                         |
 
 URL-encode spaces and special characters in path segments. If your default branch is not `main`, replace it everywhere—including badge URLs and destination links.
 
@@ -128,6 +134,42 @@ Badgen's GitLab release and license integrations currently return upstream error
 
 ```md
 [![GitLab stars.](https://flat.badgen.net/gitlab/stars/GITLAB_NAMESPACE/REPO?color=B45309)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/starrers) [![GitLab forks.](https://flat.badgen.net/gitlab/forks/GITLAB_NAMESPACE/REPO?color=C2410C)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/forks) [![GitLab open issues.](https://flat.badgen.net/gitlab/open-issues/GITLAB_NAMESPACE/REPO?color=B91C1C)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/issues) [![GitLab merged merge requests.](https://flat.badgen.net/gitlab/merged-mrs/GITLAB_NAMESPACE/REPO?color=0F766E)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/merge_requests?scope=all&state=merged) [![GitLab contributors.](https://flat.badgen.net/gitlab/contributors/GITLAB_NAMESPACE/REPO?color=7E22CE)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/graphs/BRANCH)
+```
+
+## External CI and code quality
+
+Use these rows only when the named service is actively configured for the project. Provider-specific placeholders are separate from `OWNER` and `REPO` because CI organizations and project slugs do not always match the GitHub repository.
+
+### Azure Pipelines project
+
+`AZURE_PIPELINE` is the numeric pipeline definition ID or a definition name accepted by Badgen. The click targets open the exact build definition rather than a generic Azure DevOps landing page.
+
+```md
+[![Continuous integration: Azure Pipelines.](https://flat.badgen.net/static/CI/Azure%20Pipelines/2560E0)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Azure Pipelines status.](https://flat.badgen.net/azure-pipelines/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Latest Azure Pipelines build version.](https://flat.badgen.net/azure-pipelines/build/version/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE?color=0E7490)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Latest Azure Pipelines test results.](https://flat.badgen.net/azure-pipelines/build/test/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE)
+```
+
+### CircleCI project
+
+This row pairs the external build result with a small set of GitHub maintenance signals. Remove the GitHub badges when the source is hosted elsewhere.
+
+```md
+[![CircleCI build on CI_BRANCH.](https://flat.badgen.net/circleci/github/CI_OWNER/CI_REPO/CI_BRANCH)](https://app.circleci.com/pipelines/github/CI_OWNER/CI_REPO) [![Last GitHub commit on CI_BRANCH.](https://flat.badgen.net/github/last-commit/CI_OWNER/CI_REPO/CI_BRANCH?color=475569)](https://github.com/CI_OWNER/CI_REPO/commits/CI_BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/CI_OWNER/CI_REPO?color=B45309)](https://github.com/CI_OWNER/CI_REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/CI_OWNER/CI_REPO?color=B91C1C)](https://github.com/CI_OWNER/CI_REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/CI_OWNER/CI_REPO?color=4338CA)](https://github.com/CI_OWNER/CI_REPO/blob/CI_BRANCH/LICENSE)
+```
+
+### AppVeyor Windows project
+
+Keep this row for projects whose Windows build is actually public in AppVeyor. `APPVEYOR_ACCOUNT` may be a user or organization slug.
+
+```md
+[![AppVeyor Windows build.](https://flat.badgen.net/appveyor/ci/APPVEYOR_ACCOUNT/APPVEYOR_PROJECT)](https://ci.appveyor.com/project/APPVEYOR_ACCOUNT/APPVEYOR_PROJECT) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Latest release asset downloads.](https://flat.badgen.net/github/assets-dl/OWNER/REPO?color=C2410C)](https://github.com/OWNER/REPO/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### Code Climate quality report
+
+Code Climate analysis must be public for these badges to resolve. Coverage can legitimately differ from another provider, so keep only the report your project treats as authoritative.
+
+```md
+[![Code Climate maintainability.](https://flat.badgen.net/codeclimate/maintainability/CODECLIMATE_ORG/CODECLIMATE_REPO)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO) [![Code Climate technical debt.](https://flat.badgen.net/codeclimate/tech-debt/CODECLIMATE_ORG/CODECLIMATE_REPO?color=C2410C)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO) [![Code Climate issues.](https://flat.badgen.net/codeclimate/issues/CODECLIMATE_ORG/CODECLIMATE_REPO?color=B91C1C)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO/issues) [![Code Climate coverage.](https://flat.badgen.net/codeclimate/coverage/CODECLIMATE_ORG/CODECLIMATE_REPO)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO/test_coverage) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
 ```
 
 ## JavaScript and TypeScript
@@ -394,6 +436,14 @@ Use the CPAN distribution name in `DISTRIBUTION`; Badgen also accepts module-sty
 [![Latest CocoaPods version.](https://flat.badgen.net/cocoapods/v/POD?color=0E7490)](https://cocoapods.org/pods/POD) [![Supported Apple platforms.](https://flat.badgen.net/cocoapods/p/POD?color=6D28D9)](https://cocoapods.org/pods/POD) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
 ```
 
+### Emacs package on MELPA
+
+MELPA exposes a live version badge but not adoption or licensing metadata through Badgen, so the rest of the row uses repository signals.
+
+```md
+[![Latest MELPA version.](https://flat.badgen.net/melpa/v/PACKAGE?color=0E7490)](https://melpa.org/#/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
 ## Editor and browser extensions
 
 ### Visual Studio Marketplace extension
@@ -474,6 +524,22 @@ The Open Collective contributors endpoint currently produces `undefined`; use Gi
 
 ```md
 [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Discord community members.](https://flat.badgen.net/discord/members/DISCORD_ID_OR_SLUG?color=6D28D9)](https://discord.gg/INVITE_CODE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### Project with a Matrix community
+
+Use the public room alias without the leading `#`. Matrix membership is the community signal; repository activity and licensing remain separate.
+
+```md
+[![Matrix room members.](https://flat.badgen.net/matrix/members/MATRIX_ROOM/MATRIX_SERVER?color=7E22CE)](https://matrix.to/#/#MATRIX_ROOM:MATRIX_SERVER) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=0F766E)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### Liberapay-funded open source
+
+Liberapay exposes receiving, patron-count, and goal-progress signals. Keep only metrics the project intentionally makes part of its funding story.
+
+```md
+[![Liberapay receiving.](https://flat.badgen.net/liberapay/receives/LIBERAPAY_ACCOUNT?color=047857)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![Liberapay patrons.](https://flat.badgen.net/liberapay/patrons/LIBERAPAY_ACCOUNT?color=BE185D)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![Liberapay goal progress.](https://flat.badgen.net/liberapay/goal/LIBERAPAY_ACCOUNT?color=0F766E)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
 ```
 
 ### Honest static project metadata

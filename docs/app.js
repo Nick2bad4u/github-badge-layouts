@@ -1,7 +1,24 @@
 import { badgeCatalog } from "./catalog.js";
+import {
+    decodeHashTarget,
+    filterAndSortEntries,
+    paginateEntries,
+    parseGalleryView,
+    parseSortMode,
+} from "./gallery-state.js";
 
 /**
  * @typedef {"classic" | "flat"} BadgeStyle
+ */
+
+/** @typedef {"grid" | "list"} GalleryView */
+/**
+ * @typedef {"badges-asc"
+ *     | "badges-desc"
+ *     | "category-asc"
+ *     | "featured"
+ *     | "title-asc"
+ *     | "title-desc"} SortMode
  */
 
 /**
@@ -35,7 +52,9 @@ import { badgeCatalog } from "./catalog.js";
  * @property {number} pageSize
  * @property {string} query
  * @property {string} repo
+ * @property {SortMode} sort
  * @property {BadgeStyle} style
+ * @property {GalleryView} view
  */
 
 const repositoryUrl = "https://github.com/Nick2bad4u/github-badge-layouts";
@@ -48,7 +67,19 @@ const defaultState = Object.freeze({
     pageSize: 6,
     query: "",
     repo: "gh-runs-cleanup",
+    sort: /** @type {SortMode} */ ("featured"),
     style: /** @type {BadgeStyle} */ ("flat"),
+    view: /** @type {GalleryView} */ ("grid"),
+});
+
+/** @type {Readonly<Record<SortMode, string>>} */
+const sortLabels = Object.freeze({
+    "badges-asc": "badge count, low to high",
+    "badges-desc": "badge count, high to low",
+    "category-asc": "category, then title",
+    featured: "featured order",
+    "title-asc": "title, A to Z",
+    "title-desc": "title, Z to A",
 });
 
 /** @type {Map<string, Record<string, string>>} */
@@ -85,6 +116,8 @@ const searchInput = queryRequired(document, "#search");
 /** @type {HTMLSelectElement} */
 const categorySelect = queryRequired(document, "#category");
 /** @type {HTMLSelectElement} */
+const sortSelect = queryRequired(document, "#sort");
+/** @type {HTMLSelectElement} */
 const pageSizeSelect = queryRequired(document, "#page-size");
 /** @type {HTMLElement} */
 const contextSummary = queryRequired(document, "#context-summary");
@@ -94,6 +127,8 @@ const grid = queryRequired(document, "#layout-grid");
 const emptyState = queryRequired(document, "#empty-state");
 /** @type {HTMLElement} */
 const resultCount = queryRequired(document, "#result-count");
+/** @type {HTMLElement} */
+const previewNoteText = queryRequired(document, "#preview-note-text");
 /** @type {HTMLElement} */
 const pagination = queryRequired(document, "#pagination");
 /** @type {HTMLElement} */
@@ -120,9 +155,19 @@ const generalExamples = Object.freeze({
     ACTION_SLUG: "checkout",
     ADDON_SLUG: "ublock-origin",
     APP_ID: "org.fdroid.fdroid",
+    APPVEYOR_ACCOUNT: "gruntjs",
+    APPVEYOR_PROJECT: "grunt",
     ARCH: "amd64",
     ARTIFACT_ID: "commons-lang3",
+    AZURE_ORG: "dnceng",
+    AZURE_PIPELINE: "51",
+    AZURE_PROJECT: "public",
     CASK: "firefox",
+    CI_BRANCH: "master",
+    CI_OWNER: "circleci",
+    CI_REPO: "circleci-docs",
+    CODECLIMATE_ORG: "codeclimate",
+    CODECLIMATE_REPO: "codeclimate",
     COLLECTIVE: "babel",
     CRATE: "serde",
     DISCORD_ID_OR_SLUG: "81384788765712384",
@@ -136,6 +181,9 @@ const generalExamples = Object.freeze({
     GROUP_ID: "org.apache.commons",
     IMAGE: "alpine",
     INVITE_CODE: "discord-developers",
+    LIBERAPAY_ACCOUNT: "GIMP",
+    MATRIX_ROOM: "rust",
+    MATRIX_SERVER: "matrix.org",
     MODULE: "Pester",
     NAMESPACE: "redhat",
     PACKAGE: "eslint",
@@ -191,6 +239,10 @@ const ecosystemExamples = [
         test: /Rust/v,
         values: { CRATE: "serde", OWNER: "serde-rs", REPO: "serde" },
     },
+    {
+        test: /Emacs|MELPA/v,
+        values: { OWNER: "magit", PACKAGE: "magit", REPO: "magit" },
+    },
 ];
 
 /** @returns {Partial<AppState>} */
@@ -219,15 +271,16 @@ function parseStoredPreferences(raw) {
     const record = /** @type {Record<string, unknown>} */ (parsed);
     /** @type {Partial<AppState>} */
     const preferences = {};
-    if (typeof record["branch"] === "string")
-        preferences.branch = record["branch"];
-    if (typeof record["owner"] === "string")
-        preferences.owner = record["owner"];
     if (typeof record["pageSize"] === "number")
         preferences.pageSize = record["pageSize"];
-    if (typeof record["repo"] === "string") preferences.repo = record["repo"];
+    if (typeof record["sort"] === "string") {
+        preferences.sort = parseSortMode(record["sort"], defaultState.sort);
+    }
     if (record["style"] === "classic" || record["style"] === "flat") {
         preferences.style = record["style"];
+    }
+    if (typeof record["view"] === "string") {
+        preferences.view = parseGalleryView(record["view"], defaultState.view);
     }
     return preferences;
 }
@@ -241,17 +294,9 @@ const storedPreferences = loadStoredPreferences();
 const initialParameters = new URLSearchParams(location.search);
 /** @type {AppState} */
 const state = {
-    branch:
-        initialParameters.get("branch") ??
-        (typeof storedPreferences.branch === "string"
-            ? storedPreferences.branch
-            : defaultState.branch),
+    branch: initialParameters.get("branch") ?? defaultState.branch,
     category: initialParameters.get("category") ?? defaultState.category,
-    owner:
-        initialParameters.get("owner") ??
-        (typeof storedPreferences.owner === "string"
-            ? storedPreferences.owner
-            : defaultState.owner),
+    owner: initialParameters.get("owner") ?? defaultState.owner,
     page: parsePositiveInteger(
         initialParameters.get("page"),
         defaultState.page
@@ -263,11 +308,11 @@ const state = {
             : defaultState.pageSize
     ),
     query: initialParameters.get("q") ?? defaultState.query,
-    repo:
-        initialParameters.get("repo") ??
-        (typeof storedPreferences.repo === "string"
-            ? storedPreferences.repo
-            : defaultState.repo),
+    repo: initialParameters.get("repo") ?? defaultState.repo,
+    sort: parseSortMode(
+        initialParameters.get("sort"),
+        storedPreferences.sort ?? defaultState.sort
+    ),
     style: parseStyle(
         initialParameters.get("style"),
         parseStyle(
@@ -276,6 +321,10 @@ const state = {
                 : null,
             defaultState.style
         )
+    ),
+    view: parseGalleryView(
+        initialParameters.get("view"),
+        storedPreferences.view ?? defaultState.view
     ),
 };
 
@@ -561,15 +610,10 @@ function exampleValue(entry, placeholder) {
 }
 
 function getFilteredEntries() {
-    const query = state.query.trim().toLocaleLowerCase();
-    return badgeCatalog.entries.filter((entry) => {
-        const isInCategory =
-            state.category === "all" || entry.category === state.category;
-        if (!isInCategory) return false;
-        if (!query) return true;
-        return `${entry.title} ${entry.category} ${entry.description} ${entry.placeholders.join(" ")} ${entry.template}`
-            .toLocaleLowerCase()
-            .includes(query);
+    return filterAndSortEntries(badgeCatalog.entries, {
+        category: state.category,
+        query: state.query,
+        sort: state.sort,
     });
 }
 
@@ -702,7 +746,9 @@ function persistState() {
             storageKey,
             JSON.stringify({
                 pageSize: state.pageSize,
+                sort: state.sort,
                 style: state.style,
+                view: state.view,
             })
         );
     } catch {
@@ -724,8 +770,10 @@ function persistState() {
     if (state.repo !== defaultState.repo) parameters.set("repo", state.repo);
     if (state.branch !== defaultState.branch)
         parameters.set("branch", state.branch);
+    if (state.sort !== defaultState.sort) parameters.set("sort", state.sort);
     if (state.style !== defaultState.style)
         parameters.set("style", state.style);
+    if (state.view !== defaultState.view) parameters.set("view", state.view);
     const query = parameters.toString();
     const search = query.length > 0 ? `?${query}` : "";
     history.replaceState(null, "", location.pathname + search + location.hash);
@@ -765,19 +813,23 @@ function quoteCliArgument(value) {
 
 function render() {
     const entries = getFilteredEntries();
-    const totalPages = Math.max(1, Math.ceil(entries.length / state.pageSize));
-    state.page = Math.min(Math.max(1, state.page), totalPages);
-    const start = (state.page - 1) * state.pageSize;
-    const visibleEntries = entries.slice(start, start + state.pageSize);
+    const page = paginateEntries(entries, state.page, state.pageSize);
+    state.page = page.page;
 
-    grid.replaceChildren(...visibleEntries.map((entry) => buildCard(entry)));
+    grid.dataset["view"] = state.view;
+    grid.ariaLabel = `Badge layouts in ${state.view} view`;
+    grid.replaceChildren(
+        ...page.visibleEntries.map((entry) => buildCard(entry))
+    );
     emptyState.hidden = entries.length > 0;
     grid.hidden = entries.length === 0;
-    const first = entries.length === 0 ? 0 : start + 1;
-    const last = Math.min(start + visibleEntries.length, entries.length);
-    resultCount.textContent = `Showing ${first}–${last} of ${entries.length} matching layouts (${badgeCatalog.layoutCount} total)`;
+    resultCount.textContent = `Showing ${page.first}–${page.last} of ${entries.length} matching layouts · ${sortLabels[state.sort]} (${badgeCatalog.layoutCount} total)`;
+    previewNoteText.textContent =
+        state.view === "list"
+            ? "Quick previews and copy actions; switch to grid to customize"
+            : "Only this page loads badge images";
     contextSummary.textContent = `${state.owner}/${state.repo} · ${state.branch} · ${state.style} Badgen`;
-    renderPagination(totalPages);
+    renderPagination(page.totalPages);
     persistState();
 }
 
@@ -861,8 +913,10 @@ function resetFilters() {
     state.query = defaultState.query;
     state.category = defaultState.category;
     state.page = defaultState.page;
+    state.sort = defaultState.sort;
     searchInput.value = state.query;
     categorySelect.value = state.category;
+    sortSelect.value = state.sort;
     render();
     searchInput.focus();
 }
@@ -994,6 +1048,7 @@ categorySelect.value = badgeCatalog.categories.includes(state.category)
     ? state.category
     : defaultState.category;
 state.category = categorySelect.value;
+sortSelect.value = state.sort;
 const allowedPageSizes = [
     4,
     6,
@@ -1011,6 +1066,12 @@ const initialStyleInput = queryRequired(
     `input[name="badge-style"][value="${state.style}"]`
 );
 initialStyleInput.checked = true;
+/** @type {HTMLInputElement} */
+const initialViewInput = queryRequired(
+    document,
+    `input[name="gallery-view"][value="${state.view}"]`
+);
+initialViewInput.checked = true;
 
 queryRequired(document, "#layout-total").textContent =
     badgeCatalog.layoutCount.toLocaleString();
@@ -1026,6 +1087,11 @@ searchInput.addEventListener("input", () => {
 });
 categorySelect.addEventListener("change", () => {
     state.category = categorySelect.value;
+    state.page = 1;
+    render();
+});
+sortSelect.addEventListener("change", () => {
+    state.sort = parseSortMode(sortSelect.value, defaultState.sort);
     state.page = 1;
     render();
 });
@@ -1048,6 +1114,13 @@ document.querySelectorAll('input[name="badge-style"]').forEach((input) => {
     input.addEventListener("change", () => {
         if (!(input instanceof HTMLInputElement) || !input.checked) return;
         state.style = /** @type {BadgeStyle} */ (input.value);
+        render();
+    });
+});
+document.querySelectorAll('input[name="gallery-view"]').forEach((input) => {
+    input.addEventListener("change", () => {
+        if (!(input instanceof HTMLInputElement) || !input.checked) return;
+        state.view = parseGalleryView(input.value, defaultState.view);
         render();
     });
 });
@@ -1092,18 +1165,20 @@ document.addEventListener("keydown", (event) => {
 });
 
 contextIsValid();
-if (location.hash.length > 1) {
-    const targetId = decodeURIComponent(location.hash.slice(1));
+const initialTargetId = decodeHashTarget(location.hash);
+if (initialTargetId) {
     const targetIndex = getFilteredEntries().findIndex(
-        (entry) => entry.id === targetId
+        (entry) => entry.id === initialTargetId
     );
     if (targetIndex !== -1) {
         state.page = Math.floor(targetIndex / state.pageSize) + 1;
     }
 }
 render();
-if (location.hash.length > 1) {
+if (initialTargetId) {
     requestAnimationFrame(() =>
-        document.querySelector(location.hash)?.scrollIntoView()
+        document
+            .querySelector(`#${CSS.escape(initialTargetId)}`)
+            ?.scrollIntoView()
     );
 }

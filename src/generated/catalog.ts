@@ -2,12 +2,13 @@
 
 export const badgeCatalog = {
     "generatedFrom": "library.md",
-    "layoutCount": 65,
-    "badgeCount": 410,
-    "categoryCount": 10,
+    "layoutCount": 72,
+    "badgeCount": 447,
+    "categoryCount": 11,
     "categories": [
         "Personalized upgrades",
         "GitHub-hosted projects",
+        "External CI and code quality",
         "JavaScript and TypeScript",
         "Language-first repositories",
         "Containers, infrastructure, and unsupported registries",
@@ -23,7 +24,7 @@ export const badgeCatalog = {
             "category": "Personalized upgrades",
             "title": "Nick2bad4u/gh-runs-cleanup",
             "description": "This fixes the status-color problem in the original row and adds release-asset adoption without turning the row into a wall of counters.",
-            "sourceLine": 49,
+            "sourceLine": 55,
             "template": "[![Latest stable GitHub release.](https://flat.badgen.net/github/release/Nick2bad4u/gh-runs-cleanup/stable?color=0E7490)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/gh-runs-cleanup/main)](https://github.com/Nick2bad4u/gh-runs-cleanup/actions) [![Downloads of assets from the latest release.](https://flat.badgen.net/github/assets-dl/Nick2bad4u/gh-runs-cleanup?color=7E22CE)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/gh-runs-cleanup?color=B45309)](https://github.com/Nick2bad4u/gh-runs-cleanup/stargazers) [![GitHub forks.](https://flat.badgen.net/github/forks/Nick2bad4u/gh-runs-cleanup?color=C2410C)](https://github.com/Nick2bad4u/gh-runs-cleanup/forks) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/Nick2bad4u/gh-runs-cleanup?color=B91C1C)](https://github.com/Nick2bad4u/gh-runs-cleanup/issues) [![GitHub license.](https://flat.badgen.net/github/license/Nick2bad4u/gh-runs-cleanup?color=4338CA)](https://github.com/Nick2bad4u/gh-runs-cleanup/blob/main/LICENSE)",
             "placeholders": [],
             "badgeCount": 7
@@ -33,7 +34,7 @@ export const badgeCatalog = {
             "category": "Personalized upgrades",
             "title": "Nick2bad4u/eslint-plugin-typefest",
             "description": "This fixes the copied Repo Checks URL, which pointed at codex-terminal-themes, and adds package compatibility signals that are more useful than forks alone.",
-            "sourceLine": 59,
+            "sourceLine": 65,
             "template": "[![Latest npm version.](https://flat.badgen.net/npm/v/eslint-plugin-typefest?color=0E7490)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/eslint-plugin-typefest?color=BE185D)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/eslint-plugin-typefest?color=4D7C0F)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Bundled TypeScript declarations.](https://flat.badgen.net/npm/types/eslint-plugin-typefest?color=6D28D9)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Package dependents.](https://flat.badgen.net/github/dependents-pkg/Nick2bad4u/eslint-plugin-typefest?color=0F766E)](https://github.com/Nick2bad4u/eslint-plugin-typefest/network/dependents) [![Codecov coverage.](https://flat.badgen.net/codecov/github/Nick2bad4u/eslint-plugin-typefest)](https://codecov.io/gh/Nick2bad4u/eslint-plugin-typefest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/eslint-plugin-typefest/main)](https://github.com/Nick2bad4u/eslint-plugin-typefest/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/eslint-plugin-typefest?color=B45309)](https://github.com/Nick2bad4u/eslint-plugin-typefest/stargazers) [![NPM license.](https://flat.badgen.net/npm/license/eslint-plugin-typefest?color=4338CA)](https://github.com/Nick2bad4u/eslint-plugin-typefest/blob/main/LICENSE)",
             "placeholders": [],
             "badgeCount": 9
@@ -43,7 +44,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Balanced public repository",
             "description": "",
-            "sourceLine": 71,
+            "sourceLine": 77,
             "template": "[![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub forks.](https://flat.badgen.net/github/forks/OWNER/REPO?color=C2410C)](https://github.com/OWNER/REPO/forks) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -57,7 +58,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Release-driven binary or desktop app",
             "description": "",
-            "sourceLine": 77,
+            "sourceLine": 83,
             "template": "[![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Latest release asset downloads.](https://flat.badgen.net/github/assets-dl/OWNER/REPO?color=BE185D)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Last GitHub commit.](https://flat.badgen.net/github/last-commit/OWNER/REPO/BRANCH?color=475569)](https://github.com/OWNER/REPO/commits/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -71,7 +72,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "GitHub Action",
             "description": "Replace ACTION_SLUG with the Marketplace action slug. Keep the checks badge dynamic so a broken action does not advertise itself as passing.",
-            "sourceLine": 83,
+            "sourceLine": 89,
             "template": "[![Project type: GitHub Action.](https://flat.badgen.net/static/type/GitHub%20Action/6D28D9)](https://github.com/marketplace/actions/ACTION_SLUG) [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "ACTION_SLUG",
@@ -86,7 +87,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Documentation site or static site",
             "description": "",
-            "sourceLine": 91,
+            "sourceLine": 97,
             "template": "[![Site deployment checks.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Last content update.](https://flat.badgen.net/github/last-commit/OWNER/REPO/BRANCH?color=475569)](https://github.com/OWNER/REPO/commits/BRANCH) [![Documentation contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![Open documentation issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![Documentation license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -100,7 +101,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Monorepo",
             "description": "",
-            "sourceLine": 97,
+            "sourceLine": 103,
             "template": "[![Latest stable monorepo release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Monorepo checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open pull requests.](https://flat.badgen.net/github/open-prs/OWNER/REPO?color=0369A1)](https://github.com/OWNER/REPO/pulls) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![Repository dependents.](https://flat.badgen.net/github/dependents-repo/OWNER/REPO?color=0F766E)](https://github.com/OWNER/REPO/network/dependents) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -114,7 +115,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "API, bot, or hosted service",
             "description": "UptimeRobot badges require a monitor-specific read-only key. The key is meant to identify that public monitor; never put an account-wide API key in a README.",
-            "sourceLine": 103,
+            "sourceLine": 109,
             "template": "[![Latest stable service release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Service checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Current service status.](https://flat.badgen.net/uptime-robot/status/UPTIME_ROBOT_MONITOR_KEY)](https://status.example.com) [![Service uptime over the past month.](https://flat.badgen.net/uptime-robot/month/UPTIME_ROBOT_MONITOR_KEY)](https://status.example.com) [![Latest service response time.](https://flat.badgen.net/uptime-robot/response/UPTIME_ROBOT_MONITOR_KEY)](https://status.example.com) [![Open service issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -129,7 +130,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Community-funded open source",
             "description": "",
-            "sourceLine": 111,
+            "sourceLine": 117,
             "template": "[![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![Open Collective backers.](https://flat.badgen.net/opencollective/backers/COLLECTIVE?color=BE185D)](https://opencollective.com/COLLECTIVE) [![Open Collective balance.](https://flat.badgen.net/opencollective/balance/COLLECTIVE?color=047857)](https://opencollective.com/COLLECTIVE) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -144,7 +145,7 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "Security- and quality-focused project",
             "description": "Use the Snyk badge only if the project is actually monitored by Snyk. Replace SNYK_ORG and SNYK_PROJECT_ID so the click opens the exact report rather than a generic security landing page.",
-            "sourceLine": 117,
+            "sourceLine": 123,
             "template": "[![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![Snyk vulnerability status.](https://flat.badgen.net/snyk/OWNER/REPO/BRANCH)](https://app.snyk.io/org/SNYK_ORG/project/SNYK_PROJECT_ID) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -160,22 +161,81 @@ export const badgeCatalog = {
             "category": "GitHub-hosted projects",
             "title": "GitLab project",
             "description": "Badgen's GitLab release and license integrations currently return upstream errors for some live projects, so this row deliberately uses the healthy social and contribution endpoints.",
-            "sourceLine": 125,
+            "sourceLine": 131,
             "template": "[![GitLab stars.](https://flat.badgen.net/gitlab/stars/GITLAB_NAMESPACE/REPO?color=B45309)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/starrers) [![GitLab forks.](https://flat.badgen.net/gitlab/forks/GITLAB_NAMESPACE/REPO?color=C2410C)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/forks) [![GitLab open issues.](https://flat.badgen.net/gitlab/open-issues/GITLAB_NAMESPACE/REPO?color=B91C1C)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/issues) [![GitLab merged merge requests.](https://flat.badgen.net/gitlab/merged-mrs/GITLAB_NAMESPACE/REPO?color=0F766E)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/merge_requests?scope=all&state=merged) [![GitLab contributors.](https://flat.badgen.net/gitlab/contributors/GITLAB_NAMESPACE/REPO?color=7E22CE)](https://gitlab.com/GITLAB_NAMESPACE/REPO/-/graphs/BRANCH)",
             "placeholders": [
                 "GITLAB_NAMESPACE",
-                "NAMESPACE",
                 "REPO",
                 "BRANCH"
             ],
             "badgeCount": 5
         },
         {
+            "id": "external-ci-and-code-quality-azure-pipelines-project",
+            "category": "External CI and code quality",
+            "title": "Azure Pipelines project",
+            "description": "AZURE_PIPELINE is the numeric pipeline definition ID or a definition name accepted by Badgen. The click targets open the exact build definition rather than a generic Azure DevOps landing page.",
+            "sourceLine": 143,
+            "template": "[![Continuous integration: Azure Pipelines.](https://flat.badgen.net/static/CI/Azure%20Pipelines/2560E0)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Azure Pipelines status.](https://flat.badgen.net/azure-pipelines/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Latest Azure Pipelines build version.](https://flat.badgen.net/azure-pipelines/build/version/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE?color=0E7490)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE) [![Latest Azure Pipelines test results.](https://flat.badgen.net/azure-pipelines/build/test/AZURE_ORG/AZURE_PROJECT/AZURE_PIPELINE)](https://dev.azure.com/AZURE_ORG/AZURE_PROJECT/_build?definitionId=AZURE_PIPELINE)",
+            "placeholders": [
+                "AZURE_ORG",
+                "AZURE_PROJECT",
+                "AZURE_PIPELINE"
+            ],
+            "badgeCount": 4
+        },
+        {
+            "id": "external-ci-and-code-quality-circleci-project",
+            "category": "External CI and code quality",
+            "title": "CircleCI project",
+            "description": "This row pairs the external build result with a small set of GitHub maintenance signals. Remove the GitHub badges when the source is hosted elsewhere.",
+            "sourceLine": 151,
+            "template": "[![CircleCI build on CI_BRANCH.](https://flat.badgen.net/circleci/github/CI_OWNER/CI_REPO/CI_BRANCH)](https://app.circleci.com/pipelines/github/CI_OWNER/CI_REPO) [![Last GitHub commit on CI_BRANCH.](https://flat.badgen.net/github/last-commit/CI_OWNER/CI_REPO/CI_BRANCH?color=475569)](https://github.com/CI_OWNER/CI_REPO/commits/CI_BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/CI_OWNER/CI_REPO?color=B45309)](https://github.com/CI_OWNER/CI_REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/CI_OWNER/CI_REPO?color=B91C1C)](https://github.com/CI_OWNER/CI_REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/CI_OWNER/CI_REPO?color=4338CA)](https://github.com/CI_OWNER/CI_REPO/blob/CI_BRANCH/LICENSE)",
+            "placeholders": [
+                "CI_BRANCH",
+                "CI_OWNER",
+                "CI_REPO"
+            ],
+            "badgeCount": 5
+        },
+        {
+            "id": "external-ci-and-code-quality-appveyor-windows-project",
+            "category": "External CI and code quality",
+            "title": "AppVeyor Windows project",
+            "description": "Keep this row for projects whose Windows build is actually public in AppVeyor. APPVEYOR_ACCOUNT may be a user or organization slug.",
+            "sourceLine": 159,
+            "template": "[![AppVeyor Windows build.](https://flat.badgen.net/appveyor/ci/APPVEYOR_ACCOUNT/APPVEYOR_PROJECT)](https://ci.appveyor.com/project/APPVEYOR_ACCOUNT/APPVEYOR_PROJECT) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Latest release asset downloads.](https://flat.badgen.net/github/assets-dl/OWNER/REPO?color=C2410C)](https://github.com/OWNER/REPO/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
+            "placeholders": [
+                "APPVEYOR_ACCOUNT",
+                "APPVEYOR_PROJECT",
+                "OWNER",
+                "REPO",
+                "BRANCH"
+            ],
+            "badgeCount": 6
+        },
+        {
+            "id": "external-ci-and-code-quality-code-climate-quality-report",
+            "category": "External CI and code quality",
+            "title": "Code Climate quality report",
+            "description": "Code Climate analysis must be public for these badges to resolve. Coverage can legitimately differ from another provider, so keep only the report your project treats as authoritative.",
+            "sourceLine": 167,
+            "template": "[![Code Climate maintainability.](https://flat.badgen.net/codeclimate/maintainability/CODECLIMATE_ORG/CODECLIMATE_REPO)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO) [![Code Climate technical debt.](https://flat.badgen.net/codeclimate/tech-debt/CODECLIMATE_ORG/CODECLIMATE_REPO?color=C2410C)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO) [![Code Climate issues.](https://flat.badgen.net/codeclimate/issues/CODECLIMATE_ORG/CODECLIMATE_REPO?color=B91C1C)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO/issues) [![Code Climate coverage.](https://flat.badgen.net/codeclimate/coverage/CODECLIMATE_ORG/CODECLIMATE_REPO)](https://codeclimate.com/github/CODECLIMATE_ORG/CODECLIMATE_REPO/test_coverage) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
+            "placeholders": [
+                "CODECLIMATE_ORG",
+                "CODECLIMATE_REPO",
+                "BRANCH",
+                "OWNER",
+                "REPO"
+            ],
+            "badgeCount": 6
+        },
+        {
             "id": "javascript-and-typescript-general-npm-package",
             "category": "JavaScript and TypeScript",
             "title": "General npm package",
             "description": "",
-            "sourceLine": 135,
+            "sourceLine": 177,
             "template": "[![Latest npm version.](https://flat.badgen.net/npm/v/PACKAGE?color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/PACKAGE?color=BE185D)](https://www.npmjs.com/package/PACKAGE) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/PACKAGE?color=4D7C0F)](https://www.npmjs.com/package/PACKAGE) [![TypeScript declaration status.](https://flat.badgen.net/npm/types/PACKAGE?color=6D28D9)](https://www.npmjs.com/package/PACKAGE) [![Package dependents.](https://flat.badgen.net/github/dependents-pkg/OWNER/REPO?color=0F766E)](https://github.com/OWNER/REPO/network/dependents) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![NPM license.](https://flat.badgen.net/npm/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -190,7 +250,7 @@ export const badgeCatalog = {
             "category": "JavaScript and TypeScript",
             "title": "TypeScript library with coverage",
             "description": "",
-            "sourceLine": 141,
+            "sourceLine": 183,
             "template": "[![Latest npm version.](https://flat.badgen.net/npm/v/PACKAGE?color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/PACKAGE?color=BE185D)](https://www.npmjs.com/package/PACKAGE) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/PACKAGE?color=4D7C0F)](https://www.npmjs.com/package/PACKAGE) [![Bundled TypeScript declarations.](https://flat.badgen.net/npm/types/PACKAGE?color=6D28D9)](https://www.npmjs.com/package/PACKAGE) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![NPM license.](https://flat.badgen.net/npm/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -205,7 +265,7 @@ export const badgeCatalog = {
             "category": "JavaScript and TypeScript",
             "title": "Browser-first npm library or CDN package",
             "description": "BundleJS and Packagephobia depend on successfully analyzing the package. Preview both badges before committing them.",
-            "sourceLine": 147,
+            "sourceLine": 189,
             "template": "[![Latest npm version.](https://flat.badgen.net/npm/v/PACKAGE?color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly jsDelivr hits.](https://flat.badgen.net/jsdelivr/hits/npm/PACKAGE?color=BE185D)](https://www.jsdelivr.com/package/npm/PACKAGE) [![Minified and gzipped bundle size.](https://flat.badgen.net/bundlejs/minzip/PACKAGE?color=C2410C)](https://bundlejs.com/?q=PACKAGE) [![Published package size.](https://flat.badgen.net/packagephobia/publish/PACKAGE?color=475569)](https://packagephobia.com/result?p=PACKAGE) [![Bundled TypeScript declarations.](https://flat.badgen.net/npm/types/PACKAGE?color=6D28D9)](https://www.npmjs.com/package/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![NPM license.](https://flat.badgen.net/npm/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -220,7 +280,7 @@ export const badgeCatalog = {
             "category": "JavaScript and TypeScript",
             "title": "npm CLI",
             "description": "",
-            "sourceLine": 155,
+            "sourceLine": 197,
             "template": "[![Latest npm CLI version.](https://flat.badgen.net/npm/v/PACKAGE?color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/PACKAGE?color=BE185D)](https://www.npmjs.com/package/PACKAGE) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/PACKAGE?color=4D7C0F)](https://www.npmjs.com/package/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=7E22CE)](https://github.com/OWNER/REPO/releases/latest) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![NPM license.](https://flat.badgen.net/npm/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -235,7 +295,7 @@ export const badgeCatalog = {
             "category": "JavaScript and TypeScript",
             "title": "ESLint, Prettier, Stylelint, remark, or TypeDoc plugin",
             "description": "Use the same strong signal order for tooling plugins. If the package is JavaScript-only, remove the TypeScript declarations badge. TOOL_NAME is display text such as ESLint plugin or TypeDoc plugin.",
-            "sourceLine": 161,
+            "sourceLine": 203,
             "template": "[![Project type: TOOL_NAME.](https://flat.badgen.net/static/type/TOOL_NAME/A21CAF)](https://github.com/OWNER/REPO) [![Latest npm version.](https://flat.badgen.net/npm/v/PACKAGE?color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/PACKAGE?color=BE185D)](https://www.npmjs.com/package/PACKAGE) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/PACKAGE?color=4D7C0F)](https://www.npmjs.com/package/PACKAGE) [![TypeScript declaration status.](https://flat.badgen.net/npm/types/PACKAGE?color=6D28D9)](https://www.npmjs.com/package/PACKAGE) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![NPM license.](https://flat.badgen.net/npm/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "TOOL_NAME",
@@ -251,7 +311,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "C or C++ library and native application",
             "description": "",
-            "sourceLine": 173,
+            "sourceLine": 215,
             "template": "[![Primary language: C or C++.](https://flat.badgen.net/static/language/C%20or%20C%2B%2B/00599C)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Native build checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -265,7 +325,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Java, Kotlin, Groovy, Scala, or Clojure project",
             "description": "",
-            "sourceLine": 179,
+            "sourceLine": 221,
             "template": "[![Platform: JVM.](https://flat.badgen.net/static/platform/JVM/EA2D2E)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![JVM build checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -279,7 +339,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "C#, F#, or Visual Basic .NET project",
             "description": "",
-            "sourceLine": 185,
+            "sourceLine": 227,
             "template": "[![Platform: .NET.](https://flat.badgen.net/static/platform/.NET/512BD4)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![.NET build checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -293,7 +353,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Python application, service, or tool",
             "description": "",
-            "sourceLine": 191,
+            "sourceLine": 233,
             "template": "[![Primary language: Python.](https://flat.badgen.net/static/language/Python/3776AB)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Python checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -307,7 +367,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Go command, service, or library",
             "description": "",
-            "sourceLine": 197,
+            "sourceLine": 239,
             "template": "[![Primary language: Go.](https://flat.badgen.net/static/language/Go/00ADD8)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Go checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -321,7 +381,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Rust application or command-line tool",
             "description": "",
-            "sourceLine": 203,
+            "sourceLine": 245,
             "template": "[![Primary language: Rust.](https://flat.badgen.net/static/language/Rust/CE412B)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Rust checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -335,7 +395,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Ruby or PHP application",
             "description": "",
-            "sourceLine": 209,
+            "sourceLine": 251,
             "template": "[![Primary language: Ruby or PHP.](https://flat.badgen.net/static/language/Ruby%20or%20PHP/CC342D)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Application checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -349,7 +409,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Swift, Objective-C, Dart, or Flutter application",
             "description": "",
-            "sourceLine": 215,
+            "sourceLine": 257,
             "template": "[![Platform: Apple or Flutter.](https://flat.badgen.net/static/platform/Apple%20or%20Flutter/F05138)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Application checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -363,7 +423,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Bash, Zsh, Fish, or POSIX shell project",
             "description": "",
-            "sourceLine": 221,
+            "sourceLine": 263,
             "template": "[![Primary language: Shell.](https://flat.badgen.net/static/language/Shell/4EAA25)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Shell checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -377,7 +437,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "PowerShell automation repository",
             "description": "",
-            "sourceLine": 227,
+            "sourceLine": 269,
             "template": "[![Primary language: PowerShell.](https://flat.badgen.net/static/language/PowerShell/5391FE)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![PowerShell checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -391,7 +451,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Lua, Elixir, or Erlang project",
             "description": "",
-            "sourceLine": 233,
+            "sourceLine": 275,
             "template": "[![Runtime: Lua or BEAM.](https://flat.badgen.net/static/runtime/Lua%20or%20BEAM/5849BE)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Runtime checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -405,7 +465,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Julia scientific-computing project",
             "description": "",
-            "sourceLine": 239,
+            "sourceLine": 281,
             "template": "[![Primary language: Julia.](https://flat.badgen.net/static/language/Julia/9558B2)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Julia checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -419,7 +479,7 @@ export const badgeCatalog = {
             "category": "Language-first repositories",
             "title": "Zig, Nim, or emerging systems-language project",
             "description": "",
-            "sourceLine": 245,
+            "sourceLine": 287,
             "template": "[![Language family: Zig or Nim.](https://flat.badgen.net/static/language/Zig%20or%20Nim/F7A41D)](https://github.com/OWNER/REPO) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Systems build checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -433,7 +493,7 @@ export const badgeCatalog = {
             "category": "Containers, infrastructure, and unsupported registries",
             "title": "Docker image",
             "description": "",
-            "sourceLine": 253,
+            "sourceLine": 295,
             "template": "[![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Docker Hub pulls.](https://flat.badgen.net/docker/pulls/DOCKER_SCOPE/IMAGE?color=BE185D)](https://hub.docker.com/r/DOCKER_SCOPE/IMAGE) [![Docker Hub stars.](https://flat.badgen.net/docker/stars/DOCKER_SCOPE/IMAGE?color=B45309)](https://hub.docker.com/r/DOCKER_SCOPE/IMAGE) [![Docker image size for TAG on ARCH.](https://flat.badgen.net/docker/size/DOCKER_SCOPE/IMAGE/TAG/ARCH?color=C2410C)](https://hub.docker.com/r/DOCKER_SCOPE/IMAGE/tags) [![Docker image layers for TAG on ARCH.](https://flat.badgen.net/docker/layers/DOCKER_SCOPE/IMAGE/TAG/ARCH?color=7E22CE)](https://hub.docker.com/r/DOCKER_SCOPE/IMAGE/tags) [![Container checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -451,7 +511,7 @@ export const badgeCatalog = {
             "category": "Containers, infrastructure, and unsupported registries",
             "title": "Go module",
             "description": "Badgen has no first-party Go module proxy generator, so use dynamic GitHub signals and one honest static identity badge.",
-            "sourceLine": 259,
+            "sourceLine": 301,
             "template": "[![Language: Go.](https://flat.badgen.net/static/language/Go/1D4ED8)](https://go.dev) [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -465,7 +525,7 @@ export const badgeCatalog = {
             "category": "Containers, infrastructure, and unsupported registries",
             "title": "PowerShell module",
             "description": "Badgen has no PowerShell Gallery generator, so do not fake a dynamic PSGallery version. Use the GitHub release as the live version signal.",
-            "sourceLine": 267,
+            "sourceLine": 309,
             "template": "[![Runtime: PowerShell.](https://flat.badgen.net/static/runtime/PowerShell/1D4ED8)](https://www.powershellgallery.com/packages/MODULE) [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "MODULE",
@@ -480,7 +540,7 @@ export const badgeCatalog = {
             "category": "Containers, infrastructure, and unsupported registries",
             "title": "Terraform provider or module",
             "description": "",
-            "sourceLine": 275,
+            "sourceLine": 317,
             "template": "[![Ecosystem: Terraform.](https://flat.badgen.net/static/ecosystem/Terraform/6D28D9)](https://registry.terraform.io/providers/OWNER/PACKAGE/latest) [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -495,7 +555,7 @@ export const badgeCatalog = {
             "category": "Containers, infrastructure, and unsupported registries",
             "title": "Helm chart or Kubernetes add-on",
             "description": "",
-            "sourceLine": 281,
+            "sourceLine": 323,
             "template": "[![Package type: Helm chart.](https://flat.badgen.net/static/package/Helm%20chart/0369A1)](https://artifacthub.io/packages/search?ts_query_web=PACKAGE) [![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -510,7 +570,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Python package on PyPI",
             "description": "PyPI download-count badges currently receive an upstream 429 through Badgen, so this row omits that misleading error badge.",
-            "sourceLine": 289,
+            "sourceLine": 331,
             "template": "[![Latest PyPI version.](https://flat.badgen.net/pypi/v/PACKAGE?color=0E7490)](https://pypi.org/project/PACKAGE/) [![Supported Python versions.](https://flat.badgen.net/pypi/python/PACKAGE?color=4D7C0F)](https://pypi.org/project/PACKAGE/) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=7E22CE)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -525,7 +585,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Rust crate",
             "description": "",
-            "sourceLine": 297,
+            "sourceLine": 339,
             "template": "[![Latest crates.io version.](https://flat.badgen.net/crates/v/CRATE?color=0E7490)](https://crates.io/crates/CRATE) [![Total crates.io downloads.](https://flat.badgen.net/crates/d/CRATE?color=BE185D)](https://crates.io/crates/CRATE) [![Downloads of the latest crate version.](https://flat.badgen.net/crates/dl/CRATE?color=C2410C)](https://crates.io/crates/CRATE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "CRATE",
@@ -540,7 +600,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Ruby gem",
             "description": "",
-            "sourceLine": 303,
+            "sourceLine": 345,
             "template": "[![Latest stable RubyGems version.](https://flat.badgen.net/rubygems/v/GEM?color=0E7490)](https://rubygems.org/gems/GEM) [![Total RubyGems downloads.](https://flat.badgen.net/rubygems/dt/GEM?color=BE185D)](https://rubygems.org/gems/GEM) [![Downloads of the latest gem version.](https://flat.badgen.net/rubygems/dv/GEM?color=C2410C)](https://rubygems.org/gems/GEM) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "GEM",
@@ -555,7 +615,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "PHP package on Packagist",
             "description": "",
-            "sourceLine": 309,
+            "sourceLine": 351,
             "template": "[![Latest Packagist version.](https://flat.badgen.net/packagist/v/VENDOR/PACKAGE?color=0E7490)](https://packagist.org/packages/VENDOR/PACKAGE) [![Total Packagist downloads.](https://flat.badgen.net/packagist/dt/VENDOR/PACKAGE?color=BE185D)](https://packagist.org/packages/VENDOR/PACKAGE) [![Supported PHP version.](https://flat.badgen.net/packagist/php/VENDOR/PACKAGE?color=4D7C0F)](https://packagist.org/packages/VENDOR/PACKAGE) [![Packagist dependents.](https://flat.badgen.net/packagist/dependents/VENDOR/PACKAGE?color=0F766E)](https://packagist.org/packages/VENDOR/PACKAGE/dependents) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![Packagist license.](https://flat.badgen.net/packagist/license/VENDOR/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "VENDOR",
@@ -571,7 +631,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": ".NET package on NuGet",
             "description": "",
-            "sourceLine": 315,
+            "sourceLine": 357,
             "template": "[![Latest stable NuGet version.](https://flat.badgen.net/nuget/v/PACKAGE?color=0E7490)](https://www.nuget.org/packages/PACKAGE) [![Total NuGet downloads.](https://flat.badgen.net/nuget/dt/PACKAGE?color=BE185D)](https://www.nuget.org/packages/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -586,7 +646,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "JVM library on Maven Central",
             "description": "",
-            "sourceLine": 321,
+            "sourceLine": 363,
             "template": "[![Latest Maven Central version.](https://flat.badgen.net/maven/v/maven-central/GROUP_ID/ARTIFACT_ID?color=0E7490)](https://central.sonatype.com/artifact/GROUP_ID/ARTIFACT_ID) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=7E22CE)](https://github.com/OWNER/REPO/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "GROUP_ID",
@@ -602,7 +662,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Dart or Flutter package",
             "description": "Use either the Dart-platform or Flutter-platform badge, not both, unless the package genuinely spans both metadata models.",
-            "sourceLine": 327,
+            "sourceLine": 369,
             "template": "[![Latest pub.dev version.](https://flat.badgen.net/pub/v/PACKAGE?color=0E7490)](https://pub.dev/packages/PACKAGE) [![Monthly pub.dev downloads.](https://flat.badgen.net/pub/dm/PACKAGE?color=BE185D)](https://pub.dev/packages/PACKAGE) [![Supported Dart SDK.](https://flat.badgen.net/pub/sdk-version/PACKAGE?color=4D7C0F)](https://pub.dev/packages/PACKAGE) [![Pub points.](https://flat.badgen.net/pub/points/PACKAGE?color=6D28D9)](https://pub.dev/packages/PACKAGE/score) [![Pub likes.](https://flat.badgen.net/pub/likes/PACKAGE?color=B45309)](https://pub.dev/packages/PACKAGE/score) [![Supported Flutter platforms.](https://flat.badgen.net/pub/flutter-platform/PACKAGE?color=C2410C)](https://pub.dev/packages/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Pub license.](https://flat.badgen.net/pub/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -617,7 +677,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Haskell package on Hackage",
             "description": "",
-            "sourceLine": 335,
+            "sourceLine": 377,
             "template": "[![Latest Hackage version.](https://flat.badgen.net/hackage/v/PACKAGE?color=0E7490)](https://hackage.haskell.org/package/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![Hackage license.](https://flat.badgen.net/hackage/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -632,7 +692,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "R package on CRAN",
             "description": "",
-            "sourceLine": 341,
+            "sourceLine": 383,
             "template": "[![Latest CRAN version.](https://flat.badgen.net/cran/v/PACKAGE?color=0E7490)](https://cran.r-project.org/package=PACKAGE) [![Total CRAN downloads.](https://flat.badgen.net/cran/dt/PACKAGE?color=BE185D)](https://cran.r-project.org/package=PACKAGE) [![Required R version.](https://flat.badgen.net/cran/r/PACKAGE?color=4D7C0F)](https://cran.r-project.org/package=PACKAGE) [![CRAN dependents.](https://flat.badgen.net/cran/dependents/PACKAGE?color=0F766E)](https://cran.r-project.org/package=PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![CRAN license.](https://flat.badgen.net/cran/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -647,7 +707,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "LaTeX package on CTAN",
             "description": "",
-            "sourceLine": 347,
+            "sourceLine": 389,
             "template": "[![Latest CTAN version.](https://flat.badgen.net/ctan/v/PACKAGE?color=0E7490)](https://ctan.org/pkg/PACKAGE) [![CTAN rating.](https://flat.badgen.net/ctan/rating/PACKAGE?color=B45309)](https://ctan.org/pkg/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![CTAN license.](https://flat.badgen.net/ctan/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -662,7 +722,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "D package on DUB",
             "description": "",
-            "sourceLine": 353,
+            "sourceLine": 395,
             "template": "[![Latest DUB version.](https://flat.badgen.net/dub/v/PACKAGE?color=0E7490)](https://code.dlang.org/packages/PACKAGE) [![Total DUB downloads.](https://flat.badgen.net/dub/dt/PACKAGE?color=BE185D)](https://code.dlang.org/packages/PACKAGE) [![DUB rating.](https://flat.badgen.net/dub/rating/PACKAGE?color=B45309)](https://code.dlang.org/packages/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![DUB license.](https://flat.badgen.net/dub/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -677,7 +737,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Elm package",
             "description": "",
-            "sourceLine": 359,
+            "sourceLine": 401,
             "template": "[![Latest Elm package version.](https://flat.badgen.net/elm-package/v/OWNER/PACKAGE?color=0E7490)](https://package.elm-lang.org/packages/OWNER/PACKAGE/latest/) [![Supported Elm version.](https://flat.badgen.net/elm-package/elm/OWNER/PACKAGE?color=4D7C0F)](https://package.elm-lang.org/packages/OWNER/PACKAGE/latest/) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![Elm package license.](https://flat.badgen.net/elm-package/license/OWNER/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -692,7 +752,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Haxe package on haxelib",
             "description": "",
-            "sourceLine": 365,
+            "sourceLine": 407,
             "template": "[![Latest haxelib version.](https://flat.badgen.net/haxelib/v/PACKAGE?color=0E7490)](https://lib.haxe.org/p/PACKAGE/) [![Total haxelib downloads.](https://flat.badgen.net/haxelib/d/PACKAGE?color=BE185D)](https://lib.haxe.org/p/PACKAGE/) [![Downloads of the latest haxelib version.](https://flat.badgen.net/haxelib/dl/PACKAGE?color=C2410C)](https://lib.haxe.org/p/PACKAGE/) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![haxelib license.](https://flat.badgen.net/haxelib/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -707,7 +767,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "OCaml package on opam",
             "description": "",
-            "sourceLine": 371,
+            "sourceLine": 413,
             "template": "[![Latest opam version.](https://flat.badgen.net/opam/v/PACKAGE?color=0E7490)](https://opam.ocaml.org/packages/PACKAGE/) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![opam license.](https://flat.badgen.net/opam/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -722,7 +782,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Perl distribution on CPAN",
             "description": "Use the CPAN distribution name in DISTRIBUTION; Badgen also accepts module-style identifiers where the registry does.",
-            "sourceLine": 377,
+            "sourceLine": 419,
             "template": "[![Latest CPAN version.](https://flat.badgen.net/cpan/v/DISTRIBUTION?color=0E7490)](https://metacpan.org/dist/DISTRIBUTION) [![Required Perl version.](https://flat.badgen.net/cpan/perl/DISTRIBUTION?color=4D7C0F)](https://metacpan.org/dist/DISTRIBUTION) [![CPAN dependents.](https://flat.badgen.net/cpan/dependents/DISTRIBUTION?color=0F766E)](https://metacpan.org/dist/DISTRIBUTION) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![CPAN license.](https://flat.badgen.net/cpan/license/DISTRIBUTION?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "DISTRIBUTION",
@@ -737,7 +797,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Crystal shard",
             "description": "",
-            "sourceLine": 385,
+            "sourceLine": 427,
             "template": "[![Latest shard version.](https://flat.badgen.net/shards/v/PACKAGE?color=0E7490)](https://github.com/OWNER/REPO/releases) [![Required Crystal version.](https://flat.badgen.net/shards/crystal/PACKAGE?color=4D7C0F)](https://github.com/OWNER/REPO) [![Shard dependents.](https://flat.badgen.net/shards/dependents/PACKAGE?color=0F766E)](https://github.com/OWNER/REPO/network/dependents) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Shard license.](https://flat.badgen.net/shards/license/PACKAGE?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PACKAGE",
@@ -752,7 +812,7 @@ export const badgeCatalog = {
             "category": "Language package registries",
             "title": "Swift or Objective-C library on CocoaPods",
             "description": "",
-            "sourceLine": 391,
+            "sourceLine": 433,
             "template": "[![Latest CocoaPods version.](https://flat.badgen.net/cocoapods/v/POD?color=0E7490)](https://cocoapods.org/pods/POD) [![Supported Apple platforms.](https://flat.badgen.net/cocoapods/p/POD?color=6D28D9)](https://cocoapods.org/pods/POD) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/OWNER/REPO/BRANCH)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "POD",
@@ -763,15 +823,29 @@ export const badgeCatalog = {
             "badgeCount": 7
         },
         {
+            "id": "language-package-registries-emacs-package-on-melpa",
+            "category": "Language package registries",
+            "title": "Emacs package on MELPA",
+            "description": "MELPA exposes a live version badge but not adoption or licensing metadata through Badgen, so the rest of the row uses repository signals.",
+            "sourceLine": 439,
+            "template": "[![Latest MELPA version.](https://flat.badgen.net/melpa/v/PACKAGE?color=0E7490)](https://melpa.org/#/PACKAGE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
+            "placeholders": [
+                "PACKAGE",
+                "BRANCH",
+                "OWNER",
+                "REPO"
+            ],
+            "badgeCount": 5
+        },
+        {
             "id": "editor-and-browser-extensions-visual-studio-marketplace-extension",
             "category": "Editor and browser extensions",
             "title": "Visual Studio Marketplace extension",
             "description": "",
-            "sourceLine": 399,
+            "sourceLine": 449,
             "template": "[![Latest Visual Studio Marketplace version.](https://flat.badgen.net/vs-marketplace/v/PUBLISHER.EXTENSION?color=0E7490)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION) [![Visual Studio Marketplace installs.](https://flat.badgen.net/vs-marketplace/i/PUBLISHER.EXTENSION?color=BE185D)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION) [![Visual Studio Marketplace downloads.](https://flat.badgen.net/vs-marketplace/d/PUBLISHER.EXTENSION?color=C2410C)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION) [![Visual Studio Marketplace rating.](https://flat.badgen.net/vs-marketplace/rating/PUBLISHER.EXTENSION?color=B45309)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION&ssr=false#review-details) [![Extension checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PUBLISHER.EXTENSION",
-                "EXTENSION",
                 "BRANCH",
                 "OWNER",
                 "REPO"
@@ -783,12 +857,12 @@ export const badgeCatalog = {
             "category": "Editor and browser extensions",
             "title": "Dual-published VS Code and Open VSX extension",
             "description": "",
-            "sourceLine": 405,
+            "sourceLine": 455,
             "template": "[![Latest Visual Studio Marketplace version.](https://flat.badgen.net/vs-marketplace/v/PUBLISHER.EXTENSION?color=0E7490)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION) [![Visual Studio Marketplace installs.](https://flat.badgen.net/vs-marketplace/i/PUBLISHER.EXTENSION?color=BE185D)](https://marketplace.visualstudio.com/items?itemName=PUBLISHER.EXTENSION) [![Latest Open VSX version.](https://flat.badgen.net/open-vsx/version/NAMESPACE/EXTENSION?color=7E22CE)](https://open-vsx.org/extension/NAMESPACE/EXTENSION) [![Open VSX downloads.](https://flat.badgen.net/open-vsx/d/NAMESPACE/EXTENSION?color=C2410C)](https://open-vsx.org/extension/NAMESPACE/EXTENSION) [![Extension checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "PUBLISHER.EXTENSION",
-                "EXTENSION",
                 "NAMESPACE",
+                "EXTENSION",
                 "BRANCH",
                 "OWNER",
                 "REPO"
@@ -800,11 +874,10 @@ export const badgeCatalog = {
             "category": "Editor and browser extensions",
             "title": "Chrome extension",
             "description": "",
-            "sourceLine": 411,
+            "sourceLine": 461,
             "template": "[![Latest Chrome Web Store version.](https://flat.badgen.net/chrome-web-store/v/EXTENSION_ID?color=0E7490)](https://chromewebstore.google.com/detail/EXTENSION_ID) [![Chrome Web Store users.](https://flat.badgen.net/chrome-web-store/users/EXTENSION_ID?color=BE185D)](https://chromewebstore.google.com/detail/EXTENSION_ID) [![Chrome Web Store rating.](https://flat.badgen.net/chrome-web-store/rating/EXTENSION_ID?color=B45309)](https://chromewebstore.google.com/detail/EXTENSION_ID/reviews) [![Chrome Web Store rating count.](https://flat.badgen.net/chrome-web-store/rating-count/EXTENSION_ID?color=7E22CE)](https://chromewebstore.google.com/detail/EXTENSION_ID/reviews) [![Extension checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "EXTENSION_ID",
-                "EXTENSION",
                 "BRANCH",
                 "OWNER",
                 "REPO"
@@ -816,7 +889,7 @@ export const badgeCatalog = {
             "category": "Editor and browser extensions",
             "title": "Firefox add-on",
             "description": "",
-            "sourceLine": 417,
+            "sourceLine": 467,
             "template": "[![Latest Firefox Add-ons version.](https://flat.badgen.net/amo/v/ADDON_SLUG?color=0E7490)](https://addons.mozilla.org/firefox/addon/ADDON_SLUG/) [![Firefox Add-ons users.](https://flat.badgen.net/amo/users/ADDON_SLUG?color=BE185D)](https://addons.mozilla.org/firefox/addon/ADDON_SLUG/) [![Firefox Add-ons rating.](https://flat.badgen.net/amo/rating/ADDON_SLUG?color=B45309)](https://addons.mozilla.org/firefox/addon/ADDON_SLUG/reviews/) [![Firefox Add-ons reviews.](https://flat.badgen.net/amo/reviews/ADDON_SLUG?color=7E22CE)](https://addons.mozilla.org/firefox/addon/ADDON_SLUG/reviews/) [![Extension checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "ADDON_SLUG",
@@ -831,11 +904,10 @@ export const badgeCatalog = {
             "category": "Editor and browser extensions",
             "title": "Microsoft Edge add-on",
             "description": "",
-            "sourceLine": 423,
+            "sourceLine": 473,
             "template": "[![Latest Microsoft Edge Add-ons version.](https://flat.badgen.net/edge-addons/v/EXTENSION_ID?color=0E7490)](https://microsoftedge.microsoft.com/addons/detail/EXTENSION_ID) [![Microsoft Edge Add-ons users.](https://flat.badgen.net/edge-addons/users/EXTENSION_ID?color=BE185D)](https://microsoftedge.microsoft.com/addons/detail/EXTENSION_ID) [![Microsoft Edge Add-ons rating.](https://flat.badgen.net/edge-addons/rating/EXTENSION_ID?color=B45309)](https://microsoftedge.microsoft.com/addons/detail/EXTENSION_ID) [![Microsoft Edge Add-ons rating count.](https://flat.badgen.net/edge-addons/rating-count/EXTENSION_ID?color=7E22CE)](https://microsoftedge.microsoft.com/addons/detail/EXTENSION_ID) [![Extension checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "EXTENSION_ID",
-                "EXTENSION",
                 "BRANCH",
                 "OWNER",
                 "REPO"
@@ -847,11 +919,10 @@ export const badgeCatalog = {
             "category": "Operating-system distribution",
             "title": "Windows CLI distributed through winget and Scoop",
             "description": "",
-            "sourceLine": 431,
+            "sourceLine": 481,
             "template": "[![Latest winget version.](https://flat.badgen.net/winget/v/WINGET_PACKAGE_ID?color=0E7490)](https://github.com/microsoft/winget-pkgs) [![Latest Scoop version.](https://flat.badgen.net/scoop/v/SCOOP_PACKAGE?color=7E22CE)](https://scoop.sh/#/apps?q=SCOOP_PACKAGE) [![Latest release asset downloads.](https://flat.badgen.net/github/assets-dl/OWNER/REPO?color=C2410C)](https://github.com/OWNER/REPO/releases/latest) [![Release checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "WINGET_PACKAGE_ID",
-                "PACKAGE",
                 "SCOOP_PACKAGE",
                 "OWNER",
                 "REPO",
@@ -864,7 +935,7 @@ export const badgeCatalog = {
             "category": "Operating-system distribution",
             "title": "Homebrew formula",
             "description": "",
-            "sourceLine": 437,
+            "sourceLine": 487,
             "template": "[![Latest Homebrew formula version.](https://flat.badgen.net/homebrew/v/FORMULA?color=0E7490)](https://formulae.brew.sh/formula/FORMULA) [![Monthly Homebrew downloads.](https://flat.badgen.net/homebrew/dm/FORMULA?color=BE185D)](https://formulae.brew.sh/formula/FORMULA) [![Latest stable GitHub release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=7E22CE)](https://github.com/OWNER/REPO/releases/latest) [![Release checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "FORMULA",
@@ -879,7 +950,7 @@ export const badgeCatalog = {
             "category": "Operating-system distribution",
             "title": "Homebrew cask",
             "description": "",
-            "sourceLine": 443,
+            "sourceLine": 493,
             "template": "[![Latest Homebrew cask version.](https://flat.badgen.net/homebrew/cask/v/CASK?color=0E7490)](https://formulae.brew.sh/cask/CASK) [![Monthly Homebrew cask downloads.](https://flat.badgen.net/homebrew/cask/dm/CASK?color=BE185D)](https://formulae.brew.sh/cask/CASK) [![Latest release asset downloads.](https://flat.badgen.net/github/assets-dl/OWNER/REPO?color=C2410C)](https://github.com/OWNER/REPO/releases/latest) [![Release checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "CASK",
@@ -894,7 +965,7 @@ export const badgeCatalog = {
             "category": "Operating-system distribution",
             "title": "Snap package",
             "description": "",
-            "sourceLine": 449,
+            "sourceLine": 499,
             "template": "[![Latest Snap version.](https://flat.badgen.net/snapcraft/v/SNAP?color=0E7490)](https://snapcraft.io/SNAP) [![Snap distribution size.](https://flat.badgen.net/snapcraft/size/SNAP?color=C2410C)](https://snapcraft.io/SNAP) [![Supported Snap architectures.](https://flat.badgen.net/snapcraft/architecture/SNAP?color=6D28D9)](https://snapcraft.io/SNAP) [![Release checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![Snap license.](https://flat.badgen.net/snapcraft/license/SNAP?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "SNAP",
@@ -909,7 +980,7 @@ export const badgeCatalog = {
             "category": "Operating-system distribution",
             "title": "Android app on F-Droid",
             "description": "",
-            "sourceLine": 455,
+            "sourceLine": 505,
             "template": "[![Latest F-Droid version.](https://flat.badgen.net/f-droid/v/APP_ID?color=0E7490)](https://f-droid.org/packages/APP_ID/) [![Release checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![F-Droid license.](https://flat.badgen.net/f-droid/license/APP_ID?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "APP_ID",
@@ -924,7 +995,7 @@ export const badgeCatalog = {
             "category": "Community and custom metadata",
             "title": "Open Collective project",
             "description": "The Open Collective contributors endpoint currently produces undefined; use GitHub's contributors count instead.",
-            "sourceLine": 463,
+            "sourceLine": 513,
             "template": "[![Open Collective backers.](https://flat.badgen.net/opencollective/backers/COLLECTIVE?color=BE185D)](https://opencollective.com/COLLECTIVE) [![Open Collective yearly income.](https://flat.badgen.net/opencollective/yearly/COLLECTIVE?color=0F766E)](https://opencollective.com/COLLECTIVE) [![Open Collective balance.](https://flat.badgen.net/opencollective/balance/COLLECTIVE?color=047857)](https://opencollective.com/COLLECTIVE) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "COLLECTIVE",
@@ -939,7 +1010,7 @@ export const badgeCatalog = {
             "category": "Community and custom metadata",
             "title": "Project with a Discord community",
             "description": "DISCORD_ID_OR_SLUG can be a supported public server identifier. Verify the preview before publishing.",
-            "sourceLine": 471,
+            "sourceLine": 521,
             "template": "[![Latest stable release.](https://flat.badgen.net/github/release/OWNER/REPO/stable?color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![Discord community members.](https://flat.badgen.net/discord/members/DISCORD_ID_OR_SLUG?color=6D28D9)](https://discord.gg/INVITE_CODE) [![GitHub Actions checks on BRANCH.](https://flat.badgen.net/github/checks/OWNER/REPO/BRANCH)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -951,11 +1022,42 @@ export const badgeCatalog = {
             "badgeCount": 6
         },
         {
+            "id": "community-and-custom-metadata-project-with-a-matrix-community",
+            "category": "Community and custom metadata",
+            "title": "Project with a Matrix community",
+            "description": "Use the public room alias without the leading #. Matrix membership is the community signal; repository activity and licensing remain separate.",
+            "sourceLine": 529,
+            "template": "[![Matrix room members.](https://flat.badgen.net/matrix/members/MATRIX_ROOM/MATRIX_SERVER?color=7E22CE)](https://matrix.to/#/#MATRIX_ROOM:MATRIX_SERVER) [![GitHub stars.](https://flat.badgen.net/github/stars/OWNER/REPO?color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=0F766E)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
+            "placeholders": [
+                "MATRIX_ROOM",
+                "MATRIX_SERVER",
+                "OWNER",
+                "REPO",
+                "BRANCH"
+            ],
+            "badgeCount": 5
+        },
+        {
+            "id": "community-and-custom-metadata-liberapay-funded-open-source",
+            "category": "Community and custom metadata",
+            "title": "Liberapay-funded open source",
+            "description": "Liberapay exposes receiving, patron-count, and goal-progress signals. Keep only metrics the project intentionally makes part of its funding story.",
+            "sourceLine": 537,
+            "template": "[![Liberapay receiving.](https://flat.badgen.net/liberapay/receives/LIBERAPAY_ACCOUNT?color=047857)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![Liberapay patrons.](https://flat.badgen.net/liberapay/patrons/LIBERAPAY_ACCOUNT?color=BE185D)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![Liberapay goal progress.](https://flat.badgen.net/liberapay/goal/LIBERAPAY_ACCOUNT?color=0F766E)](https://liberapay.com/LIBERAPAY_ACCOUNT/) [![GitHub contributors.](https://flat.badgen.net/github/contributors/OWNER/REPO?color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/OWNER/REPO?color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
+            "placeholders": [
+                "LIBERAPAY_ACCOUNT",
+                "OWNER",
+                "REPO",
+                "BRANCH"
+            ],
+            "badgeCount": 6
+        },
+        {
             "id": "community-and-custom-metadata-honest-static-project-metadata",
             "category": "Community and custom metadata",
             "title": "Honest static project metadata",
             "description": "Static badges are appropriate for facts that change only when the repository changes. Do not use them to claim live build, coverage, security, or uptime status.",
-            "sourceLine": 479,
+            "sourceLine": 545,
             "template": "[![API stability: stable.](https://flat.badgen.net/static/API/stable/047857)](https://github.com/OWNER/REPO/blob/BRANCH/docs/api.md) [![Module format: ESM.](https://flat.badgen.net/static/module/ESM/0E7490)](https://github.com/OWNER/REPO#usage) [![Platform: cross-platform.](https://flat.badgen.net/static/platform/cross-platform/6D28D9)](https://github.com/OWNER/REPO#compatibility) [![Code style: Prettier.](https://flat.badgen.net/static/code%20style/Prettier/A21CAF)](https://prettier.io) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)",
             "placeholders": [
                 "OWNER",
@@ -969,7 +1071,7 @@ export const badgeCatalog = {
             "category": "Conditional badges: preview before keeping",
             "title": "Conditional badges: preview before keeping",
             "description": "These endpoints are official, but their upstream services or package analyzers can fail for an otherwise valid project. Add them one at a time and delete any badge that renders 429, 500, error, unknown, undefined, timeout, or discontinued.",
-            "sourceLine": 487,
+            "sourceLine": 553,
             "template": "[![Minified and gzipped bundle size.](https://flat.badgen.net/bundlejs/minzip/PACKAGE?color=C2410C)](https://bundlejs.com/?q=PACKAGE)\n[![Published package size.](https://flat.badgen.net/packagephobia/publish/PACKAGE?color=475569)](https://packagephobia.com/result?p=PACKAGE)\n[![Installed package size.](https://flat.badgen.net/packagephobia/install/PACKAGE?color=7E22CE)](https://packagephobia.com/result?p=PACKAGE)\n[![Monthly PyPI downloads.](https://flat.badgen.net/pypi/dm/PACKAGE?color=BE185D)](https://pypi.org/project/PACKAGE/)",
             "placeholders": [
                 "PACKAGE"

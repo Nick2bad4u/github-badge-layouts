@@ -40,12 +40,21 @@ const minimumLayoutCount = 52;
 
 const placeholderNames = [
     "UPTIME_ROBOT_MONITOR_KEY",
+    "CODECLIMATE_REPO",
+    "CODECLIMATE_ORG",
+    "LIBERAPAY_ACCOUNT",
+    "APPVEYOR_PROJECT",
+    "APPVEYOR_ACCOUNT",
+    "AZURE_PIPELINE",
     "PUBLISHER.EXTENSION",
     "DISCORD_ID_OR_SLUG",
     "WINGET_PACKAGE_ID",
+    "AZURE_PROJECT",
+    "MATRIX_SERVER",
     "SNYK_PROJECT_ID",
     "GITLAB_NAMESPACE",
     "SCOOP_PACKAGE",
+    "MATRIX_ROOM",
     "ACTION_SLUG",
     "EXTENSION_ID",
     "DOCKER_SCOPE",
@@ -55,6 +64,10 @@ const placeholderNames = [
     "ADDON_SLUG",
     "SNYK_ORG",
     "TOOL_NAME",
+    "AZURE_ORG",
+    "CI_BRANCH",
+    "CI_OWNER",
+    "CI_REPO",
     "NAMESPACE",
     "EXTENSION",
     "COLLECTIVE",
@@ -76,6 +89,26 @@ const placeholderNames = [
     "ARCH",
     "TAG",
 ];
+
+/** @param {string} template */
+function findPlaceholders(template) {
+    let remainingTemplate = template;
+    const placeholders = [];
+    const longestFirst = placeholderNames.toSorted(
+        (left, right) => right.length - left.length
+    );
+    for (const placeholder of longestFirst) {
+        const index = remainingTemplate.indexOf(placeholder);
+        if (index === -1) continue;
+        placeholders.push({ index, placeholder });
+        remainingTemplate = remainingTemplate.replaceAll(placeholder, () =>
+            " ".repeat(placeholder.length)
+        );
+    }
+    return placeholders
+        .toSorted((left, right) => left.index - right.index)
+        .map(({ placeholder }) => placeholder);
+}
 
 /** @param {string} value */
 function stripInlineMarkdown(value) {
@@ -221,11 +254,7 @@ function createCatalogEntry(
     usedIds.add(id);
 
     const badges = parseBadges(template, entryTitle);
-    const placeholders = placeholderNames
-        .filter((placeholder) => template.includes(placeholder))
-        .sort(
-            (left, right) => template.indexOf(left) - template.indexOf(right)
-        );
+    const placeholders = findPlaceholders(template);
 
     return {
         id,

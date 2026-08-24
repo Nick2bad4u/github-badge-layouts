@@ -185,23 +185,25 @@
 
             <div class="hero-layout">
                 <div class="hero-copy">
-                    <p class="eyebrow">
-                        <span
-                            class="pulse"
-                            aria-hidden="true"
-                        ></span>
-                        README signals, without the badge wall
-                    </p>
-                    <h1>
-                        Find the right badges.
-                        <span>Make the row yours.</span>
-                    </h1>
-                    <p class="lede">
-                        Search curated layouts, apply your repository once,
-                        switch between flat and classic Badgen styles, and copy
-                        clean Markdown for GitHub projects and package
-                        ecosystems.
-                    </p>
+                    <div class="hero-intro">
+                        <p class="eyebrow">
+                            <span
+                                class="pulse"
+                                aria-hidden="true"
+                            ></span>
+                            README signals, without the badge wall
+                        </p>
+                        <h1>
+                            Find the right badges.
+                            <span>Make the row yours.</span>
+                        </h1>
+                        <p class="lede">
+                            Search curated layouts, apply your repository once,
+                            switch between flat and classic Badgen styles, and
+                            copy clean Markdown for GitHub projects and package
+                            ecosystems.
+                        </p>
+                    </div>
                     <div class="hero-actions">
                         <a
                             class="primary-link"
@@ -419,6 +421,49 @@
                         <option value="all">All categories</option>
                     </select>
                 </div>
+                <div class="field sort-field">
+                    <label for="sort">Sort by</label>
+                    <select id="sort">
+                        <option value="featured">Featured order</option>
+                        <option value="badges-desc">
+                            Badge count: high to low
+                        </option>
+                        <option value="badges-asc">
+                            Badge count: low to high
+                        </option>
+                        <option value="title-asc">Title: A to Z</option>
+                        <option value="title-desc">Title: Z to A</option>
+                        <option value="category-asc"
+                            >Category, then title</option
+                        >
+                    </select>
+                </div>
+                <fieldset class="field style-field view-field">
+                    <legend>View</legend>
+                    <div class="segmented-control">
+                        <input
+                            id="view-grid"
+                            type="radio"
+                            checked
+                            name="gallery-view"
+                            value="grid"
+                        />
+                        <label for="view-grid">
+                            <span aria-hidden="true">▦</span>
+                            Grid
+                        </label>
+                        <input
+                            id="view-list"
+                            type="radio"
+                            name="gallery-view"
+                            value="list"
+                        />
+                        <label for="view-list">
+                            <span aria-hidden="true">☷</span>
+                            List
+                        </label>
+                    </div>
+                </fieldset>
                 <div class="field page-size-field">
                     <label for="page-size">Per page</label>
                     <select id="page-size">
@@ -453,9 +498,14 @@
                     aria-live="polite"
                     >Loading layouts…</p
                 >
-                <p class="preview-note">
+                <p
+                    id="preview-note"
+                    class="preview-note"
+                >
                     <span aria-hidden="true">●</span>
-                    Only this page loads badge images
+                    <span id="preview-note-text"
+                        >Only this page loads badge images</span
+                    >
                 </p>
             </div>
 

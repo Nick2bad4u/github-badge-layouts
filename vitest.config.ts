@@ -9,7 +9,7 @@ export default defineConfig({
                 "src/generated/**",
                 "src/types.ts",
             ],
-            include: ["src/**/*.ts"],
+            include: ["docs/gallery-state.js", "src/**/*.ts"],
             provider: "v8",
             reporter: [
                 "text",
