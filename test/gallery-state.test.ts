@@ -15,6 +15,7 @@ const entries = [
         description: "An npm layout.",
         languages: ["JavaScript", "TypeScript"],
         placeholders: ["PACKAGE"],
+        providers: ["badgen"],
         template: "npm PACKAGE",
         title: "Zulu package",
     },
@@ -24,6 +25,7 @@ const entries = [
         description: "A GitHub layout.",
         languages: ["Language agnostic"],
         placeholders: ["OWNER", "REPO"],
+        providers: ["shields"],
         template: "github OWNER/REPO",
         title: "Alpha project",
     },
@@ -33,6 +35,7 @@ const entries = [
         description: "A Rust layout.",
         languages: ["Rust"],
         placeholders: ["CRATE"],
+        providers: ["badgen", "codecov"],
         template: "crates CRATE",
         title: "Alpha package",
     },
@@ -45,6 +48,7 @@ describe("gallery state", () => {
                 category: "Packages",
                 language: "Rust",
                 query: "crate",
+                service: "codecov",
                 sort: "featured",
             })
         ).toEqual([entries[2]]);
@@ -53,6 +57,7 @@ describe("gallery state", () => {
                 category: "all",
                 language: "all",
                 query: "OWNER/REPO",
+                service: "all",
                 sort: "featured",
             })
         ).toEqual([entries[1]]);
@@ -64,6 +69,7 @@ describe("gallery state", () => {
                 category: "all",
                 language: "all",
                 query: "",
+                service: "all",
                 sort: "featured",
             })
         ).toEqual(entries);
@@ -74,6 +80,7 @@ describe("gallery state", () => {
             category: "all",
             language: "all",
             query: "",
+            service: "all",
             sort: "badges-desc",
         });
         expect(descending.map(({ title }) => title)).toEqual([
@@ -86,6 +93,7 @@ describe("gallery state", () => {
             category: "all",
             language: "all",
             query: "",
+            service: "all",
             sort: "badges-asc",
         });
         expect(ascending.map(({ title }) => title)).toEqual([
@@ -100,6 +108,7 @@ describe("gallery state", () => {
             category: "all",
             language: "all",
             query: "",
+            service: "all",
             sort: "title-desc",
         });
         expect(titleDescending.map(({ title }) => title)).toEqual([
@@ -112,6 +121,7 @@ describe("gallery state", () => {
             category: "all",
             language: "all",
             query: "",
+            service: "all",
             sort: "category-asc",
         });
         expect(categoryAscending.map(({ title }) => title)).toEqual([
@@ -126,6 +136,7 @@ describe("gallery state", () => {
             category: "all",
             language: "all",
             query: "npm",
+            service: "badgen",
             sort: "title-asc",
         });
         expect(titleAscending).toEqual([entries[0]]);
@@ -134,6 +145,7 @@ describe("gallery state", () => {
                 category: "Missing",
                 language: "all",
                 query: "",
+                service: "all",
                 sort: "title-asc",
             })
         ).toEqual([]);

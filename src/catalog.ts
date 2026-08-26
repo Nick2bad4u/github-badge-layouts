@@ -44,23 +44,38 @@ export function getLayoutOrThrow(identifier: string): BadgeCatalogEntry {
     throw new Error(`Unknown or ambiguous layout: ${identifier}.${suffix}`);
 }
 
-/** Return all layouts, optionally filtered by category and free-text query. */
+/** Return all layouts, optionally filtered by facets and free-text query. */
 export function listLayouts(
     options: {
         readonly category?: string;
         readonly language?: string;
         readonly query?: string;
+        readonly service?: string;
     } = {}
 ): readonly BadgeCatalogEntry[] {
     const category = options.category?.trim().toLocaleLowerCase();
     const language = options.language?.trim().toLocaleLowerCase();
     const query = options.query?.trim().toLocaleLowerCase();
+    const service = options.service?.trim().toLocaleLowerCase();
+    const serviceId = badgeCatalog.providers.find(
+        (provider) =>
+            provider.id.toLocaleLowerCase() === service ||
+            provider.name.toLocaleLowerCase() === service
+    )?.id;
 
     return badgeCatalog.entries.filter((entry) => {
         if (
             category !== undefined &&
             category.length > 0 &&
             entry.category.toLocaleLowerCase() !== category
+        ) {
+            return false;
+        }
+        if (
+            service !== undefined &&
+            service.length > 0 &&
+            (serviceId === undefined ||
+                entry.providers.every((providerId) => providerId !== serviceId))
         ) {
             return false;
         }
@@ -83,6 +98,14 @@ export function listLayouts(
             entry.description,
             entry.languages.join(" "),
             entry.placeholders.join(" "),
+            entry.providers
+                .map(
+                    (providerId) =>
+                        badgeCatalog.providers.find(
+                            (provider) => provider.id === providerId
+                        )?.name ?? providerId
+                )
+                .join(" "),
             entry.template,
         ]
             .join(" ")

@@ -73,6 +73,28 @@ describe("CLI", () => {
         expect(languages.stdout).toContain("TypeScript");
     });
 
+    it("filters layouts by service and lists registered services", () => {
+        const result = runCli([
+            "list",
+            "--service",
+            "Shields.io",
+            "--json",
+        ]);
+        expect(result.status).toBe(0);
+        const layouts = JSON.parse(result.stdout) as {
+            readonly providers: readonly string[];
+        }[];
+        expect(layouts.length).toBeGreaterThan(0);
+        expect(
+            layouts.every((layout) => layout.providers.includes("shields"))
+        ).toBe(true);
+
+        const services = runCli(["services"]);
+        expect(services.status).toBe(0);
+        expect(services.stdout).toContain("Shields.io");
+        expect(services.stdout).toContain("PlayBadges");
+    });
+
     it("renders ANSI previews and command-specific help", () => {
         const preview = runCli([
             "preview",

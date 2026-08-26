@@ -1,14 +1,14 @@
 # GitHub Badge Layouts
 
-[![Open the interactive badge gallery.](https://flat.badgen.net/static/preview/GitHub%20Pages/0E7490)](https://nick2bad4u.github.io/github-badge-layouts/) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/github-badge-layouts/main)](https://github.com/Nick2bad4u/github-badge-layouts/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/Nick2bad4u/github-badge-layouts/main)](https://codecov.io/gh/Nick2bad4u/github-badge-layouts) [![Library license: MIT.](https://flat.badgen.net/static/license/MIT/4338CA)](LICENSE)
+[![Open the interactive badge gallery.](https://flat.badgen.net/static/preview/GitHub%20Pages/0E7490)](https://nick2bad4u.github.io/github-badge-layouts/) [![npm package version.](https://img.shields.io/npm/v/github-badge-layouts?logo=npm&color=CB3837)](https://www.npmjs.com/package/github-badge-layouts) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/github-badge-layouts/main)](https://github.com/Nick2bad4u/github-badge-layouts/actions) [![Codecov coverage.](https://flat.badgen.net/codecov/github/Nick2bad4u/github-badge-layouts/main)](https://codecov.io/gh/Nick2bad4u/github-badge-layouts) [![Library license: MIT.](https://flat.badgen.net/static/license/MIT/4338CA)](LICENSE)
 
 <p align="center">
-  <img src="docs/public/assets/badge-layouts-hero.png" width="920" alt="Abstract cyan and violet badge rows arranged as a technical catalog on a dark background." />
+  <img src="docs/public/assets/badge-layouts-hero-v4-enhanced.png" width="920" alt="GitHub Badge Layouts — Find, Preview, Copy — beside colorful badge rows on a dark technical background." />
 </p>
 
-A curated library of copy-ready [Badgen](https://badgen.net/) combinations, a personalized browser gallery, and a dependency-free npm CLI/API for maintaining README badges.
+A curated multi-service library of copy-ready badge combinations, a personalized browser gallery, and a dependency-free [npm CLI/API](https://www.npmjs.com/package/github-badge-layouts) for maintaining README badges.
 
-The canonical [`library.md`](library.md) currently contains **75 layouts**, **470 badges**, **11 categories**, and **45 language facets** covering GitHub projects, JavaScript and TypeScript, native and managed languages, package registries, containers, infrastructure, external CI and code quality, editor/browser extensions, operating-system distribution, and community metadata.
+The canonical [`library.md`](library.md) currently contains **81 layouts**, **500 badges**, **11 categories**, **45 language facets**, and **10 registered services** covering GitHub projects, package registries, containers, infrastructure, external CI and code quality, extensions, applications, and community metadata.
 
 ## Interactive gallery
 
@@ -16,7 +16,7 @@ The canonical [`library.md`](library.md) currently contains **75 layouts**, **47
 
 - Personalize every visible layout from one owner, repository, and branch form. Defaults use `Nick2bad4u/gh-runs-cleanup` on `main`.
 - Switch every Badgen image between flat and classic rendering without changing its destination.
-- Search and filter the catalog by category and language, sort by title, category, or badge count, and switch between detailed grid cards and compact list rows with inline copy actions.
+- Search and filter the catalog by category, language, and service—including Badgen, Shields.io, Codecov, Snyk, Badge Fury, and more—then sort and switch between detailed grid cards and compact list rows.
 - Select 4, 6, 9, or 12 layouts per page and use real pagination. Only the current page creates badge-image requests.
 - Apply layout-specific placeholders such as `PACKAGE`, `CRATE`, `POD`, or `EXTENSION_ID`.
 - Copy rendered Markdown or the equivalent CLI command.
@@ -33,6 +33,8 @@ npx github-badge-layouts search powershell
 npx github-badge-layouts preview powershell-automation-repository --live
 ```
 
+Browse versions, provenance, and installation metadata on the [github-badge-layouts npm page](https://www.npmjs.com/package/github-badge-layouts).
+
 Install it globally if you use it frequently:
 
 ```sh
@@ -44,10 +46,11 @@ The two executable names, `badge-layouts` and `github-badge-layouts`, are aliase
 
 | Command            | Purpose                                                                                 |
 | ------------------ | --------------------------------------------------------------------------------------- |
-| `list`             | Browse layouts with category, language, query, JSON, and result-limit filters.          |
-| `search <query>`   | Search titles, languages, categories, descriptions, placeholders, and Markdown.         |
+| `list`             | Browse layouts with category, language, service, query, JSON, and limit filters.        |
+| `search <query>`   | Search titles, services, languages, categories, descriptions, and Markdown.             |
 | `categories`       | Print categories with layout counts.                                                    |
 | `languages`        | Print language facets with layout counts.                                               |
+| `services`         | Print registered badge services with layout and badge counts.                           |
 | `show <layout>`    | Inspect a layout and its unresolved template.                                           |
 | `preview <layout>` | Render ANSI terminal badges, fetch live SVG values, or format a linked summary in Glow. |
 | `context`          | Show repository coordinates detected from the current Git checkout.                     |
@@ -61,6 +64,9 @@ Useful examples:
 ```sh
 # Filter the catalog by an explicit language facet.
 badge-layouts search package --language Rust
+
+# Filter by service ID or display name.
+badge-layouts list --service Shields.io
 
 # Preview portable ANSI badges, optionally with current live SVG titles.
 badge-layouts preview bundle-conscious-npm-library --set PACKAGE=react --live
@@ -116,7 +122,7 @@ console.log(markdown);
 console.log(inspectBadgeMarkdown(markdown));
 ```
 
-The public API also exports the generated `badgeCatalog`, `findLayout`, `listLayouts`, style conversion/parsing helpers, placeholder inspection, and managed README-block helpers. `listLayouts` accepts independent `category`, `language`, and free-text `query` filters.
+The public API also exports the generated `badgeCatalog`, `findLayout`, `listLayouts`, provider-identification helpers, style conversion/parsing helpers, placeholder inspection, and managed README-block helpers. `listLayouts` accepts independent `category`, `language`, `service`, and free-text `query` filters.
 
 ## Use a layout manually
 
@@ -146,6 +152,7 @@ Open the local URL printed by Vite. Use `npm run site:preview` to inspect the ex
 | Path                                                             | Responsibility                                                                 |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | [`library.md`](library.md)                                       | Canonical prose and badge-layout templates.                                    |
+| [`data/providers.json`](data/providers.json)                     | Canonical service metadata and exact image/delivery hosts.                     |
 | [`scripts/build-site.mjs`](scripts/build-site.mjs)               | Parser, validator, and deterministic catalog generator.                        |
 | [`docs/index.html`](docs/index.html)                             | Dependency-free Pages UI, manifest, and visual assets.                         |
 | [`src/index.ts`](src/index.ts)                                   | ESM package API and CLI source.                                                |
@@ -158,7 +165,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the layout contract and [RELEASING.md
 
 ## Third-party services
 
-Badge images are requested from `flat.badgen.net` or `badgen.net`; clicking a badge opens the relevant project or service. Badgen and the upstream services are not affiliated with this repository. Review their availability and privacy policies before using them in a project.
+Badge previews are requested only from exact HTTPS hosts registered in [`data/providers.json`](data/providers.json); clicking a badge opens its relevant project or service. Those independent services are not affiliated with this repository. Review their availability and privacy policies before adopting a badge.
 
 ## License
 

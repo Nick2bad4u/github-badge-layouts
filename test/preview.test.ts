@@ -12,8 +12,22 @@ function badgeMarkdown(image: string): string {
 function stubFetchResponse(body: string, status = 200): void {
     vi.stubGlobal(
         "fetch",
-        vi.fn(() => Promise.resolve(new Response(body, { status })))
+        vi.fn(() =>
+            Promise.resolve(
+                new Response(body, {
+                    headers: { "content-type": "image/svg+xml" },
+                    status,
+                })
+            )
+        )
     );
+}
+
+function svgResponse(body: string, status = 200): Response {
+    return new Response(body, {
+        headers: { "content-type": "image/svg+xml" },
+        status,
+    });
 }
 
 afterEach(() => {
@@ -27,7 +41,8 @@ describe("terminal badge preview", () => {
                 alt: "Latest version.",
                 color: "0E7490",
                 image: "https://flat.badgen.net/npm/v/example?color=0E7490",
-                service: "npm",
+                provider: "badgen",
+                service: "Badgen",
                 target: "https://www.npmjs.com/package/example",
             },
         ]);
@@ -40,17 +55,26 @@ describe("terminal badge preview", () => {
                     "https://flat.badgen.net/static/build/passing/ABCDEF"
                 )
             )[0]
-        ).toMatchObject({ color: "ABCDEF", service: "static" });
+        ).toMatchObject({
+            color: "ABCDEF",
+            provider: "badgen",
+            service: "Badgen",
+        });
         expect(
             parseTerminalBadges(
                 badgeMarkdown(
                     "https://flat.badgen.net/static/build/passing/not-a-color"
                 )
             )[0]
-        ).toMatchObject({ color: "0E7490", service: "static" });
+        ).toMatchObject({ color: "0E7490", service: "Badgen" });
         expect(
             parseTerminalBadges(badgeMarkdown("https://flat.badgen.net"))[0]
-        ).toMatchObject({ color: "0E7490", service: "badge" });
+        ).toMatchObject({ color: "0E7490", service: "Badgen" });
+        expect(
+            parseTerminalBadges(
+                badgeMarkdown("https://img.shields.io/npm/v/react")
+            )[0]
+        ).toMatchObject({ provider: "shields", service: "Shields.io" });
     });
 
     it("loads and decodes meaningful SVG titles", async () => {
@@ -71,6 +95,35 @@ describe("terminal badge preview", () => {
         const badges = parseTerminalBadges(markdown);
         await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
             expect.objectContaining({ title: "npm: 1.2.3 & stable" }),
+        ]);
+    });
+
+    it("uses accessible SVG label fallbacks before badge alt text", async () => {
+        const badges = parseTerminalBadges(markdown);
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    svgResponse("<svg aria-label='npm package: 2.0.0'></svg>")
+                )
+            )
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({ title: "npm package: 2.0.0" }),
+        ]);
+
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    svgResponse(
+                        "<svg><text>coverage</text><text><tspan>98%</tspan></text></svg>"
+                    )
+                )
+            )
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({ title: "coverage: 98%" }),
         ]);
     });
 
@@ -104,7 +157,7 @@ describe("terminal badge preview", () => {
         ]);
     });
 
-    it("reports HTTP, missing-title, and network failures", async () => {
+    it("reports HTTP and network failures and falls back to badge alt text", async () => {
         const badges = parseTerminalBadges(markdown);
         stubFetchResponse("unavailable", 503);
         await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
@@ -113,7 +166,7 @@ describe("terminal badge preview", () => {
 
         stubFetchResponse("<svg></svg>");
         await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
-            expect.objectContaining({ error: "SVG title unavailable" }),
+            expect.objectContaining({ title: "Latest version" }),
         ]);
 
         vi.stubGlobal(
@@ -125,12 +178,120 @@ describe("terminal badge preview", () => {
         ]);
     });
 
+    it("rejects non-SVG responses and redirects outside the registered service", async () => {
+        const badges = parseTerminalBadges(markdown);
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    new Response("not an image", {
+                        headers: { "content-type": "text/html" },
+                        status: 200,
+                    })
+                )
+            )
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({ error: "response was not SVG" }),
+        ]);
+
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    new Response(null, {
+                        headers: { location: "https://example.com/badge.svg" },
+                        status: 302,
+                    })
+                )
+            )
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({
+                error: "Error: badge redirected to an unsupported host",
+            }),
+        ]);
+    });
+
+    it("follows registered redirects and rejects malformed redirect chains", async () => {
+        const badges = parseTerminalBadges(markdown);
+        const allowedRedirectFetch = vi
+            .fn()
+            .mockResolvedValueOnce(
+                new Response(null, {
+                    headers: {
+                        location: "https://badgen.net/npm/v/example",
+                    },
+                    status: 302,
+                })
+            )
+            .mockResolvedValueOnce(
+                svgResponse("<svg><title>npm: 2.0.0</title></svg>")
+            );
+        vi.stubGlobal("fetch", allowedRedirectFetch);
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({ title: "npm: 2.0.0" }),
+        ]);
+        expect(allowedRedirectFetch).toHaveBeenCalledTimes(2);
+
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() => Promise.resolve(new Response(null, { status: 302 })))
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({
+                error: "Error: badge redirect omitted its destination",
+            }),
+        ]);
+
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(() =>
+                Promise.resolve(
+                    new Response(null, {
+                        headers: {
+                            location: "https://badgen.net/npm/v/example",
+                        },
+                        status: 302,
+                    })
+                )
+            )
+        );
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({
+                error: "Error: badge redirected too many times",
+            }),
+        ]);
+    });
+
+    it("bounds SVG bodies and reports an unavailable accessible label", async () => {
+        const badges = parseTerminalBadges(markdown);
+        stubFetchResponse(`<svg>${"x".repeat(256_001)}</svg>`);
+        await expect(loadLiveBadgeTitles(badges)).resolves.toEqual([
+            expect.objectContaining({
+                error: "SVG exceeded preview size limit",
+            }),
+        ]);
+
+        stubFetchResponse("<svg></svg>");
+        await expect(
+            loadLiveBadgeTitles(
+                parseTerminalBadges(
+                    "[![](https://flat.badgen.net/static/a/b)](https://example.com)"
+                )
+            )
+        ).resolves.toEqual([
+            expect.objectContaining({ error: "SVG label unavailable" }),
+        ]);
+    });
+
     it("flags error text hidden inside successful SVG responses", async () => {
         vi.stubGlobal(
             "fetch",
             vi.fn(() =>
                 Promise.resolve(
                     new Response("<svg><title>package: unknown</title></svg>", {
+                        headers: { "content-type": "image/svg+xml" },
                         status: 200,
                     })
                 )

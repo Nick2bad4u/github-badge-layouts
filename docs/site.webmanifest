@@ -1,9 +1,12 @@
 {
     "name": "GitHub Badge Layouts",
     "short_name": "Badge Layouts",
-    "description": "Search, personalize, preview, and copy curated README badge layouts.",
+    "description": "Search, filter, personalize, preview, and copy multi-service README badge layouts.",
     "start_url": "./",
     "scope": "./",
+    "categories": ["productivity", "tools"],
+    "id": "github-badge-layouts",
+    "lang": "en-US",
     "display": "standalone",
     "background_color": "#08111f",
     "theme_color": "#08111f",

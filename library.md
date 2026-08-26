@@ -1,8 +1,23 @@
-# Flat Badgen badge-combo library
+# Multi-provider badge-combo library
 
-Copy a row, replace its uppercase placeholders, and remove any badge whose service you do not actually use. Every image URL uses `flat.badgen.net`; every click target goes to the underlying project, registry, report, or workflow rather than to the badge image.
+Copy a row, replace its uppercase placeholders, and remove any badge whose service you do not actually use. Every badge image comes from a registered HTTPS service, and every click target goes to the underlying project, registry, report, or workflow rather than to the badge image.
 
-This library was refreshed against Badgen's official [`llms.txt`](https://flat.badgen.net/llms.txt) and [generator reference](https://badgen.net/badges.md), then spot-checked against live SVG responses on 2026-08-24.
+The original Badgen library was refreshed against Badgen's official [`llms.txt`](https://flat.badgen.net/llms.txt) and [generator reference](https://badgen.net/badges.md). The provider-native additions use the services' current first-party documentation and representative live SVG responses.
+
+## Service guide
+
+| Service         | Best use                                      | Notes                                                                                     |
+| --------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Badgen          | Lightweight general-purpose badges            | Canonical legacy layouts; the gallery can switch these between flat and classic hosts.    |
+| Shields.io      | Broad GitHub, package, CI, and custom data    | The most flexible general-purpose alternative; provider-native `style` parameters remain. |
+| Badge Fury      | Package versions                              | Supports npm, RubyGems, PyPI, Go, GitHub, NuGet, PHP, CocoaPods, CPAN, and PGXN families. |
+| Codecov         | Coverage                                      | Use only after the public repository is configured in Codecov.                            |
+| Snyk            | Dependency vulnerability status               | Use only when the public repository resolves correctly in Snyk.                           |
+| BadgeSize       | Public file and compressed file sizes         | `FILE_PATH` must exist on `BRANCH`; results may redirect through Shields.io.              |
+| dependents.info | GitHub dependency-network reach               | Works with limited data by default; its optional Action improves refreshes.               |
+| shieldcn        | Modern shadcn-inspired GitHub and npm badges  | Provider-native appearance is intentionally not converted into a Badgen style.            |
+| NodeICO         | Dense npm package summaries                   | One SVG can combine package name, version, downloads, stars, and update age.              |
+| PlayBadges      | Public Google Play downloads, rating, version | Use a public Android `APP_ID`; the compact badges fit rows better than the full app card. |
 
 ## Styling system
 
@@ -33,6 +48,8 @@ Do not force `?color=green` onto checks, security, uptime, or coverage badges. A
 | ------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `OWNER` / `REPO`                                 | GitHub owner and repository                                                    |
 | `BRANCH`                                         | Default branch, usually `main`                                                 |
+| `WORKFLOW_FILE`                                  | GitHub Actions workflow filename, such as `quality.yml`                        |
+| `FILE_PATH`                                      | Public repository file path, such as `dist/index.js`                           |
 | `PACKAGE`                                        | Registry package name; scoped npm names such as `@scope/package` are supported |
 | `DOCKER_SCOPE` / `IMAGE` / `TAG` / `ARCH`        | Docker Hub coordinates, such as `library/ubuntu/latest/amd64`                  |
 | `CRATE`, `GEM`, `POD`, `FORMULA`, and similar    | The package's registry identifier                                              |
@@ -50,32 +67,6 @@ Do not force `?color=green` onto checks, security, uptime, or coverage badges. A
 | `MASTODON_USER` / `MASTODON_SERVER`              | Mastodon username and instance hostname, without `@` or `https://`             |
 
 URL-encode spaces and special characters in path segments. If your default branch is not `main`, replace it everywhere—including badge URLs and destination links.
-
-## Personalized upgrades
-
-### `Nick2bad4u/gh-runs-cleanup`
-
-<!-- languages: JavaScript, TypeScript -->
-
-This fixes the status-color problem in the original row and adds release-asset adoption without turning the row into a wall of counters.
-
-[![Latest stable GitHub release.](https://flat.badgen.net/github/release/Nick2bad4u/gh-runs-cleanup/stable?color=0E7490)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/gh-runs-cleanup/main)](https://github.com/Nick2bad4u/gh-runs-cleanup/actions) [![Downloads of assets from the latest release.](https://flat.badgen.net/github/assets-dl/Nick2bad4u/gh-runs-cleanup?color=7E22CE)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/gh-runs-cleanup?color=B45309)](https://github.com/Nick2bad4u/gh-runs-cleanup/stargazers) [![GitHub forks.](https://flat.badgen.net/github/forks/Nick2bad4u/gh-runs-cleanup?color=C2410C)](https://github.com/Nick2bad4u/gh-runs-cleanup/forks) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/Nick2bad4u/gh-runs-cleanup?color=B91C1C)](https://github.com/Nick2bad4u/gh-runs-cleanup/issues) [![GitHub license.](https://flat.badgen.net/github/license/Nick2bad4u/gh-runs-cleanup?color=4338CA)](https://github.com/Nick2bad4u/gh-runs-cleanup/blob/main/LICENSE)
-
-```md
-[![Latest stable GitHub release.](https://flat.badgen.net/github/release/Nick2bad4u/gh-runs-cleanup/stable?color=0E7490)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/gh-runs-cleanup/main)](https://github.com/Nick2bad4u/gh-runs-cleanup/actions) [![Downloads of assets from the latest release.](https://flat.badgen.net/github/assets-dl/Nick2bad4u/gh-runs-cleanup?color=7E22CE)](https://github.com/Nick2bad4u/gh-runs-cleanup/releases/latest) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/gh-runs-cleanup?color=B45309)](https://github.com/Nick2bad4u/gh-runs-cleanup/stargazers) [![GitHub forks.](https://flat.badgen.net/github/forks/Nick2bad4u/gh-runs-cleanup?color=C2410C)](https://github.com/Nick2bad4u/gh-runs-cleanup/forks) [![GitHub open issues.](https://flat.badgen.net/github/open-issues/Nick2bad4u/gh-runs-cleanup?color=B91C1C)](https://github.com/Nick2bad4u/gh-runs-cleanup/issues) [![GitHub license.](https://flat.badgen.net/github/license/Nick2bad4u/gh-runs-cleanup?color=4338CA)](https://github.com/Nick2bad4u/gh-runs-cleanup/blob/main/LICENSE)
-```
-
-### `Nick2bad4u/eslint-plugin-typefest`
-
-<!-- languages: JavaScript, TypeScript -->
-
-This fixes the copied `Repo Checks` URL, which pointed at `codex-terminal-themes`, and adds package compatibility signals that are more useful than forks alone.
-
-[![Latest npm version.](https://flat.badgen.net/npm/v/eslint-plugin-typefest?color=0E7490)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/eslint-plugin-typefest?color=BE185D)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/eslint-plugin-typefest?color=4D7C0F)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Bundled TypeScript declarations.](https://flat.badgen.net/npm/types/eslint-plugin-typefest?color=6D28D9)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Package dependents.](https://flat.badgen.net/github/dependents-pkg/Nick2bad4u/eslint-plugin-typefest?color=0F766E)](https://github.com/Nick2bad4u/eslint-plugin-typefest/network/dependents) [![Codecov coverage.](https://flat.badgen.net/codecov/github/Nick2bad4u/eslint-plugin-typefest)](https://codecov.io/gh/Nick2bad4u/eslint-plugin-typefest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/eslint-plugin-typefest/main)](https://github.com/Nick2bad4u/eslint-plugin-typefest/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/eslint-plugin-typefest?color=B45309)](https://github.com/Nick2bad4u/eslint-plugin-typefest/stargazers) [![NPM license.](https://flat.badgen.net/npm/license/eslint-plugin-typefest?color=4338CA)](https://github.com/Nick2bad4u/eslint-plugin-typefest/blob/main/LICENSE)
-
-```md
-[![Latest npm version.](https://flat.badgen.net/npm/v/eslint-plugin-typefest?color=0E7490)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Monthly npm downloads.](https://flat.badgen.net/npm/dm/eslint-plugin-typefest?color=BE185D)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Supported Node.js versions.](https://flat.badgen.net/npm/node/eslint-plugin-typefest?color=4D7C0F)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Bundled TypeScript declarations.](https://flat.badgen.net/npm/types/eslint-plugin-typefest?color=6D28D9)](https://www.npmjs.com/package/eslint-plugin-typefest) [![Package dependents.](https://flat.badgen.net/github/dependents-pkg/Nick2bad4u/eslint-plugin-typefest?color=0F766E)](https://github.com/Nick2bad4u/eslint-plugin-typefest/network/dependents) [![Codecov coverage.](https://flat.badgen.net/codecov/github/Nick2bad4u/eslint-plugin-typefest)](https://codecov.io/gh/Nick2bad4u/eslint-plugin-typefest) [![GitHub Actions checks on main.](https://flat.badgen.net/github/checks/Nick2bad4u/eslint-plugin-typefest/main)](https://github.com/Nick2bad4u/eslint-plugin-typefest/actions) [![GitHub stars.](https://flat.badgen.net/github/stars/Nick2bad4u/eslint-plugin-typefest?color=B45309)](https://github.com/Nick2bad4u/eslint-plugin-typefest/stargazers) [![NPM license.](https://flat.badgen.net/npm/license/eslint-plugin-typefest?color=4338CA)](https://github.com/Nick2bad4u/eslint-plugin-typefest/blob/main/LICENSE)
-```
 
 ## GitHub-hosted projects
 
@@ -721,6 +712,82 @@ Static badges are appropriate for facts that change only when the repository cha
 
 ```md
 [![API stability: stable.](https://flat.badgen.net/static/API/stable/047857)](https://github.com/OWNER/REPO/blob/BRANCH/docs/api.md) [![Module format: ESM.](https://flat.badgen.net/static/module/ESM/0E7490)](https://github.com/OWNER/REPO#usage) [![Platform: cross-platform.](https://flat.badgen.net/static/platform/cross-platform/6D28D9)](https://github.com/OWNER/REPO#compatibility) [![Code style: Prettier.](https://flat.badgen.net/static/code%20style/Prettier/A21CAF)](https://prettier.io) [![GitHub license.](https://flat.badgen.net/github/license/OWNER/REPO?color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+## Alternative and provider-native services
+
+### Shields.io GitHub repository
+
+<!-- languages: Language agnostic -->
+
+Use `WORKFLOW_FILE` as a workflow filename such as `quality.yml`. Status colors remain dynamic.
+
+```md
+[![Latest GitHub release.](https://img.shields.io/github/v/release/OWNER/REPO?style=flat&color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions workflow status.](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/WORKFLOW_FILE?branch=BRANCH&style=flat)](https://github.com/OWNER/REPO/actions/workflows/WORKFLOW_FILE) [![GitHub stars.](https://img.shields.io/github/stars/OWNER/REPO?style=flat&color=B45309)](https://github.com/OWNER/REPO/stargazers) [![GitHub forks.](https://img.shields.io/github/forks/OWNER/REPO?style=flat&color=C2410C)](https://github.com/OWNER/REPO/forks) [![GitHub open issues.](https://img.shields.io/github/issues/OWNER/REPO?style=flat&color=B91C1C)](https://github.com/OWNER/REPO/issues) [![GitHub contributors.](https://img.shields.io/github/contributors/OWNER/REPO?style=flat&color=7E22CE)](https://github.com/OWNER/REPO/graphs/contributors) [![GitHub license.](https://img.shields.io/github/license/OWNER/REPO?style=flat&color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### Shields.io npm package
+
+<!-- languages: JavaScript, TypeScript -->
+
+```md
+[![Latest npm version.](https://img.shields.io/npm/v/PACKAGE?style=flat&color=0E7490)](https://www.npmjs.com/package/PACKAGE) [![Monthly npm downloads.](https://img.shields.io/npm/dm/PACKAGE?style=flat&color=BE185D)](https://www.npmjs.com/package/PACKAGE) [![Supported Node.js versions.](https://img.shields.io/node/v/PACKAGE?style=flat&color=4D7C0F)](https://www.npmjs.com/package/PACKAGE) [![Bundled TypeScript declarations.](https://img.shields.io/npm/types/PACKAGE?style=flat&color=6D28D9)](https://www.npmjs.com/package/PACKAGE) [![Minified and gzipped package size.](https://img.shields.io/bundlephobia/minzip/PACKAGE?style=flat&color=C2410C)](https://bundlephobia.com/package/PACKAGE) [![GitHub Actions workflow status.](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/WORKFLOW_FILE?branch=BRANCH&style=flat)](https://github.com/OWNER/REPO/actions/workflows/WORKFLOW_FILE) [![NPM license.](https://img.shields.io/npm/l/PACKAGE?style=flat&color=4338CA)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### shieldcn GitHub repository
+
+<!-- languages: Language agnostic -->
+
+```md
+[![Latest GitHub release.](https://shieldcn.dev/github/OWNER/REPO/release.svg?size=xs)](https://github.com/OWNER/REPO/releases/latest) [![GitHub CI status.](https://shieldcn.dev/github/OWNER/REPO/ci.svg?size=xs)](https://github.com/OWNER/REPO/actions) [![GitHub stars.](https://shieldcn.dev/github/OWNER/REPO/stars.svg?size=xs)](https://github.com/OWNER/REPO/stargazers) [![GitHub forks.](https://shieldcn.dev/github/OWNER/REPO/forks.svg?size=xs)](https://github.com/OWNER/REPO/forks) [![GitHub open issues.](https://shieldcn.dev/github/OWNER/REPO/issues.svg?size=xs)](https://github.com/OWNER/REPO/issues) [![GitHub license.](https://shieldcn.dev/github/OWNER/REPO/license.svg?size=xs)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### shieldcn npm package
+
+<!-- languages: JavaScript, TypeScript -->
+
+```md
+[![Latest npm version.](https://shieldcn.dev/npm/PACKAGE.svg?size=xs)](https://www.npmjs.com/package/PACKAGE) [![Weekly npm downloads.](https://shieldcn.dev/npm/PACKAGE/downloads.svg?size=xs)](https://www.npmjs.com/package/PACKAGE) [![Bundled TypeScript declarations.](https://shieldcn.dev/npm/types/PACKAGE.svg?size=xs)](https://www.npmjs.com/package/PACKAGE) [![NPM license.](https://shieldcn.dev/npm/license/PACKAGE.svg?size=xs)](https://github.com/OWNER/REPO/blob/BRANCH/LICENSE)
+```
+
+### Multi-provider npm package
+
+<!-- languages: JavaScript, TypeScript -->
+
+Keep only services configured for the project. `FILE_PATH` should identify the published build file whose gzip size matters.
+
+```md
+[![Latest npm version.](https://badge.fury.io/js/PACKAGE.svg)](https://www.npmjs.com/package/PACKAGE) [![NPM package summary.](https://nodei.co/npm/PACKAGE.svg?style=flat&data=n,d,u,s)](https://nodei.co/npm/PACKAGE/) [![Codecov coverage.](https://codecov.io/gh/OWNER/REPO/branch/BRANCH/graph/badge.svg)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![Known vulnerabilities.](https://snyk.io/test/github/OWNER/REPO/badge.svg)](https://snyk.io/test/github/OWNER/REPO) [![Gzipped build size.](https://img.badgesize.com/OWNER/REPO/BRANCH/FILE_PATH?compression=gzip)](https://github.com/OWNER/REPO/blob/BRANCH/FILE_PATH) [![GitHub network dependents.](https://dependents.info/OWNER/REPO/badge)](https://dependents.info/OWNER/REPO)
+```
+
+### Multi-provider Python package
+
+<!-- languages: Python -->
+
+Keep only services configured for the project; Codecov and Snyk must recognize the public repository.
+
+```md
+[![Latest PyPI version.](https://badge.fury.io/py/PACKAGE.svg)](https://pypi.org/project/PACKAGE/) [![Monthly PyPI downloads.](https://img.shields.io/pypi/dm/PACKAGE?style=flat&color=BE185D)](https://pypi.org/project/PACKAGE/) [![Supported Python versions.](https://img.shields.io/pypi/pyversions/PACKAGE?style=flat&color=4D7C0F)](https://pypi.org/project/PACKAGE/) [![Codecov coverage.](https://codecov.io/gh/OWNER/REPO/branch/BRANCH/graph/badge.svg)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![Known vulnerabilities.](https://snyk.io/test/github/OWNER/REPO/badge.svg)](https://snyk.io/test/github/OWNER/REPO) [![GitHub network dependents.](https://dependents.info/OWNER/REPO/badge)](https://dependents.info/OWNER/REPO)
+```
+
+### PlayBadges Android application
+
+<!-- languages: Java, Kotlin -->
+
+`APP_ID` must be a public Google Play package identifier. Compact PlayBadges rows are more README-friendly than the full app card.
+
+```md
+[![Google Play downloads.](https://playbadges.pavi2410.com/badge/downloads?id=APP_ID&pretty)](https://play.google.com/store/apps/details?id=APP_ID) [![Google Play rating.](https://playbadges.pavi2410.com/badge/ratings?id=APP_ID&pretty)](https://play.google.com/store/apps/details?id=APP_ID) [![Google Play version.](https://playbadges.pavi2410.com/badge/version?id=APP_ID)](https://play.google.com/store/apps/details?id=APP_ID) [![Latest GitHub release.](https://img.shields.io/github/v/release/OWNER/REPO?style=flat&color=0E7490)](https://github.com/OWNER/REPO/releases/latest) [![GitHub Actions workflow status.](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/WORKFLOW_FILE?branch=BRANCH&style=flat)](https://github.com/OWNER/REPO/actions/workflows/WORKFLOW_FILE)
+```
+
+### Provider-native project health add-ons
+
+<!-- languages: Language agnostic -->
+
+These badges are intentionally conditional. Use them only when the public service or file is configured and the live preview is meaningful.
+
+```md
+[![Codecov coverage.](https://codecov.io/gh/OWNER/REPO/branch/BRANCH/graph/badge.svg)](https://codecov.io/gh/OWNER/REPO/branch/BRANCH) [![Known vulnerabilities.](https://snyk.io/test/github/OWNER/REPO/badge.svg)](https://snyk.io/test/github/OWNER/REPO) [![Public file size.](https://img.badgesize.com/OWNER/REPO/BRANCH/FILE_PATH)](https://github.com/OWNER/REPO/blob/BRANCH/FILE_PATH) [![Gzipped public file size.](https://img.badgesize.com/OWNER/REPO/BRANCH/FILE_PATH?compression=gzip)](https://github.com/OWNER/REPO/blob/BRANCH/FILE_PATH) [![GitHub network dependents.](https://dependents.info/OWNER/REPO/badge)](https://dependents.info/OWNER/REPO)
 ```
 
 ## Conditional badges: preview before keeping

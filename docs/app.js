@@ -30,6 +30,8 @@ import {
  * @property {string} id
  * @property {string[]} languages
  * @property {string[]} placeholders
+ * @property {Record<string, number>} providerBadgeCounts
+ * @property {string[]} providers
  * @property {number} sourceLine
  * @property {string} template
  * @property {string} title
@@ -54,6 +56,7 @@ import {
  * @property {number} pageSize
  * @property {string} query
  * @property {string} repo
+ * @property {string} service
  * @property {SortMode} sort
  * @property {BadgeStyle} style
  * @property {GalleryView} view
@@ -70,10 +73,17 @@ const defaultState = Object.freeze({
     pageSize: 6,
     query: "",
     repo: "gh-runs-cleanup",
+    service: "all",
     sort: /** @type {SortMode} */ ("featured"),
     style: /** @type {BadgeStyle} */ ("flat"),
     view: /** @type {GalleryView} */ ("grid"),
 });
+const allowedPreviewImageHosts = new Set(
+    badgeCatalog.providers.flatMap((provider) => [
+        ...provider.imageHosts,
+        ...provider.deliveryHosts,
+    ])
+);
 
 /** @type {Readonly<Record<SortMode, string>>} */
 const sortLabels = Object.freeze({
@@ -120,6 +130,8 @@ const searchInput = queryRequired(document, "#search");
 const categorySelect = queryRequired(document, "#category");
 /** @type {HTMLSelectElement} */
 const languageSelect = queryRequired(document, "#language");
+/** @type {HTMLSelectElement} */
+const serviceSelect = queryRequired(document, "#service");
 /** @type {HTMLSelectElement} */
 const sortSelect = queryRequired(document, "#sort");
 /** @type {HTMLSelectElement} */
@@ -317,6 +329,7 @@ const state = {
     ),
     query: initialParameters.get("q") ?? defaultState.query,
     repo: initialParameters.get("repo") ?? defaultState.repo,
+    service: initialParameters.get("service") ?? defaultState.service,
     sort: parseSortMode(
         initialParameters.get("sort"),
         storedPreferences.sort ?? defaultState.sort
@@ -341,6 +354,7 @@ function buildCard(entry) {
     const card = document.createElement("article");
     card.className = "layout-card";
     card.id = entry.id;
+    card.dataset["primaryService"] = entry.providers[0] ?? "unknown";
 
     const header = document.createElement("header");
     header.className = "card-header";
@@ -353,7 +367,18 @@ function buildCard(entry) {
     const languages = document.createElement("p");
     languages.className = "language-tags";
     languages.textContent = entry.languages.join(" · ");
-    headingGroup.append(category, heading, languages);
+    const services = document.createElement("div");
+    services.className = "service-tags";
+    for (const providerId of entry.providers) {
+        const provider = badgeCatalog.providers.find(
+            (candidate) => candidate.id === providerId
+        );
+        const tag = document.createElement("span");
+        tag.dataset["service"] = providerId;
+        tag.textContent = `${serviceIcon(providerId)} ${provider?.name ?? providerId}`;
+        services.append(tag);
+    }
+    headingGroup.append(category, heading, languages, services);
     const source = document.createElement("a");
     source.className = "source-link";
     source.href = `${repositoryUrl}/blob/main/library.md#L${entry.sourceLine}`;
@@ -625,6 +650,7 @@ function getFilteredEntries() {
         category: state.category,
         language: state.language,
         query: state.query,
+        service: state.service,
         sort: state.sort,
     });
 }
@@ -775,6 +801,9 @@ function persistState() {
     if (state.language !== defaultState.language) {
         parameters.set("language", state.language);
     }
+    if (state.service !== defaultState.service) {
+        parameters.set("service", state.service);
+    }
     if (state.page !== defaultState.page)
         parameters.set("page", String(state.page));
     if (state.pageSize !== defaultState.pageSize) {
@@ -843,7 +872,7 @@ function render() {
         state.view === "list"
             ? "Quick previews and copy actions; switch to grid to customize"
             : "Only this page loads badge images";
-    contextSummary.textContent = `${state.owner}/${state.repo} · ${state.branch} · ${state.style} Badgen`;
+    contextSummary.textContent = `${state.owner}/${state.repo} · ${state.branch} · ${state.style} Badgen · ${badgeCatalog.providerCount} services`;
     renderPagination(page.totalPages);
     persistState();
 }
@@ -928,11 +957,13 @@ function resetFilters() {
     state.query = defaultState.query;
     state.category = defaultState.category;
     state.language = defaultState.language;
+    state.service = defaultState.service;
     state.page = defaultState.page;
     state.sort = defaultState.sort;
     searchInput.value = state.query;
     categorySelect.value = state.category;
     languageSelect.value = state.language;
+    serviceSelect.value = state.service;
     sortSelect.value = state.sort;
     render();
     searchInput.focus();
@@ -976,14 +1007,28 @@ function securePreviewUrl(value, isBadgeImage) {
     ) {
         return null;
     }
-    if (
-        isBadgeImage &&
-        url.hostname !== "flat.badgen.net" &&
-        url.hostname !== "badgen.net"
-    ) {
+    if (isBadgeImage && !allowedPreviewImageHosts.has(url.hostname)) {
         return null;
     }
     return url.href;
+}
+
+/** @param {string} providerId */
+function serviceIcon(providerId) {
+    return (
+        {
+            "badge-fury": "⬢",
+            "badge-size": "↔",
+            badgen: "◆",
+            codecov: "◔",
+            "dependents-info": "⑂",
+            nodeico: "⬡",
+            playbadges: "▶",
+            shieldcn: "◇",
+            shields: "⬟",
+            snyk: "⚿",
+        }[providerId] ?? "●"
+    );
 }
 
 /** @param {number} page @param {boolean} [shouldScroll] */
@@ -1064,6 +1109,13 @@ for (const language of badgeCatalog.languages) {
     languageSelect.append(option);
 }
 
+for (const provider of badgeCatalog.providers) {
+    const option = document.createElement("option");
+    option.value = provider.id;
+    option.textContent = `${provider.name} (${provider.layoutCount})`;
+    serviceSelect.append(option);
+}
+
 ownerInput.value = state.owner;
 repositoryInput.value = state.repo;
 branchInput.value = state.branch;
@@ -1076,6 +1128,12 @@ languageSelect.value = badgeCatalog.languages.includes(state.language)
     ? state.language
     : defaultState.language;
 state.language = languageSelect.value;
+serviceSelect.value = badgeCatalog.providers.some(
+    (provider) => provider.id === state.service
+)
+    ? state.service
+    : defaultState.service;
+state.service = serviceSelect.value;
 sortSelect.value = state.sort;
 const allowedPageSizes = [
     4,
@@ -1109,6 +1167,8 @@ queryRequired(document, "#category-total").textContent =
     badgeCatalog.categoryCount.toLocaleString();
 queryRequired(document, "#language-total").textContent =
     badgeCatalog.languageCount.toLocaleString();
+queryRequired(document, "#service-total").textContent =
+    badgeCatalog.providerCount.toLocaleString();
 
 searchInput.addEventListener("input", () => {
     state.query = searchInput.value;
@@ -1122,6 +1182,11 @@ categorySelect.addEventListener("change", () => {
 });
 languageSelect.addEventListener("change", () => {
     state.language = languageSelect.value;
+    state.page = 1;
+    render();
+});
+serviceSelect.addEventListener("change", () => {
+    state.service = serviceSelect.value;
     state.page = 1;
     render();
 });

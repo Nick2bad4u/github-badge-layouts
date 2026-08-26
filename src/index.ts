@@ -4,6 +4,7 @@ export {
     getLayoutOrThrow,
     listLayouts,
 } from "./catalog.js";
+export { identifyBadgeProvider, isBadgeProviderUrl } from "./providers.js";
 export {
     findPlaceholders,
     inspectBadgeMarkdown,
@@ -15,6 +16,9 @@ export type {
     BadgeCatalog,
     BadgeCatalogEntry,
     BadgeMarkdownInspection,
+    BadgeProvider,
+    BadgeProviderCounts,
+    BadgeProviderId,
     BadgeStyle,
     PlaceholderValues,
     RenderOptions,
