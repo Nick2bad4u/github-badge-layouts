@@ -15,17 +15,18 @@ The default human-readable output uses aligned tables, headings, hints, and ANSI
 
 ### `list`
 
-Browse layout IDs, titles, language facets, categories, and badge counts.
+Browse layout IDs, titles, language facets, services, categories, and badge counts.
 
 ```sh
 badge-layouts list
 badge-layouts list --category "Language-first repositories"
 badge-layouts list --language Rust
+badge-layouts list --service Shields.io
 badge-layouts list --query release --limit 10
 badge-layouts list --json
 ```
 
-`--category` and `--language` are exact, case-insensitive facets. `--query` searches IDs, titles, categories, languages, descriptions, placeholders, and template Markdown.
+`--category`, `--language`, and `--service` are exact, case-insensitive facets. A service accepts its ID or display name. `--query` also searches service metadata.
 
 ### `search <query>`
 
@@ -39,7 +40,7 @@ badge-layouts search "visual studio" --json
 
 `find` is an alias for `search`; `ls` is an alias for `list`.
 
-### `categories` and `languages`
+### `categories`, `languages`, and `services`
 
 Print facets with layout counts. `--json` preserves the simple string-array interface for scripts.
 
@@ -47,13 +48,15 @@ Print facets with layout counts. `--json` preserves the simple string-array inte
 badge-layouts categories
 badge-layouts languages
 badge-layouts languages --json
+badge-layouts services
+badge-layouts services --json
 ```
 
 `Language agnostic` identifies reusable layouts that do not assume an implementation language. Multi-language layouts appear under every applicable language filter.
 
 ### `show <layout>`
 
-Print the canonical ID, category, languages, badge count, placeholders, source line, description, and unresolved template. A layout may be identified by exact ID, exact title, or an unambiguous partial match.
+Print the canonical ID, category, languages, services, badge count, placeholders, source line, description, and unresolved template. A layout may be identified by exact ID, exact title, or an unambiguous partial match.
 
 ```sh
 badge-layouts show rust-crate
@@ -72,7 +75,7 @@ badge-layouts preview general-npm-package --set PACKAGE=eslint
 badge-layouts preview general-npm-package --set PACKAGE=eslint --color always
 ```
 
-Add `--live` to fetch each rendered Badgen SVG and use its accessible `<title>` value. This shows current versions, download totals, build states, coverage, licenses, and upstream error text instead of trusting HTTP status alone.
+Add `--live` to fetch each rendered SVG from its registered service and use its accessible title or label. This shows current versions, download totals, build states, coverage, licenses, and upstream error text instead of trusting HTTP status alone.
 
 ```sh
 badge-layouts preview bundle-conscious-npm-library \
@@ -80,7 +83,7 @@ badge-layouts preview bundle-conscious-npm-library \
   --live
 ```
 
-Live requests use HTTPS, accept only `badgen.net` and `flat.badgen.net`, run concurrently, and have bounded per-request timeouts. Failed or suspicious titles such as `unknown`, `error`, `429`, `500`, `timeout`, or `discontinued` are rendered as warnings.
+Live requests use exact registered HTTPS hosts, validate redirect destinations against the same service, require bounded SVG responses, run concurrently, and have per-request timeouts. Failed or suspicious labels such as `unknown`, `error`, `429`, `500`, `timeout`, or `discontinued` are rendered as warnings.
 
 ### Glow integration
 
@@ -170,7 +173,7 @@ badge-layouts convert "![Status](https://badgen.net/static/status/ok)" --style f
 
 ### `inspect`
 
-Report total badge images, flat/classic Badgen counts, other images, and known unresolved placeholders.
+Report total badge images, per-service counts, flat/classic Badgen counts, unknown images, and known unresolved placeholders.
 
 ```sh
 badge-layouts inspect --input README.md
@@ -197,6 +200,7 @@ When `--input -` is used, or stdin is piped, the command reads UTF-8 Markdown fr
 | `--output <path>`           | Write `render` or `convert` text to a file.                 |
 | `--owner <name>`            | Override the Git-detected `OWNER`.                          |
 | `--repo <name>`             | Override the Git-detected `REPO`.                           |
+| `--service <name>`          | Filter `list` or `search` by service ID or display name.    |
 | `--set NAME=VALUE`          | Set a custom placeholder; repeat as needed.                 |
 | `--style <flat or classic>` | Select the Badgen host; `non-flat` remains a classic alias. |
 | `--write`                   | Apply a `readme` update; preview remains the default.       |

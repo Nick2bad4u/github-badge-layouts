@@ -7,6 +7,11 @@ const repositoryRoot = path.resolve(
     ".."
 );
 const libraryPath = path.join(repositoryRoot, "library.md");
+const providerRegistryPath = path.join(
+    repositoryRoot,
+    "data",
+    "providers.json"
+);
 const siteOutputPath = path.join(repositoryRoot, "docs", "catalog.js");
 const packageOutputPath = path.join(
     repositoryRoot,
@@ -23,6 +28,7 @@ const minimumLayoutCount = 52;
  * @property {string} alt
  * @property {string} image
  * @property {string} target
+ * @property {string} provider
  */
 
 /**
@@ -34,6 +40,8 @@ const minimumLayoutCount = 52;
  * @property {string} id
  * @property {string[]} languages
  * @property {string[]} placeholders
+ * @property {Record<string, number>} providerBadgeCounts
+ * @property {string[]} providers
  * @property {number} sourceLine
  * @property {string} template
  * @property {string} title
@@ -41,6 +49,7 @@ const minimumLayoutCount = 52;
 
 const placeholderNames = [
     "UPTIME_ROBOT_MONITOR_KEY",
+    "WORKFLOW_FILE",
     "CODECLIMATE_REPO",
     "CODECLIMATE_ORG",
     "DEEPSCAN_PROJECT",
@@ -79,6 +88,7 @@ const placeholderNames = [
     "COLLECTIVE",
     "GROUP_ID",
     "APP_ID",
+    "FILE_PATH",
     "FORMULA",
     "PACKAGE",
     "BRANCH",
@@ -97,6 +107,44 @@ const placeholderNames = [
 ];
 
 const languageAnnotationPattern = /^<!-- languages: ([^<>]+) -->$/;
+
+/**
+ * @typedef {object} ProviderDefinition
+ *
+ * @property {string[]} deliveryHosts
+ * @property {string} documentation
+ * @property {string} homepage
+ * @property {string} id
+ * @property {string[]} imageHosts
+ * @property {string} name
+ * @property {string} sampleUrl
+ */
+
+/**
+ * @param {string} image
+ * @param {string} title
+ *
+ * @returns {string}
+ */
+function providerForImage(image, title) {
+    const url = new URL(image);
+    if (
+        url.protocol !== "https:" ||
+        url.username.length > 0 ||
+        url.password.length > 0
+    ) {
+        throw new Error(
+            `Badge image in "${title}" is not safe HTTPS: ${image}`
+        );
+    }
+    const provider = providerByImageHost.get(url.hostname);
+    if (provider === undefined) {
+        throw new Error(
+            `Badge image in "${title}" uses an unregistered service: ${url.hostname}`
+        );
+    }
+    return provider.id;
+}
 
 /** @param {string} template */
 function findPlaceholders(template) {
@@ -218,6 +266,7 @@ function parseBadges(markdown, title) {
         badges.push({
             alt: match[1] ?? "",
             image: match[2] ?? "",
+            provider: "",
             target: match[3] ?? "",
         });
     }
@@ -230,11 +279,7 @@ function parseBadges(markdown, title) {
     }
 
     for (const badge of badges) {
-        if (!badge.image.startsWith("https://flat.badgen.net/")) {
-            throw new Error(
-                `Badge image in "${title}" does not use flat.badgen.net: ${badge.image}`
-            );
-        }
+        badge.provider = providerForImage(badge.image, title);
         if (!badge.alt.endsWith(".")) {
             throw new Error(
                 `Badge alt text in "${title}" must end with a period: ${badge.alt}`
@@ -301,6 +346,13 @@ function createCatalogEntry(
 
     const badges = parseBadges(template, entryTitle);
     const placeholders = findPlaceholders(template);
+    const providers = [...new Set(badges.map((badge) => badge.provider))];
+    const providerBadgeCounts = Object.fromEntries(
+        providers.map((provider) => [
+            provider,
+            badges.filter((badge) => badge.provider === provider).length,
+        ])
+    );
 
     return {
         id,
@@ -311,6 +363,8 @@ function createCatalogEntry(
         sourceLine: headingLine,
         template,
         placeholders,
+        providerBadgeCounts,
+        providers,
         badgeCount: badges.length,
     };
 }
@@ -411,6 +465,29 @@ function parseLibrary(markdown) {
     return entries;
 }
 
+const providerRegistry = JSON.parse(
+    await readFile(providerRegistryPath, "utf8")
+);
+/** @type {ProviderDefinition[]} */
+const providerDefinitions = providerRegistry.providers ?? [];
+if (providerDefinitions.length === 0) {
+    throw new Error("data/providers.json must define at least one provider.");
+}
+const providerIds = providerDefinitions.map((provider) => provider.id);
+if (new Set(providerIds).size !== providerIds.length) {
+    throw new Error("data/providers.json contains duplicate provider IDs.");
+}
+/** @type {Map<string, ProviderDefinition>} */
+const providerByImageHost = new Map();
+for (const provider of providerDefinitions) {
+    for (const hostname of provider.imageHosts) {
+        if (providerByImageHost.has(hostname)) {
+            throw new Error(`Provider image host is duplicated: ${hostname}`);
+        }
+        providerByImageHost.set(hostname, provider);
+    }
+}
+
 const library = await readFile(libraryPath, "utf8");
 const entries = parseLibrary(library);
 const categories = [...new Set(entries.map((entry) => entry.category))];
@@ -425,6 +502,16 @@ const badgeCount = entries.reduce(
     (total, entry) => total + entry.badgeCount,
     0
 );
+const providers = providerDefinitions.map((provider) => ({
+    ...provider,
+    badgeCount: entries.reduce(
+        (total, entry) => total + (entry.providerBadgeCounts[provider.id] ?? 0),
+        0
+    ),
+    layoutCount: entries.filter((entry) =>
+        entry.providers.includes(provider.id)
+    ).length,
+}));
 const catalog = {
     generatedFrom: "library.md",
     layoutCount: entries.length,
@@ -433,6 +520,8 @@ const catalog = {
     categories,
     languageCount: languages.length,
     languages,
+    providerCount: providers.length,
+    providers,
     entries,
 };
 const catalogJson = JSON.stringify(catalog, null, 4);
@@ -461,7 +550,7 @@ if (checkOnly) {
         );
     }
     console.log(
-        `Catalog is current: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages.`
+        `Catalog is current: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages, ${providers.length} services.`
     );
 } else {
     await mkdir(path.dirname(packageOutputPath), { recursive: true });
@@ -471,6 +560,6 @@ if (checkOnly) {
         )
     );
     console.log(
-        `Generated site and package catalogs: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages.`
+        `Generated site and package catalogs: ${entries.length} layouts, ${badgeCount} badges, ${categories.length} categories, ${languages.length} languages, ${providers.length} services.`
     );
 }

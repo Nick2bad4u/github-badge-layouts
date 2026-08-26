@@ -24,8 +24,8 @@ Then open the URL printed by Vite.
 
 ## Badge requirements
 
-- Every image must use `https://flat.badgen.net`.
-- Do not add duplicate classic rows. The gallery and CLI convert the canonical flat URL to classic Badgen on demand.
+- Every image must use an exact HTTPS host registered in `data/providers.json`. Add provider metadata and delivery hosts there before adding a new service.
+- Use flat Badgen URLs for Badgen layouts and do not add duplicate classic rows. The gallery and CLI convert Badgen hosts on demand; other providers remain unchanged.
 - Every badge must link to the exact project, registry, report, workflow, issue list, or license it describes.
 - Use sentence-style alternative text ending with a period.
 - Preview upstream-dependent badges before keeping them; an HTTP 200 response can still contain an error badge.
@@ -34,7 +34,7 @@ Then open the URL printed by Vite.
 
 ## Generated files
 
-`library.md` is the only catalog source. `docs/catalog.js` and `src/generated/catalog.ts` are generated together by `npm run build:catalog`; do not hand-edit either file. The check gate fails when generated output is stale.
+`library.md` and `data/providers.json` are the catalog sources. `docs/catalog.js` and `src/generated/catalog.ts` are generated together by `npm run build:catalog`; do not hand-edit either file. The check gate fails when generated output is stale.
 
 ## Package and site changes
 

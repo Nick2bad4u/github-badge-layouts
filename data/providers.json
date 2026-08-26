@@ -1,0 +1,120 @@
+{
+    "providers": [
+        {
+            "deliveryHosts": [],
+            "documentation": "https://badgen.net/",
+            "homepage": "https://badgen.net/",
+            "id": "badgen",
+            "imageHosts": [
+                "flat.badgen.net",
+                "badgen.net"
+            ],
+            "name": "Badgen",
+            "sampleUrl": "https://flat.badgen.net/static/status/ok/047857"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://shields.io/docs/",
+            "homepage": "https://shields.io/",
+            "id": "shields",
+            "imageHosts": [
+                "img.shields.io"
+            ],
+            "name": "Shields.io",
+            "sampleUrl": "https://img.shields.io/badge/status-ok-047857"
+        },
+        {
+            "deliveryHosts": [
+                "d25lcipzij17d.cloudfront.net"
+            ],
+            "documentation": "https://badge.fury.io/",
+            "homepage": "https://badge.fury.io/",
+            "id": "badge-fury",
+            "imageHosts": [
+                "badge.fury.io"
+            ],
+            "name": "Badge Fury",
+            "sampleUrl": "https://badge.fury.io/js/express.svg"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://docs.codecov.com/docs/status-badges",
+            "homepage": "https://about.codecov.io/",
+            "id": "codecov",
+            "imageHosts": [
+                "codecov.io"
+            ],
+            "name": "Codecov",
+            "sampleUrl": "https://codecov.io/gh/codecov/codecov-action/graph/badge.svg"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://docs.snyk.io/",
+            "homepage": "https://snyk.io/",
+            "id": "snyk",
+            "imageHosts": [
+                "snyk.io"
+            ],
+            "name": "Snyk",
+            "sampleUrl": "https://snyk.io/test/github/snyk/snyk-go-parser/badge.svg"
+        },
+        {
+            "deliveryHosts": [
+                "img.shields.io"
+            ],
+            "documentation": "https://badgesize.com/Usage",
+            "homepage": "https://badgesize.com/",
+            "id": "badge-size",
+            "imageHosts": [
+                "img.badgesize.com"
+            ],
+            "name": "BadgeSize",
+            "sampleUrl": "https://img.badgesize.com/nevware21/badgesize/main/README.md?compression=gzip"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://dependents.info/",
+            "homepage": "https://dependents.info/",
+            "id": "dependents-info",
+            "imageHosts": [
+                "dependents.info"
+            ],
+            "name": "dependents.info",
+            "sampleUrl": "https://dependents.info/gouravkhunger/dependents.info/badge"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://shieldcn.dev/docs/api-reference",
+            "homepage": "https://shieldcn.dev/",
+            "id": "shieldcn",
+            "imageHosts": [
+                "shieldcn.dev"
+            ],
+            "name": "shieldcn",
+            "sampleUrl": "https://shieldcn.dev/github/jal-co/shieldcn/stars.svg"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://nodei.co/",
+            "homepage": "https://nodei.co/",
+            "id": "nodeico",
+            "imageHosts": [
+                "nodei.co"
+            ],
+            "name": "NodeICO",
+            "sampleUrl": "https://nodei.co/npm/express.svg?style=flat&data=n,v,d"
+        },
+        {
+            "deliveryHosts": [],
+            "documentation": "https://github.com/pavi2410/PlayBadges#usage",
+            "homepage": "https://playbadges.pavi2410.com/",
+            "id": "playbadges",
+            "imageHosts": [
+                "playbadges.pavi2410.com",
+                "playbadges.pavi2410.me"
+            ],
+            "name": "PlayBadges",
+            "sampleUrl": "https://playbadges.pavi2410.com/badge/downloads?id=appinventor.ai_pavitragolchha.VR&pretty"
+        }
+    ]
+}

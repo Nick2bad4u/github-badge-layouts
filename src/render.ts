@@ -1,16 +1,15 @@
 import type {
     BadgeCatalogEntry,
     BadgeMarkdownInspection,
+    BadgeProviderCounts,
     PlaceholderValues,
     RenderOptions,
 } from "./types.js";
 
 import { badgeCatalog } from "./catalog.js";
+import { identifyBadgeProvider } from "./providers.js";
 import { convertBadgeStyle } from "./style.js";
 
-const flatBadgePattern = /https:\/\/flat\.badgen\.net\//gv;
-const classicBadgePattern = /https:\/\/badgen\.net\//gv;
-const badgeImagePattern = /!\[/gv;
 const knownPlaceholderNames = [
     ...new Set(badgeCatalog.entries.flatMap((entry) => entry.placeholders)),
 ];
@@ -26,18 +25,33 @@ export function findPlaceholders(markdown: string): readonly string[] {
 export function inspectBadgeMarkdown(
     markdown: string
 ): BadgeMarkdownInspection {
-    const badgeCount = markdown.match(badgeImagePattern)?.length ?? 0;
-    const flatBadgeCount = markdown.match(flatBadgePattern)?.length ?? 0;
-    const classicBadgeCount = markdown.match(classicBadgePattern)?.length ?? 0;
+    const images = badgeImageUrls(markdown);
+    const mutableProviderCounts: Partial<Record<string, number>> = {};
+    for (const provider of badgeCatalog.providers) {
+        const count = images.filter(
+            (image) => identifyBadgeProvider(image)?.id === provider.id
+        ).length;
+        if (count > 0) mutableProviderCounts[provider.id] = count;
+    }
+    const providerCounts: BadgeProviderCounts = mutableProviderCounts;
+    const badgeCount = images.length;
+    const flatBadgeCount = images.filter((image) =>
+        image.startsWith("https://flat.badgen.net/")
+    ).length;
+    const classicBadgeCount = images.filter((image) =>
+        image.startsWith("https://badgen.net/")
+    ).length;
+    let registeredBadgeCount = 0;
+    for (const provider of badgeCatalog.providers) {
+        registeredBadgeCount += providerCounts[provider.id] ?? 0;
+    }
     return {
         badgeCount,
         classicBadgeCount,
         flatBadgeCount,
         placeholders: findPlaceholders(markdown),
-        unknownBadgeCount: Math.max(
-            0,
-            badgeCount - flatBadgeCount - classicBadgeCount
-        ),
+        providerCounts,
+        unknownBadgeCount: Math.max(0, badgeCount - registeredBadgeCount),
     };
 }
 
@@ -117,6 +131,25 @@ export function upsertReadmeBadgeBlock(
     }
     const insertionPoint = heading.index + heading[0].length;
     return `${readme.slice(0, insertionPoint)}\n\n${block}${readme.slice(insertionPoint)}`;
+}
+
+function badgeImageUrls(markdown: string): readonly string[] {
+    const images: string[] = [];
+    let cursor = 0;
+    for (;;) {
+        const imageStart = markdown.indexOf("![", cursor);
+        if (imageStart === -1) return images;
+        const altEnd = markdown.indexOf("](", imageStart + 2);
+        if (altEnd === -1) return images;
+        const targetStart = altEnd + 2;
+        const targetEnd = markdown.indexOf(")", targetStart);
+        if (targetEnd === -1) return images;
+        const target = markdown.slice(targetStart, targetEnd).trim();
+        const separator = target.search(/\s/v);
+        const url = separator === -1 ? target : target.slice(0, separator);
+        if (url.startsWith("https://")) images.push(url);
+        cursor = targetEnd + 1;
+    }
 }
 
 function normalizePlaceholderValue(name: string, value: string): string {

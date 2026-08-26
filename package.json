@@ -2,10 +2,12 @@
     "name": "github-badge-layouts",
     "version": "0.3.0",
     "private": false,
-    "description": "Curated Badgen layouts with a personalized gallery and a dependency-free README badge CLI.",
+    "description": "Curated multi-service badge layouts with a personalized gallery and dependency-free README badge CLI.",
     "keywords": [
         "badges",
         "badgen",
+        "shields.io",
+        "badge-services",
         "github-pages",
         "cli",
         "markdown",

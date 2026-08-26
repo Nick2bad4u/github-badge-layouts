@@ -65,6 +65,7 @@ const commands = [
     "readme",
     "render",
     "search",
+    "services",
     "show",
     "version",
 ] as const;
@@ -94,6 +95,7 @@ const valueOptions = new Set([
     "query",
     "renderer",
     "repo",
+    "service",
     "set",
     "style",
     "width",
@@ -111,7 +113,7 @@ const commandOptions: Readonly<Record<string, ReadonlySet<string>>> = {
     help: commonOptions,
     inspect: withCommon("input"),
     languages: commonOptions,
-    list: withCommon("category", "language", "limit", "query"),
+    list: withCommon("category", "language", "limit", "query", "service"),
     preview: withCommon(
         unresolvedOptionName,
         "branch",
@@ -144,7 +146,8 @@ const commandOptions: Readonly<Record<string, ReadonlySet<string>>> = {
         "set",
         "style"
     ),
-    search: withCommon("category", "language", "limit", "query"),
+    search: withCommon("category", "language", "limit", "query", "service"),
+    services: commonOptions,
     show: commonOptions,
     version: commonOptions,
 };
@@ -155,11 +158,12 @@ const helpSections: Readonly<Record<string, string>> = {
     convert: `Usage: badge-layouts convert [markdown] --style <flat|classic> [options]\n\nOptions:\n  --input <file|->   Read Markdown from a file or stdin\n  --output <file>    Write converted Markdown to a file\n  --copy             Copy converted Markdown`,
     inspect: `Usage: badge-layouts inspect [markdown] [--input <file|->] [--json]\n\nCount badge styles and unresolved catalog placeholders.`,
     languages: `Usage: badge-layouts languages [--json]\n\nList language facets with layout counts. Use --language with list/search.`,
-    list: `Usage: badge-layouts list [options]\n\nOptions:\n  --query <text>       Search all catalog metadata\n  --category <name>    Require an exact category\n  --language <name>    Require an exact language facet\n  --limit <count>      Limit returned layouts\n  --json               Emit catalog records as JSON`,
+    list: `Usage: badge-layouts list [options]\n\nOptions:\n  --query <text>       Search all catalog metadata\n  --category <name>    Require an exact category\n  --language <name>    Require an exact language facet\n  --service <name>     Require a badge service such as Badgen or Shields.io\n  --limit <count>      Limit returned layouts\n  --json               Emit catalog records as JSON`,
     preview: `Usage: badge-layouts preview <layout> [options]\n\nOptions:\n  --renderer <ansi|glow>  Terminal renderer (default: ansi)\n  --glow                  Shortcut for --renderer glow\n  --live                  Fetch live SVG titles for ANSI badges\n  --width <columns>       Glow wrapping width\n  --owner/--repo/--branch Repository coordinates\n  --set NAME=VALUE        Set an additional placeholder\n  --style <flat|classic>  Select the Badgen host`,
     readme: `Usage: badge-layouts readme <layout> [options]\n\nPreview a managed README badge block. Add --write only after review.\n\nOptions:\n  --file <path>       README path (default: README.md)\n  --write             Insert or replace the managed block\n  --owner/--repo/--branch, --set, --style`,
     render: `Usage: badge-layouts render <layout> [options]\n\nRender copy-ready badge Markdown. Repository coordinates are detected from Git when possible.\n\nOptions:\n  --owner/--repo/--branch Repository coordinates\n  --set NAME=VALUE        Set an additional placeholder; repeatable\n  --style <flat|classic>  Select the Badgen host\n  --allow-unresolved      Preserve missing placeholders\n  --output <file>         Write Markdown to a file\n  --copy                  Copy Markdown`,
-    search: `Usage: badge-layouts search <query> [options]\n\nSearch titles, IDs, categories, languages, descriptions, placeholders, and Markdown.\nUse --category, --language, --limit, or --json to narrow the result.`,
+    search: `Usage: badge-layouts search <query> [options]\n\nSearch titles, IDs, categories, languages, services, descriptions, placeholders, and Markdown.\nUse --category, --language, --service, --limit, or --json to narrow the result.`,
+    services: `Usage: badge-layouts services [--json]\n\nList registered badge services with layout and badge counts. Use --service with list/search.`,
     show: `Usage: badge-layouts show <layout> [--json]\n\nShow metadata and the unresolved Markdown template.`,
 };
 
@@ -663,6 +667,10 @@ async function runCommand(
             await runRenderCommand(parsed, theme);
             return;
         }
+        case "services": {
+            writeServices(parsed, theme);
+            return;
+        }
         case "show": {
             runShowCommand(parsed, theme);
             return;
@@ -743,18 +751,22 @@ async function runInspectCommand(
         writeJson(inspection);
         return;
     }
-    const rows = [
+    const rows: string[][] = [
         ["All badges", String(inspection.badgeCount)],
         ["Flat Badgen", String(inspection.flatBadgeCount)],
         ["Classic Badgen", String(inspection.classicBadgeCount)],
         ["Other images", String(inspection.unknownBadgeCount)],
-        [
-            "Placeholders",
-            inspection.placeholders.length > 0
-                ? inspection.placeholders.join(", ")
-                : "none",
-        ],
     ];
+    for (const provider of badgeCatalog.providers) {
+        const count = inspection.providerCounts[provider.id];
+        if (count !== undefined) rows.push([provider.name, String(count)]);
+    }
+    rows.push([
+        "Placeholders",
+        inspection.placeholders.length > 0
+            ? inspection.placeholders.join(", ")
+            : "none",
+    ]);
     process.stdout.write(
         `${theme.heading("Markdown inspection")}\n${formatTable(
             ["METRIC", "VALUE"],
@@ -780,9 +792,11 @@ function runListCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
     const limit = parseLimit(optionValue(parsed, "limit"));
     const category = optionValue(parsed, "category");
     const language = optionValue(parsed, "language");
+    const service = optionValue(parsed, "service");
     const allMatches = listLayouts({
         ...(category !== undefined && category.length > 0 && { category }),
         ...(language !== undefined && language.length > 0 && { language }),
+        ...(service !== undefined && service.length > 0 && { service }),
         ...(query !== undefined && query.length > 0 && { query }),
     });
     const layouts = allMatches.slice(0, limit);
@@ -792,7 +806,7 @@ function runListCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
     }
     if (layouts[0] === undefined) {
         process.stdout.write(
-            `${theme.warning("No matching layouts.")} Try a broader query or run ${theme.accent("badge-layouts languages")} to inspect facets.\n`
+            `${theme.warning("No matching layouts.")} Try a broader query or inspect ${theme.accent("badge-layouts services")} and ${theme.accent("badge-layouts languages")}.\n`
         );
         return;
     }
@@ -800,6 +814,14 @@ function runListCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
         entry.id,
         entry.title,
         entry.languages.join(", "),
+        entry.providers
+            .map(
+                (providerId) =>
+                    badgeCatalog.providers.find(
+                        (provider) => provider.id === providerId
+                    )?.name ?? providerId
+            )
+            .join(", "),
         entry.category,
         String(entry.badgeCount),
     ]);
@@ -814,11 +836,12 @@ function runListCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
                 "ID",
                 "TITLE",
                 "LANGUAGES",
+                "SERVICES",
                 "CATEGORY",
                 "#",
             ],
             rows,
-            { rightAligned: new Set([4]), theme }
+            { rightAligned: new Set([5]), theme }
         )}\n${theme.dim("Tip: run `badge-layouts preview <id>` for a terminal preview.")}\n`
     );
 }
@@ -855,7 +878,13 @@ async function runPreviewCommand(
         writeJson({ badges, layout, markdown });
         return;
     }
-    const metadata = `${layout.category} • ${layout.languages.join(", ")} • ${layout.badgeCount} badges`;
+    const serviceNames = layout.providers.map(
+        (providerId) =>
+            badgeCatalog.providers.find(
+                (provider) => provider.id === providerId
+            )?.name ?? providerId
+    );
+    const metadata = `${layout.category} • ${layout.languages.join(", ")} • ${serviceNames.join(", ")} • ${layout.badgeCount} badges`;
     const lines = [theme.heading(layout.title), theme.dim(metadata)];
     if (layout.description.length > 0) lines.push(layout.description);
     lines.push("");
@@ -875,7 +904,7 @@ async function runPreviewCommand(
         "",
         parsed.booleans.has("live")
             ? theme.dim(
-                  "Live values come from Badgen SVG titles and may change between runs."
+                  "Live values come from registered services and may change between runs."
               )
             : theme.dim(
                   "Offline labels shown. Add --live for current SVG values or --glow for Markdown rendering."
@@ -939,6 +968,17 @@ function runShowCommand(parsed: ParsedArguments, theme: TerminalTheme): void {
         ["ID", layout.id],
         ["Category", layout.category],
         ["Languages", layout.languages.join(", ")],
+        [
+            "Services",
+            layout.providers
+                .map(
+                    (providerId) =>
+                        badgeCatalog.providers.find(
+                            (provider) => provider.id === providerId
+                        )?.name ?? providerId
+                )
+                .join(", "),
+        ],
         ["Badges", String(layout.badgeCount)],
         ["Placeholders", layout.placeholders.join(", ") || "none"],
         ["Source", `library.md:${layout.sourceLine}`],
@@ -1045,6 +1085,7 @@ ${theme.bold("Discover")}
   search <query>        Search all catalog metadata
   categories            List project/ecosystem categories
   languages             List filterable language facets
+  services              List badge services and usage counts
   show <layout>         Inspect metadata and raw Markdown
 
 ${theme.bold("Create and preview")}
@@ -1055,7 +1096,7 @@ ${theme.bold("Create and preview")}
 
 ${theme.bold("Markdown tools")}
   convert [markdown]    Switch between flat and classic Badgen URLs
-  inspect [markdown]    Count badges, styles, and placeholders
+  inspect [markdown]    Count services, styles, and placeholders
 
 ${theme.bold("Global options")}
   --json, -j            Emit machine-readable JSON
@@ -1066,6 +1107,7 @@ ${theme.bold("Global options")}
 
 ${theme.bold("Examples")}
   badge-layouts search powershell --language PowerShell
+  badge-layouts list --service Shields.io
   badge-layouts preview general-npm-package --set PACKAGE=eslint --live
   badge-layouts preview balanced-public-repository --glow
   badge-layouts render general-npm-package --set PACKAGE=@acme/toolkit --copy
@@ -1077,6 +1119,34 @@ Run ${theme.accent("badge-layouts <command> --help")} for command options.
 
 function writeJson(value: unknown): void {
     process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+}
+
+function writeServices(parsed: ParsedArguments, theme: TerminalTheme): void {
+    if (parsed.booleans.has("json")) {
+        writeJson(badgeCatalog.providers);
+        return;
+    }
+    const rows = badgeCatalog.providers.map((provider) => [
+        provider.name,
+        provider.id,
+        String(provider.layoutCount),
+        String(provider.badgeCount),
+        provider.homepage,
+    ]);
+    const countLabel = theme.dim(`(${badgeCatalog.providerCount})`);
+    process.stdout.write(
+        `${theme.heading("Badge services")} ${countLabel}\n${formatTable(
+            [
+                "SERVICE",
+                "ID",
+                "LAYOUTS",
+                "BADGES",
+                "HOMEPAGE",
+            ],
+            rows,
+            { rightAligned: new Set([2, 3]), theme }
+        )}\n`
+    );
 }
 
 async function writeTextOutput(

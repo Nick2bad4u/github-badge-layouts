@@ -7,7 +7,7 @@
             name="viewport"
         />
         <meta
-            content="default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self'; form-action 'none'; img-src 'self' data: https://badgen.net https://flat.badgen.net; object-src 'none'; script-src 'self'; style-src 'self'; upgrade-insecure-requests"
+            content="default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self'; form-action 'none'; img-src 'self' data: https://badgen.net https://flat.badgen.net https://img.shields.io https://badge.fury.io https://d25lcipzij17d.cloudfront.net https://codecov.io https://snyk.io https://img.badgesize.com https://dependents.info https://shieldcn.dev https://nodei.co https://playbadges.pavi2410.com https://playbadges.pavi2410.me; object-src 'none'; script-src 'self'; style-src 'self'; upgrade-insecure-requests"
             http-equiv="Content-Security-Policy"
         />
         <title>GitHub Badge Layouts — copy-ready README badges</title>
@@ -16,7 +16,7 @@
             rel="stylesheet"
         />
         <meta
-            content="Search, personalize, preview, and copy curated flat or classic Badgen badge layouts for repositories, packages, extensions, apps, and communities."
+            content="Search, filter by service, personalize, preview, and copy curated badge layouts from Badgen, Shields.io, Codecov, Snyk, and more."
             name="description"
         />
         <meta
@@ -65,7 +65,7 @@
             property="og:url"
         />
         <meta
-            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero.png"
+            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero-v4-enhanced.png"
             property="og:image"
         />
         <meta
@@ -85,7 +85,7 @@
             name="twitter:description"
         />
         <meta
-            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero.png"
+            content="https://nick2bad4u.github.io/github-badge-layouts/assets/badge-layouts-hero-v4-enhanced.png"
             name="twitter:image"
         />
     </head>
@@ -171,6 +171,17 @@
                         Library
                     </a>
                     <a
+                        class="npm-link"
+                        href="https://www.npmjs.com/package/github-badge-layouts"
+                    >
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >󰏗</span
+                        >
+                        npm
+                    </a>
+                    <a
                         href="https://github.com/Nick2bad4u/github-badge-layouts"
                     >
                         <span
@@ -199,9 +210,9 @@
                         </h1>
                         <p class="lede">
                             Search curated layouts, apply your repository once,
-                            switch between flat and classic Badgen styles, and
-                            copy clean Markdown for GitHub projects and package
-                            ecosystems.
+                            filter by badge service, switch Badgen rows between
+                            flat and classic styles, and copy clean Markdown for
+                            GitHub projects and package ecosystems.
                         </p>
                     </div>
                     <div class="hero-actions">
@@ -238,6 +249,10 @@
                             <dt id="language-total">—</dt>
                             <dd>languages</dd>
                         </div>
+                        <div>
+                            <dt id="service-total">—</dt>
+                            <dd>services</dd>
+                        </div>
                     </dl>
                 </div>
 
@@ -248,19 +263,19 @@
                     <div class="orbit orbit-one"></div>
                     <div class="orbit orbit-two"></div>
                     <div class="demo-card demo-card-one">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span>⬟ Shields.io</span>
+                        <span>◔ Codecov</span>
+                        <span>⚿ Snyk</span>
                     </div>
                     <div class="demo-card demo-card-two">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span>◆ Badgen</span>
+                        <span>⬢ Badge Fury</span>
+                        <span>⬡ NodeICO</span>
+                        <span>◇ shieldcn</span>
                     </div>
                     <div class="demo-card demo-card-three">
-                        <span></span>
-                        <span></span>
+                        <span>▶ PlayBadges</span>
+                        <span>↔ BadgeSize</span>
                     </div>
                 </div>
             </div>
@@ -431,6 +446,19 @@
                         <option value="all">All languages</option>
                     </select>
                 </div>
+                <div class="field service-field">
+                    <label for="service">
+                        <span
+                            class="icon"
+                            aria-hidden="true"
+                            >󰒍</span
+                        >
+                        Service
+                    </label>
+                    <select id="service">
+                        <option value="all">All services</option>
+                    </select>
+                </div>
                 <div class="field sort-field">
                     <label for="sort">Sort by</label>
                     <select id="sort">
@@ -537,8 +565,8 @@
                 >
                 <h2>No layouts match</h2>
                 <p>
-                    Try a broader search or clear the selected category and
-                    language.
+                    Try a broader search or clear the selected category,
+                    language, and service.
                 </p>
                 <button
                     type="button"
@@ -613,8 +641,11 @@
                         href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
                         >Markdown library</a
                     >
-                    . Badge images are served by
-                    <a href="https://badgen.net/">Badgen</a>
+                    . Badge images come from the exact HTTPS hosts in the
+                    <a
+                        href="https://github.com/Nick2bad4u/github-badge-layouts/blob/main/library.md"
+                        >service guide</a
+                    >
                     .
                 </p>
             </div>

@@ -101,13 +101,14 @@ describe("layout rendering", () => {
 describe("Markdown inspection", () => {
     it("counts mixed styles and unresolved placeholders", () => {
         const inspection = inspectBadgeMarkdown(
-            "![A](https://flat.badgen.net/static/a/b) ![B](https://badgen.net/static/b/c) ![C](https://example.com/badge.svg) OWNER/REPO"
+            "![A](https://flat.badgen.net/static/a/b) ![B](https://badgen.net/static/b/c) ![C](https://img.shields.io/npm/v/react) ![D](https://example.com/badge.svg) OWNER/REPO"
         );
         expect(inspection).toEqual({
-            badgeCount: 3,
+            badgeCount: 4,
             classicBadgeCount: 1,
             flatBadgeCount: 1,
             placeholders: ["OWNER", "REPO"],
+            providerCounts: { badgen: 2, shields: 1 },
             unknownBadgeCount: 1,
         });
         expect(inspection.placeholders).not.toContain("UNRECOGNIZED_TOKEN");

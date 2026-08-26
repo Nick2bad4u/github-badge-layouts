@@ -6,6 +6,7 @@
  * @property {string} description
  * @property {ReadonlyArray<string>} languages
  * @property {ReadonlyArray<string>} placeholders
+ * @property {ReadonlyArray<string>} providers
  * @property {string} template
  * @property {string} title
  */
@@ -51,6 +52,7 @@ export function decodeHashTarget(hash) {
  *     category: string;
  *     language: string;
  *     query: string;
+ *     service: string;
  *     sort: SortMode;
  * }} options
  *
@@ -66,8 +68,12 @@ export function filterAndSortEntries(entries, options) {
             options.language === "all" ||
             entry.languages.includes(options.language);
         if (!hasLanguage) return false;
+        const hasService =
+            options.service === "all" ||
+            entry.providers.includes(options.service);
+        if (!hasService) return false;
         if (!query) return true;
-        return `${entry.title} ${entry.category} ${entry.languages.join(" ")} ${entry.description} ${entry.placeholders.join(" ")} ${entry.template}`
+        return `${entry.title} ${entry.category} ${entry.languages.join(" ")} ${entry.providers.join(" ")} ${entry.description} ${entry.placeholders.join(" ")} ${entry.template}`
             .toLocaleLowerCase()
             .includes(query);
     });
